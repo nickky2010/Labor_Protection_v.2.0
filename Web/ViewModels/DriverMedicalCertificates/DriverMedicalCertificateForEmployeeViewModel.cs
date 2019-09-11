@@ -8,6 +8,7 @@ namespace Web.ViewModels.DriverMedicalCertificates
 {
     public class DriverMedicalCertificateForEmployeeViewModel : IViewModel
     {
+        public Guid Id { get; set; }
         //[Display(Name = "DateOfIssue", ResourceType = typeof(SharedResource))]
         //[Required(ErrorMessageResourceType = typeof(SharedResource), ErrorMessageResourceName = "EnterDateOfIssue")]
         public DateTime DateOfIssue { get; set; }

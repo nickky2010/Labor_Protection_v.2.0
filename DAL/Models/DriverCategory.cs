@@ -23,7 +23,7 @@ namespace DAL.Models
         {
             if (obj == null || !(obj is DriverCategory)) return false;
             DriverCategory d = (DriverCategory)obj;
-            return Id.Equals(d.Id);
+            return GetHashCode() == d.GetHashCode();
         }
         public override int GetHashCode()
         {

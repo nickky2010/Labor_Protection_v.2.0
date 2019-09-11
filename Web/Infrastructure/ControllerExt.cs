@@ -31,5 +31,16 @@ namespace Web.Infrastructure
             }
             return SetResult(result);
         }
+
+        protected IAppActionResult SetDataArrayResult(IAppActionResult result, IMapper mapper)
+        {
+            if (result.IsSuccess)
+            {
+                var viewData = mapper.Map<IList<DTO>, IList<VModel>>(((AppActionResult<IList<DTO>>)result).Data);
+                return SetResult(new AppActionResult<IList<VModel>> { Status = result.Status, Data = viewData });
+            }
+            return SetResult(result);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BLL;
+using System;
 using System.ComponentModel.DataAnnotations;
 using Web.Interfaces;
 using Web.ViewModels.DriverLicenses;
@@ -9,6 +10,8 @@ namespace Web.ViewModels.Employees
 {
     public class EmployeeViewModel : IViewModel
     {
+        public Guid Id { get; set; }
+
         //[Display(ResourceType = typeof(SharedResource), Name = "Surname")]
         //[RegularExpression(@"^[A-ZА-ЯЁ]{1}[a-zа-яё]{1,30}$", ErrorMessageResourceType = typeof(SharedResource), ErrorMessageResourceName = "ValidateSurname")]
         //[Required(ErrorMessageResourceType = typeof(SharedResource), ErrorMessageResourceName = "EnterSurname")]

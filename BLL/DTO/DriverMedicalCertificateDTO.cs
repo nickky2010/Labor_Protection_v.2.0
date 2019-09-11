@@ -23,7 +23,7 @@ namespace BLL.DTO
         {
             if (obj == null || !(obj is DriverMedicalCertificateDTO)) return false;
             DriverMedicalCertificateDTO d = (DriverMedicalCertificateDTO)obj;
-            return Id.Equals(d.Id);
+            return GetHashCode() == d.GetHashCode();
         }
         public override int GetHashCode()
         {

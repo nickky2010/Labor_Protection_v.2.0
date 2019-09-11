@@ -42,7 +42,7 @@ namespace Web.Controllers
                 return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["StartItemNotExist"] } });
             if (countItem < 1)
                 return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["CountItemsLeastOne"] } });
-            return SetResult(await Service.GetPageAsync(startItem, countItem));
+            return SetDataArrayResult(await Service.GetPageAsync(startItem, countItem), Mapper);
         }
 
         // GET api/<controller>/5

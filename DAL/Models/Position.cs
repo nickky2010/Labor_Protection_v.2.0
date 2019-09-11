@@ -18,8 +18,8 @@ namespace DAL.Models
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Position)) return false;
-            Position e = (Position)obj;
-            return Id.Equals(e.Id);
+            Position p = (Position)obj;
+            return GetHashCode() == p.GetHashCode();
         }
         public override int GetHashCode()
         {

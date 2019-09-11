@@ -32,6 +32,10 @@ namespace BLL.Services
                 x.Surname == entity.Surname && x.Patronymic == entity.Patronymic && x.Position.Name == entity.Position.Name);
             if (employee == null)
             {
+                employee = Mapper.Map<EmployeeDTO, Employee>(entity);
+                var position = UnitOfWork.Positions.FindAsync(x=>x.Name == entity.Position.Name);
+                if (position != null)
+                    employee.Position = null;
                 UnitOfWork.Employees.AddAsync(Mapper.Map<EmployeeDTO, Employee>(entity));
                 await UnitOfWork.SaveChangesAsync();
                 employee = await UnitOfWork.Employees.FindAsync(x => x.FirstName == entity.FirstName &&
@@ -88,7 +92,7 @@ namespace BLL.Services
             var employees = await UnitOfWork.Employees.GetPageAsync(startItem, countItem);
             if (employees != null && employees.Count != 0)
             {
-                return new AppActionResult<ICollection<EmployeeDTO>>
+                return new AppActionResult<IList<EmployeeDTO>>
                 {
                     Data = Mapper.Map<IList<Employee>, List<EmployeeDTO>>(employees),
                     Status = (int)HttpStatusCode.OK

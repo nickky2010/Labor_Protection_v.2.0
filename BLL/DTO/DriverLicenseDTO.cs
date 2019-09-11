@@ -23,7 +23,7 @@ namespace BLL.DTO
         {
             if (obj == null || !(obj is DriverLicenseDTO)) return false;
             DriverLicenseDTO d = (DriverLicenseDTO)obj;
-            return Id.Equals(d.Id);
+            return GetHashCode() == d.GetHashCode();
         }
         public override int GetHashCode()
         {

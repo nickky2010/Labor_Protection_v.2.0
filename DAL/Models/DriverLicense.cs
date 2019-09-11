@@ -25,7 +25,7 @@ namespace DAL.Models
         {
             if (obj == null || !(obj is DriverLicense)) return false;
             DriverLicense e = (DriverLicense)obj;
-            return Id.Equals(e.Id);
+            return GetHashCode() == e.GetHashCode();
         }
         public override int GetHashCode()
         {

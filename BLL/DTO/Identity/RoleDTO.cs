@@ -19,7 +19,7 @@ namespace BLL.DTO.Identity
         {
             if (obj == null || !(obj is RoleDTO)) return false;
             RoleDTO r = (RoleDTO)obj;
-            return Id==r.Id;
+            return GetHashCode() == r.GetHashCode();
         }
         public override int GetHashCode()
         {

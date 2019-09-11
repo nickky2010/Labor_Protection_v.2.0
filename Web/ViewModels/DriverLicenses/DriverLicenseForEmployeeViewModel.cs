@@ -8,6 +8,8 @@ namespace Web.ViewModels.DriverLicenses
 {
     public class DriverLicenseForEmployeeViewModel: IViewModel
     {
+        public Guid Id { get; set; }
+
         //[Display(Name = "DateOfIssue", ResourceType = typeof(SharedResource))]
         //[Required(ErrorMessageResourceType = typeof(SharedResource), ErrorMessageResourceName = "EnterDateOfIssue")]
         public DateTime DateOfIssue { get; set; }

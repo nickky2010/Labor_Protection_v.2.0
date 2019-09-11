@@ -21,7 +21,7 @@ namespace DAL.Models.Identity
         {
             if (obj == null || !(obj is UserProfile)) return false;
             UserProfile u = (UserProfile)obj;
-            return Id == u.Id;
+            return GetHashCode() == u.GetHashCode();
         }
         public override int GetHashCode()
         {

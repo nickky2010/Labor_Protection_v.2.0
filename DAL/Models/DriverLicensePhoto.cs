@@ -14,7 +14,7 @@ namespace DAL.Models
         {
             if (obj == null || !(obj is DriverLicensePhoto)) return false;
             DriverLicensePhoto d = (DriverLicensePhoto)obj;
-            return Id.Equals(d.Id);
+            return GetHashCode() == d.GetHashCode();
         }
         public override int GetHashCode()
         {

@@ -18,12 +18,12 @@ namespace BLL.DTO
         {
             if (obj == null || !(obj is EmployeeDTO)) return false;
             EmployeeDTO e = (EmployeeDTO)obj;
-            return Id.Equals(e.Id);
+            return GetHashCode() == e.GetHashCode();
         }
         public override int GetHashCode()
         {
-            int hash = 17; 
-            hash ^= 31 + Id.ToString().ToInt(); 
+            int hash = 17;
+            hash ^= 31 + Id.ToString().ToInt();
             hash ^= 31 + Surname.ToInt();
             hash ^= 31 + FirstName.ToInt();
             return hash ^ 31 + Patronymic.ToInt();

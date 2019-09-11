@@ -15,7 +15,7 @@ namespace BLL.DTO.Identity
         {
             if (obj == null || !(obj is UserDTO)) return false;
             UserDTO u = (UserDTO)obj;
-            return Id == u.Id;
+            return GetHashCode() == u.GetHashCode();
         }
         public override int GetHashCode()
         {

@@ -9,16 +9,16 @@ namespace BLL.DTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ISet<EmployeeDTO> Employees { get; set; }
+        public IList<EmployeeDTO> Employees { get; set; }
         public PositionDTO()
         {
-            Employees = new HashSet<EmployeeDTO>();
+            Employees = new List<EmployeeDTO>();
         }
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is PositionDTO)) return false;
             PositionDTO p = (PositionDTO)obj;
-            return Id.Equals(p.Id);
+            return GetHashCode() == p.GetHashCode();
         }
         public override int GetHashCode()
         {

@@ -22,7 +22,7 @@ namespace DAL.Models
         {
             if (obj == null || !(obj is Employee)) return false;
             Employee e = (Employee)obj;
-            return Id.Equals(e.Id);
+            return GetHashCode() == e.GetHashCode();
         }
         public override int GetHashCode()
         {
