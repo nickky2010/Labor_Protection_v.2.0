@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AfterAddEmployeeNotFound" xml:space="preserve">
+    <value>Сотрудник после добавления не найден!</value>
+  </data>
+  <data name="AfterAddRoleNotFound" xml:space="preserve">
+    <value>Роль после добавления не найдена!</value>
+  </data>
+  <data name="AfterAddUserNotFound" xml:space="preserve">
+    <value>Пользователь после добавления не найден!</value>
+  </data>
+  <data name="CountItemsLeastOne" xml:space="preserve">
+    <value>Количество элементов должно быть не менее 1.</value>
+  </data>
+  <data name="DataIsNotValid" xml:space="preserve">
+    <value>Данные для элемента не являются валидными!</value>
+  </data>
+  <data name="DateOfIssue" xml:space="preserve">
+    <value>Дата выдачи</value>
+  </data>
+  <data name="DriverLicense" xml:space="preserve">
+    <value>Водительское удостоверение</value>
+  </data>
+  <data name="DriverLicensePhotos" xml:space="preserve">
+    <value>Фотографии водительского удостоверения</value>
+  </data>
+  <data name="DriverMedicalCertificate" xml:space="preserve">
+    <value>Медицинская справка водителя</value>
+  </data>
+  <data name="DriverMedicalCertificatePhotos" xml:space="preserve">
+    <value>Фотографии водительской медицинской справки</value>
+  </data>
+  <data name="EmployeeAlreadyExist" xml:space="preserve">
+    <value>Сотрудник уже существует в базе данных.</value>
+  </data>
+  <data name="EmployeeFoundAfterDelete" xml:space="preserve">
+    <value>Удалить сотрудника из базы данных не удалось</value>
+  </data>
+  <data name="EmployeeNotFound" xml:space="preserve">
+    <value>Сотрудник не найден в базе данных</value>
+  </data>
+  <data name="EmployeesNotFound" xml:space="preserve">
+    <value>Сотрудники не найдены!</value>
+  </data>
+  <data name="EnterDateOfIssue" xml:space="preserve">
+    <value>Введите дату выдачи</value>
+  </data>
+  <data name="EnterDriverLicensePhotos" xml:space="preserve">
+    <value>Загрузите фотографии водительского удостоверения</value>
+  </data>
+  <data name="EnterDriverMedicalCertificatePhotos" xml:space="preserve">
+    <value>Загрузите фотографии водительской медицинской справки</value>
+  </data>
+  <data name="EnterExpiryDate" xml:space="preserve">
+    <value>Введите срок действия</value>
+  </data>
+  <data name="EnterFirstName" xml:space="preserve">
+    <value>Введите имя</value>
+  </data>
+  <data name="EnterPatronymic" xml:space="preserve">
+    <value>Введите отчество</value>
+  </data>
+  <data name="EnterPosition" xml:space="preserve">
+    <value>Введите должность (профессию)</value>
+  </data>
+  <data name="EnterSerialNumber" xml:space="preserve">
+    <value>Введите серийный номер</value>
+  </data>
+  <data name="EnterSurname" xml:space="preserve">
+    <value>Введите фамилию.</value>
+  </data>
+  <data name="ExpiryDate" xml:space="preserve">
+    <value>Срок действия</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="InvalidLoginAndOrPassword" xml:space="preserve">
+    <value>Пользователь не найден! Возможно был введен неверный логин и(или) пароль.</value>
+  </data>
+  <data name="InvalidRoleName" xml:space="preserve">
+    <value>Роль не найдена! Введено неверное имя роли.</value>
+  </data>
+  <data name="LoginAlreadyExists" xml:space="preserve">
+    <value>Пользователь с таким логином уже существует!</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Нет данных для элемента!</value>
+  </data>
+  <data name="OpenCategories" xml:space="preserve">
+    <value>Открытые водительские категории</value>
+  </data>
+  <data name="Patronymic" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Должность (профессия)</value>
+  </data>
+  <data name="RecordToEditWasModifiedAnotherUser" xml:space="preserve">
+    <value>Запись, которую вы пытались редактировать, была изменена другим пользователем после того, как вы получили исходное значение. Операция редактирования была отменена, и были показаны текущие значения в базе данных. Если вы все еще хотите редактировать эту запись, попробуйте начать заново.</value>
+  </data>
+  <data name="RoleAlreadyExists" xml:space="preserve">
+    <value>Роль с таким именем уже существует!</value>
+  </data>
+  <data name="RoleNotFound" xml:space="preserve">
+    <value>Роль с текущим названием не найдена! Возможно такой роли не существует.</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>Серийный номер</value>
+  </data>
+  <data name="StartItemNotExist" xml:space="preserve">
+    <value>Стартовая позиция с переданным номером не существует.</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="ValidateFirstName" xml:space="preserve">
+    <value>Имя должно начинаться с заглавной буквы и быть не более 30 символов.</value>
+  </data>
+  <data name="ValidatePatronymic" xml:space="preserve">
+    <value>Отчество должно начинаться с заглавной буквы и быть не более 30 символов.</value>
+  </data>
+  <data name="ValidatePosition" xml:space="preserve">
+    <value>Название должности (профессии) должно начинаться с заглавной буквы и быть не более 30 символов.</value>
+  </data>
+  <data name="ValidateSurname" xml:space="preserve">
+    <value>Фамилия должна начинаться с заглавной буквы и быть не более 30 символов.</value>
+  </data>
+  <data name="СreatingWithRoleIsProhibited" xml:space="preserve">
+    <value>Создание пользователя с текущей ролью запрешено!</value>
+  </data>
+</root>
