@@ -26,9 +26,8 @@ using Microsoft.AspNetCore.Localization;
 using BLL.Services;
 using BLL;
 using BLL.DTO;
-using Web.Infrastructure.Mapper.Profiles.DriverLicenses;
-using Web.Infrastructure.Mapper.Profiles.Positions;
-using Web.Infrastructure.Mapper.Profiles.DriverMedicalCertificates;
+using BLL.Infrastructure.Mapper.Profiles.ManyToMany;
+using Web.Infrastructure.Mapper.Profiles;
 
 namespace Web
 {
@@ -53,11 +52,17 @@ namespace Web
                 cfg.AddProfile<DriverMedicalCertificateToDriverMedicalCertificateDTOProfile>();
                 cfg.AddProfile<EmployeeToEmployeeDTOProfile>();
                 cfg.AddProfile<PositionToPositionDTOProfile>();
-
-                cfg.AddProfile<EmployeeViewModelToEmployeeDTOProfile>();
-                cfg.AddProfile<DriverLicenseForEmployeeViewModelToDriverLicenseDTOProfile>();
-                cfg.AddProfile<PositionForEmployeeViewModelToPositionDTOProfile>();
-                cfg.AddProfile<DriverMedicalCertificateForEmployeeViewModelToDriverMedicalCertificateDTOProfile>();
+                cfg.AddProfile<DriverCategoryToDriverCategoryDTOProfile>();
+                cfg.AddProfile<DriverLicensePhotoToDriverLicensePhotoDTOProfile>();
+                cfg.AddProfile<DriverMedicalCertificatePhotoToDriverMedicalCertificatePhotoDTOProfile>();
+                
+                cfg.AddProfile<EmployeeVModelToEmployeeDTOProfile>();
+                cfg.AddProfile<PositionVModelToPositionDTOProfile>();
+                cfg.AddProfile<DriverCategoryVModelToPositionDTOProfile>();
+                cfg.AddProfile<DriverLicensePhotoVModelToDriverLicensePhotoDTOProfile>(); 
+                cfg.AddProfile<DriverLicenseVModelToDriverLicenseDTOProfile>();
+                cfg.AddProfile<DriverMedicalCertificateVModelToDriverMedicalCertificateDTOProfile>();
+                cfg.AddProfile<DriverMedicalCertificatePhotoVModelToDriverMedicalCertificatePhotoDTOProfile>();
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -66,6 +71,7 @@ namespace Web
             IUnitOfWorkService unitOfWorkService = ninjectKernel.Get<IUnitOfWorkService>();
 
             services.AddScoped<IDataBaseService<EmployeeDTO>>(o => new EmployeeService(unitOfWorkService, mapper));
+            services.AddScoped<IDataBaseService<PositionDTO>>(o => new PositionService(unitOfWorkService, mapper));
 
             services.AddScoped<IAccountService>(o => new AccountService(unitOfWorkService, mapper));
 

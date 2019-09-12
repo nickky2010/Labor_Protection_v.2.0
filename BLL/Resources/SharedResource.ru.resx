@@ -120,6 +120,9 @@
   <data name="AfterAddEmployeeNotFound" xml:space="preserve">
     <value>Сотрудник после добавления не найден!</value>
   </data>
+  <data name="AfterAddPositionNotFound" xml:space="preserve">
+    <value>Должность (профессия) после добавления не найдена!</value>
+  </data>
   <data name="AfterAddRoleNotFound" xml:space="preserve">
     <value>Роль после добавления не найдена!</value>
   </data>
@@ -212,6 +215,18 @@
   </data>
   <data name="Position" xml:space="preserve">
     <value>Должность (профессия)</value>
+  </data>
+  <data name="PositionAlreadyExist" xml:space="preserve">
+    <value>Должность (профессия) уже существует в базе данных.</value>
+  </data>
+  <data name="PositionFoundAfterDelete" xml:space="preserve">
+    <value>Удалить должность (профессию) из базы данных не удалось.</value>
+  </data>
+  <data name="PositionNotFound" xml:space="preserve">
+    <value>Должность (профессия) не найдена в базе данных</value>
+  </data>
+  <data name="PositionsNotFound" xml:space="preserve">
+    <value>Должности (профессии) не найдены в базе данных</value>
   </data>
   <data name="RecordToEditWasModifiedAnotherUser" xml:space="preserve">
     <value>Запись, которую вы пытались редактировать, была изменена другим пользователем после того, как вы получили исходное значение. Операция редактирования была отменена, и были показаны текущие значения в базе данных. Если вы все еще хотите редактировать эту запись, попробуйте начать заново.</value>

@@ -14,7 +14,7 @@ namespace Web.Infrastructure
 {
     public class ControllerExt<DTO, VModel>: Controller
         where DTO : IDataDTO
-        where VModel : IViewModel
+        where VModel : IGetViewModel
     {
         protected IAppActionResult SetResult(IAppActionResult result)
         {

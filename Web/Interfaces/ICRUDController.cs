@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 
 namespace Web.Interfaces
 {
-    public interface ICRUDController<TViewModel>
-        where TViewModel : IViewModel
+    public interface ICRUDController<TAddViewModel, TUpdateViewModel>
+        where TAddViewModel : IAddViewModel
+        where TUpdateViewModel : IUpdateViewModel
     {
         Task<IAppActionResult> Get([FromQuery]int startItem, [FromQuery]int countItem);
         Task<IAppActionResult> Get(Guid guid);
-        Task<IAppActionResult> Post([FromBody]TViewModel viewModel);
-        Task<IAppActionResult> Put([FromBody]TViewModel viewModel);
+        Task<IAppActionResult> Post([FromBody]TAddViewModel viewModel);
+        Task<IAppActionResult> Put([FromBody]TUpdateViewModel viewModel);
         Task<IAppActionResult> Delete(Guid guid);
     }
 }

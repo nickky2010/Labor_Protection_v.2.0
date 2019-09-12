@@ -33,22 +33,27 @@ namespace BLL.Services
             if (employee == null)
             {
                 employee = Mapper.Map<EmployeeDTO, Employee>(entity);
-                var position = UnitOfWork.Positions.FindAsync(x=>x.Name == entity.Position.Name);
+                var position = await UnitOfWork.Positions.FindAsync(x => x.Name == entity.Position.Name);
                 if (position != null)
-                    employee.Position = null;
-                UnitOfWork.Employees.AddAsync(Mapper.Map<EmployeeDTO, Employee>(entity));
-                await UnitOfWork.SaveChangesAsync();
-                employee = await UnitOfWork.Employees.FindAsync(x => x.FirstName == entity.FirstName &&
-                    x.Surname == entity.Surname && x.Patronymic == entity.Patronymic && x.Position.Name == entity.Position.Name);
-                if (employee != null)
                 {
-                    return new AppActionResult<EmployeeDTO>
+                    employee.PositionId = position.Id;
+                    employee.Position = null;
+                    UnitOfWork.Employees.AddAsync(employee);
+                    await UnitOfWork.SaveChangesAsync();
+                    employee = await UnitOfWork.Employees.FindAsync(x => x.FirstName == entity.FirstName &&
+                        x.Surname == entity.Surname && x.Patronymic == entity.Patronymic && x.Position.Name == entity.Position.Name);
+                    if (employee != null)
                     {
-                        Data = Mapper.Map<Employee, EmployeeDTO>(employee),
-                        Status = (int)HttpStatusCode.Created
-                    };
+                        return new AppActionResult<EmployeeDTO>
+                        {
+                            Data = Mapper.Map<Employee, EmployeeDTO>(employee),
+                            Status = (int)HttpStatusCode.Created
+                        };
+                    }
+                    return new AppActionResult { Status = (int)HttpStatusCode.InternalServerError, ErrorMessages = new List<string> { Localizer["AfterAddEmployeeNotFound"] } };
                 }
-                return new AppActionResult { Status = (int)HttpStatusCode.InternalServerError, ErrorMessages = new List<string> { Localizer["AfterAddEmployeeNotFound"] } };
+                else
+                    return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["PositionNotFound"] } };
             }
             return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["EmployeeAlreadyExist"] } };
         }
@@ -62,12 +67,7 @@ namespace BLL.Services
                 await UnitOfWork.SaveChangesAsync();
                 employee = await UnitOfWork.Employees.FindAsync(x => x.Id == guid);
                 if (employee == null)
-                {
-                    return new AppActionResult
-                    {
-                        Status = (int)HttpStatusCode.OK
-                    };
-                }
+                    return new AppActionResult  { Status = (int)HttpStatusCode.OK };
                 return new AppActionResult { Status = (int)HttpStatusCode.InternalServerError, ErrorMessages = new List<string> { Localizer["EmployeeFoundAfterDelete"] } };
             }
             return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["EmployeeNotFound"] } };
@@ -107,9 +107,17 @@ namespace BLL.Services
             if (data != null)
             {
                 Mapper.Map(model, data);
-                UnitOfWork.Employees.Update(data);
-                await UnitOfWork.SaveChangesAsync();
-                return await GetAsync(model.Id);
+                var position = await UnitOfWork.Positions.FindAsync(x => x.Name == data.Position.Name);
+                if (position != null)
+                {
+                    data.PositionId = position.Id;
+                    data.Position = null;
+                    UnitOfWork.Employees.Update(data);
+                    await UnitOfWork.SaveChangesAsync();
+                    return await GetAsync(model.Id);
+                }
+                else
+                    return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["PositionNotFound"] } };
             }
             return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["EmployeeNotFound"] } };
         }

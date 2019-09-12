@@ -11,13 +11,13 @@ namespace BLL.DTO
         public DateTime DateOfIssue { get; set; }
         public DateTime ExpiryDate { get; set; }
         public string SerialNumber { get; set; }
-        public ICollection<string> OpenCategories { get; set; }
-        public ICollection<byte[]> DriverLicensePhotos { get; set; }
         public EmployeeDTO Employee { get; set; }
+        public IList<DriverCategoryDTO> DriverCategories { get; set; }
+        public IList<DriverLicensePhotoDTO> Photos { get; set; }
         public DriverLicenseDTO()
         {
-            DriverLicensePhotos = new List<byte[]>();
-            OpenCategories = new List<string>();
+            Photos = new List<DriverLicensePhotoDTO>();
+            DriverCategories = new List<DriverCategoryDTO>();
         }
         public override bool Equals(object obj)
         {

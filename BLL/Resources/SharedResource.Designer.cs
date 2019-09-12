@@ -70,6 +70,15 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to After add position not found.
+        /// </summary>
+        public static string AfterAddPositionNotFound {
+            get {
+                return ResourceManager.GetString("AfterAddPositionNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role after add not found!.
         /// </summary>
         public static string AfterAddRoleNotFound {
@@ -345,6 +354,42 @@ namespace BLL.Resources {
         public static string Position {
             get {
                 return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position already exist in database!.
+        /// </summary>
+        public static string PositionAlreadyExist {
+            get {
+                return ResourceManager.GetString("PositionAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to delete position from database.
+        /// </summary>
+        public static string PositionFoundAfterDelete {
+            get {
+                return ResourceManager.GetString("PositionFoundAfterDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position not found!.
+        /// </summary>
+        public static string PositionNotFound {
+            get {
+                return ResourceManager.GetString("PositionNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Positions not found!.
+        /// </summary>
+        public static string PositionsNotFound {
+            get {
+                return ResourceManager.GetString("PositionsNotFound", resourceCulture);
             }
         }
         

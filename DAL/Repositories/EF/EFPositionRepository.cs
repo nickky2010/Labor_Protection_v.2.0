@@ -68,6 +68,7 @@ namespace DAL.Repositories.EF
         {
             return await _dbSet.AsNoTracking()
                 .AsQueryable()
+                .Include(b => b.Employees)
                 .Skip(startItem - 1)
                 .Take(countItem)
                 .ToListAsync();

@@ -11,19 +11,19 @@ using System.Net;
 using System.Threading.Tasks;
 using Web.Infrastructure;
 using Web.Interfaces;
-using Web.ViewModels.Employees;
+using Web.ViewModels.Positions;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class EmployeesController : ControllerExt<EmployeeDTO, EmployeeGetVModel>, 
-        IControllerServices<EmployeesController, IDataBaseService<EmployeeDTO>>, ICRUDController<EmployeeAddVModel, EmployeeUpdateVModel>
+    public class PositionsController : ControllerExt<PositionDTO, PositionGetVModel>, 
+        IControllerServices<PositionsController, IDataBaseService<PositionDTO>>, ICRUDController<PositionAddVModel, PositionUpdateVModel>
     {
         public IStringLocalizer<SharedResource> Localizer { get; private set; }
         public IMapper Mapper { get; private set; }
-        public IDataBaseService<EmployeeDTO> Service { get; private set; }
+        public IDataBaseService<PositionDTO> Service { get; private set; }
 
-        public EmployeesController(IStringLocalizer<SharedResource> localizer, IMapper mapper, IDataBaseService<EmployeeDTO> service)
+        public PositionsController(IStringLocalizer<SharedResource> localizer, IMapper mapper, IDataBaseService<PositionDTO> service)
         {
             Service = service;
             Localizer = localizer;
@@ -51,23 +51,23 @@ namespace Web.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public async Task<IAppActionResult> Post([FromBody] EmployeeAddVModel viewModel)
+        public async Task<IAppActionResult> Post([FromBody] PositionAddVModel viewModel)
         {
             if (viewModel == null)
                 return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["NoData"] } });
             if (!ModelState.IsValid)
                 return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["DataIsNotValid"] } });
-            return SetDataResult(await Service.AddAsync(Mapper.Map<EmployeeAddVModel, EmployeeDTO>(viewModel)), Mapper);
+            return SetDataResult(await Service.AddAsync(Mapper.Map<PositionAddVModel, PositionDTO>(viewModel)), Mapper);
         }
         // PUT api/<controller>/5
         [HttpPut]
-        public async Task<IAppActionResult> Put(EmployeeUpdateVModel viewModel)
+        public async Task<IAppActionResult> Put([FromBody] PositionUpdateVModel viewModel)
         {
             if (viewModel == null)
                 return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["NoData"] } });
             if (!ModelState.IsValid)
                 return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["DataIsNotValid"] } });
-            return SetDataResult(await Service.UpdateAsync(Mapper.Map<EmployeeUpdateVModel, EmployeeDTO>(viewModel)), Mapper);
+            return SetDataResult(await Service.UpdateAsync(Mapper.Map<PositionUpdateVModel, PositionDTO>(viewModel)), Mapper);
         }
 
         // DELETE api/<controller>/5
