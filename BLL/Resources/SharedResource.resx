@@ -135,8 +135,20 @@
   <data name="DataIsNotValid" xml:space="preserve">
     <value>Data for item is not valid!</value>
   </data>
+  <data name="DataNotDeletedFromDB" xml:space="preserve">
+    <value>Data has not been deleted from the database!</value>
+  </data>
+  <data name="DataNotUpdatedInDB" xml:space="preserve">
+    <value>Data has not been updated in the database!</value>
+  </data>
+  <data name="DataNotWrittenToDB" xml:space="preserve">
+    <value>Data was not written to the database!</value>
+  </data>
   <data name="DateOfIssue" xml:space="preserve">
     <value>Date of issue</value>
+  </data>
+  <data name="DriverCategoriesNotFound" xml:space="preserve">
+    <value>Driving categories (category) not found</value>
   </data>
   <data name="DriverLicense" xml:space="preserve">
     <value>Driver license</value>

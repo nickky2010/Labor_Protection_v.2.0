@@ -5,7 +5,7 @@ using DAL.Repositories.EF;
 
 namespace BLL.Services
 {
-    public class UnitOfWorkService : IUnitOfWorkService
+    internal class UnitOfWorkService : IUnitOfWorkService
     {
         public string ConnectionString { get; private set; }
         public UnitOfWorkService(string connectionString)

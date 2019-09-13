@@ -1,125 +1,73 @@
 ﻿using AutoMapper;
-using BLL.DTO;
-using BLL.Infrastructure;
+using BLL.DTO.Employees;
 using BLL.Interfaces;
-using DAL.EFContexts.Contexts;
-using DAL.Interfaces;
 using DAL.Models;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    public class EmployeeService : Service, IDataBaseService<EmployeeDTO>
+    internal class EmployeeService : AbstractService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO>, 
+        IDataBaseService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO>
     {
-        public IUnitOfWork<LaborProtectionContext> UnitOfWork { get; set; }
-        public IMapper Mapper { get; set; }
-        public IStringLocalizer<SharedResource> Localizer { get; set; }
+        public EmployeeService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : base(unitOfWorkService, mapper) { }
 
-        public EmployeeService(IUnitOfWorkService unitOfWorkService, IMapper mapper)
+        public async Task<IAppActionResult<EmployeeGetDTO>> AddAsync(EmployeeAddDTO modelDTO)
         {
-            UnitOfWork = unitOfWorkService.UnitOfWorkLaborProtectionContext;
-            Mapper = mapper;
-        }
-
-        public async Task<IAppActionResult> AddAsync(EmployeeDTO entity)
-        {
-            var employee = await UnitOfWork.Employees.FindAsync(x => x.FirstName == entity.FirstName &&
-                x.Surname == entity.Surname && x.Patronymic == entity.Patronymic && x.Position.Name == entity.Position.Name);
-            if (employee == null)
-            {
-                employee = Mapper.Map<EmployeeDTO, Employee>(entity);
-                var position = await UnitOfWork.Positions.FindAsync(x => x.Name == entity.Position.Name);
-                if (position != null)
-                {
-                    employee.PositionId = position.Id;
-                    employee.Position = null;
-                    UnitOfWork.Employees.AddAsync(employee);
-                    await UnitOfWork.SaveChangesAsync();
-                    employee = await UnitOfWork.Employees.FindAsync(x => x.FirstName == entity.FirstName &&
-                        x.Surname == entity.Surname && x.Patronymic == entity.Patronymic && x.Position.Name == entity.Position.Name);
-                    if (employee != null)
-                    {
-                        return new AppActionResult<EmployeeDTO>
-                        {
-                            Data = Mapper.Map<Employee, EmployeeDTO>(employee),
-                            Status = (int)HttpStatusCode.Created
-                        };
-                    }
-                    return new AppActionResult { Status = (int)HttpStatusCode.InternalServerError, ErrorMessages = new List<string> { Localizer["AfterAddEmployeeNotFound"] } };
-                }
-                else
-                    return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["PositionNotFound"] } };
-            }
-            return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["EmployeeAlreadyExist"] } };
+            var employee = await UnitOfWork.Employees.FindAsync(x => x.FirstName == modelDTO.FirstName &&
+                x.Surname == modelDTO.Surname && x.Patronymic == modelDTO.Patronymic && x.Position.Id == modelDTO.PositionId);
+            if (employee != null)
+                return SendGetError(HttpStatusCode.BadRequest, "EmployeeAlreadyExist");
+            employee = Mapper.Map<Employee>(modelDTO);
+            employee.Id = Guid.NewGuid();
+            await UnitOfWork.Employees.AddAsync(employee);
+            if(await UnitOfWork.SaveChangesAsync()==0)
+                return SendGetError(HttpStatusCode.InternalServerError, "DataNotWrittenToDB");
+            return SendData(Mapper.Map<Employee, EmployeeGetDTO>(employee), HttpStatusCode.Created);
         }
 
         public async Task<IAppActionResult> DeleteAsync(Guid guid)
         {
             var employee = await UnitOfWork.Employees.FindAsync(x => x.Id == guid);
-            if (employee != null)
-            {
-                UnitOfWork.Employees.Delete(employee);
-                await UnitOfWork.SaveChangesAsync();
-                employee = await UnitOfWork.Employees.FindAsync(x => x.Id == guid);
-                if (employee == null)
-                    return new AppActionResult  { Status = (int)HttpStatusCode.OK };
-                return new AppActionResult { Status = (int)HttpStatusCode.InternalServerError, ErrorMessages = new List<string> { Localizer["EmployeeFoundAfterDelete"] } };
-            }
-            return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["EmployeeNotFound"] } };
+            if (employee == null)
+                return SendError(HttpStatusCode.BadRequest, "EmployeeNotFound");
+            UnitOfWork.Employees.Delete(employee);
+            if (await UnitOfWork.SaveChangesAsync() == 0)
+                return SendError(HttpStatusCode.InternalServerError, "DataNotDeletedFromDB");
+            return SendResult(HttpStatusCode.OK);
         }
 
-        public async Task<IAppActionResult> GetAsync(Guid guid)
+        public async Task<IAppActionResult<EmployeeGetDTO>> GetAsync(Guid guid)
         {
             var employee = await UnitOfWork.Employees.FindAsync(x => x.Id == guid);
-            if (employee != null)
-            {
-                return new AppActionResult<EmployeeDTO>
-                {
-                    Data = Mapper.Map<Employee, EmployeeDTO>(employee),
-                    Status = (int)HttpStatusCode.OK
-                };
-            }
-            return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["EmployeeNotFound"] } };
+            if (employee == null)
+                return SendGetError(HttpStatusCode.BadRequest, "EmployeeNotFound");
+            return SendData(Mapper.Map<Employee, EmployeeGetDTO>(employee), HttpStatusCode.OK);
         }
 
-        public async Task<IAppActionResult> GetPageAsync(int startItem, int countItem)
+        public async Task<IAppActionResult<IList<EmployeeGetDTO>>> GetPageAsync(int startItem, int countItem)
         {
-            var employees = await UnitOfWork.Employees.GetPageAsync(startItem, countItem);
-            if (employees != null && employees.Count != 0)
-            {
-                return new AppActionResult<IList<EmployeeDTO>>
-                {
-                    Data = Mapper.Map<IList<Employee>, List<EmployeeDTO>>(employees),
-                    Status = (int)HttpStatusCode.OK
-                };
-            }
-            return new AppActionResult { Status = (int)HttpStatusCode.NotFound, ErrorMessages = new List<string> { Localizer["EmployeesNotFound"] } };
+            var data = await UnitOfWork.Employees.GetPageAsync(startItem, countItem);
+            if (data == null)
+                return SendForListGetError(HttpStatusCode.NotFound, "EmployeesNotFound");
+            return SendListData(Mapper.Map<IList<Employee>, List<EmployeeGetDTO>>(data), HttpStatusCode.OK);
         }
 
-        public async Task<IAppActionResult> UpdateAsync(EmployeeDTO model)
+        public async Task<IAppActionResult<EmployeeUpdateDTO>> UpdateAsync(EmployeeUpdateDTO model)
         {
             var data = await UnitOfWork.Employees.FindAsync(i => i.Id == model.Id);
-            if (data != null)
-            {
-                Mapper.Map(model, data);
-                var position = await UnitOfWork.Positions.FindAsync(x => x.Name == data.Position.Name);
-                if (position != null)
-                {
-                    data.PositionId = position.Id;
-                    data.Position = null;
-                    UnitOfWork.Employees.Update(data);
-                    await UnitOfWork.SaveChangesAsync();
-                    return await GetAsync(model.Id);
-                }
-                else
-                    return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["PositionNotFound"] } };
-            }
-            return new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["EmployeeNotFound"] } };
+            if (data == null)
+                return SendUpdateError(HttpStatusCode.NotFound, "EmployeeNotFound");
+            var position = await UnitOfWork.Positions.FindAsync(x => x.Id == data.Position.Id);
+            if (position == null)
+                return SendUpdateError(HttpStatusCode.BadRequest, "PositionNotFound");
+            Mapper.Map(model, data);
+            UnitOfWork.Employees.Update(data);
+            if (await UnitOfWork.SaveChangesAsync() == 0)
+                return SendUpdateError(HttpStatusCode.InternalServerError, "DataNotUpdatedInDB");
+            return SendUpdateData(Mapper.Map<Employee, EmployeeUpdateDTO>(data), HttpStatusCode.OK);
         }
     }
 }

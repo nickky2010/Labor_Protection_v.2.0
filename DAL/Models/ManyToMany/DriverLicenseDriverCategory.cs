@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DAL.Interfaces;
+using System;
 
 namespace DAL.Models.ManyToMany
 {
-    public class DriverLicenseDriverCategory
+    public class DriverLicenseDriverCategory: IDriverCategory
     {
         public Guid DriverLicenseId { get; set; }
         public virtual DriverLicense DriverLicense { get; set; }

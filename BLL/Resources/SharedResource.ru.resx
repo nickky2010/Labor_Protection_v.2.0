@@ -135,8 +135,20 @@
   <data name="DataIsNotValid" xml:space="preserve">
     <value>Данные для элемента не являются валидными!</value>
   </data>
+  <data name="DataNotDeletedFromDB" xml:space="preserve">
+    <value>Данные не были удалены из базы данных!</value>
+  </data>
+  <data name="DataNotUpdatedInDB" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DataNotWrittenToDB" xml:space="preserve">
+    <value>Данные не были записаны в базу данных!</value>
+  </data>
   <data name="DateOfIssue" xml:space="preserve">
     <value>Дата выдачи</value>
+  </data>
+  <data name="DriverCategoriesNotFound" xml:space="preserve">
+    <value>Водительские категории(категория) не найдены</value>
   </data>
   <data name="DriverLicense" xml:space="preserve">
     <value>Водительское удостоверение</value>

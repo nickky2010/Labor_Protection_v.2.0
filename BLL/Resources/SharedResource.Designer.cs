@@ -115,11 +115,47 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data has not been deleted from the database!.
+        /// </summary>
+        public static string DataNotDeletedFromDB {
+            get {
+                return ResourceManager.GetString("DataNotDeletedFromDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data has not been updated in the database!.
+        /// </summary>
+        public static string DataNotUpdatedInDB {
+            get {
+                return ResourceManager.GetString("DataNotUpdatedInDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data was not written to the database!.
+        /// </summary>
+        public static string DataNotWrittenToDB {
+            get {
+                return ResourceManager.GetString("DataNotWrittenToDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of issue.
         /// </summary>
         public static string DateOfIssue {
             get {
                 return ResourceManager.GetString("DateOfIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driving categories (category) not found.
+        /// </summary>
+        public static string DriverCategoriesNotFound {
+            get {
+                return ResourceManager.GetString("DriverCategoriesNotFound", resourceCulture);
             }
         }
         

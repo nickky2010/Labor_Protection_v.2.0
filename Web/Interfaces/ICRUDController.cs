@@ -1,18 +1,20 @@
 ﻿using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Web.Interfaces
 {
-    public interface ICRUDController<TAddViewModel, TUpdateViewModel>
-        where TAddViewModel : IAddViewModel
-        where TUpdateViewModel : IUpdateViewModel
+    internal interface ICRUDController<TGetDTO, TAddDTO, TUpdateDTO>
+        where TGetDTO : IGetDTO
+        where TAddDTO : IAddDTO
+        where TUpdateDTO : IUpdateDTO
     {
-        Task<IAppActionResult> Get([FromQuery]int startItem, [FromQuery]int countItem);
-        Task<IAppActionResult> Get(Guid guid);
-        Task<IAppActionResult> Post([FromBody]TAddViewModel viewModel);
-        Task<IAppActionResult> Put([FromBody]TUpdateViewModel viewModel);
+        Task<IAppActionResult<IList<TGetDTO>>> Get([FromQuery]int startItem, [FromQuery]int countItem);
+        Task<IAppActionResult<TGetDTO>> Get(Guid guid);
+        Task<IAppActionResult<TGetDTO>> Post([FromBody]TAddDTO addDTO);
+        Task<IAppActionResult<TUpdateDTO>> Put([FromBody]TUpdateDTO updateDTO);
         Task<IAppActionResult> Delete(Guid guid);
     }
 }

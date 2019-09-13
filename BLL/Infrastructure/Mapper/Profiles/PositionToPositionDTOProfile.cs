@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using BLL.DTO;
+using BLL.DTO.Positions;
 using DAL.Models;
 
 namespace BLL.Infrastructure.Mapper.Profiles
 {
-    public class PositionToPositionDTOProfile : Profile
+    internal class PositionToPositionDTOProfile : Profile
     {
         public PositionToPositionDTOProfile()
         {
-            CreateMap<Position, PositionDTO>().ReverseMap();
+            CreateMap<Position, PositionAddDTO>().ReverseMap();
+            CreateMap<Position, PositionGetUpdateDTO>().ReverseMap();
         }
     }
 }

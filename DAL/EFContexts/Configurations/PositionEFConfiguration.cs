@@ -8,6 +8,7 @@ namespace DAL.EFContexts.Configurations
     {
         public void Configure(EntityTypeBuilder<Position> builder)
         {
+            builder.Property(p => p.Id).ValueGeneratedNever();
             builder.Property(p => p.RowVersion).IsRowVersion();
         }
     }

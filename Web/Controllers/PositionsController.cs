@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BLL;
-using BLL.DTO;
-using BLL.Infrastructure;
+using BLL.DTO.Positions;
 using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -9,72 +8,63 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Web.Infrastructure;
 using Web.Interfaces;
-using Web.ViewModels.Positions;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class PositionsController : ControllerExt<PositionDTO, PositionGetVModel>, 
-        IControllerServices<PositionsController, IDataBaseService<PositionDTO>>, ICRUDController<PositionAddVModel, PositionUpdateVModel>
+    public class PositionsController :
+        AbstractController<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>,
+        IControllerServices<PositionsController, IDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>>,
+        ICRUDController<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>
     {
-        public IStringLocalizer<SharedResource> Localizer { get; private set; }
-        public IMapper Mapper { get; private set; }
-        public IDataBaseService<PositionDTO> Service { get; private set; }
-
-        public PositionsController(IStringLocalizer<SharedResource> localizer, IMapper mapper, IDataBaseService<PositionDTO> service)
-        {
-            Service = service;
-            Localizer = localizer;
-            Service.Localizer = Localizer;
-            Mapper = mapper;
-        }
+        public PositionsController(IStringLocalizer<SharedResource> localizer, IMapper mapper, IDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO> service)
+            : base(localizer, mapper, service) { }
 
         // GET: api/<controller>?startItem=1&countItem=1
         [HttpGet]
-        public async Task<IAppActionResult> Get([FromQuery] int startItem, [FromQuery] int countItem)
+        public async Task<IAppActionResult<IList<PositionGetUpdateDTO>>> Get([FromQuery] int startItem, [FromQuery] int countItem)
         {
             if (startItem < 1)
-                return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["StartItemNotExist"] } });
+                return SendErrorForGetList((int)HttpStatusCode.BadRequest, "StartItemNotExist");
             if (countItem < 1)
-                return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["CountItemsLeastOne"] } });
-            return SetDataArrayResult(await Service.GetPageAsync(startItem, countItem), Mapper);
+                return SendErrorForGetList((int)HttpStatusCode.BadRequest, "CountItemsLeastOne");
+            return SendResult(await Service.GetPageAsync(startItem, countItem));
         }
 
         // GET api/<controller>/5
         [HttpGet("{guid}")]
-        public async Task<IAppActionResult> Get(Guid guid)
+        public async Task<IAppActionResult<PositionGetUpdateDTO>> Get(Guid guid)
         {
-            return SetDataResult(await Service.GetAsync(guid), Mapper);
+            return SendGetResult(await Service.GetAsync(guid));
         }
 
         // POST api/<controller>
         [HttpPost]
-        public async Task<IAppActionResult> Post([FromBody] PositionAddVModel viewModel)
+        public async Task<IAppActionResult<PositionGetUpdateDTO>> Post([FromBody] PositionAddDTO dtoAdd)
         {
-            if (viewModel == null)
-                return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["NoData"] } });
+            if (dtoAdd == null)
+                return SendErrorForGet((int)HttpStatusCode.BadRequest, "NoData");
             if (!ModelState.IsValid)
-                return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["DataIsNotValid"] } });
-            return SetDataResult(await Service.AddAsync(Mapper.Map<PositionAddVModel, PositionDTO>(viewModel)), Mapper);
+                return SendErrorForGet((int)HttpStatusCode.BadRequest, "DataIsNotValid");
+            return SendGetResult(await Service.AddAsync(dtoAdd));
         }
         // PUT api/<controller>/5
         [HttpPut]
-        public async Task<IAppActionResult> Put([FromBody] PositionUpdateVModel viewModel)
+        public async Task<IAppActionResult<PositionGetUpdateDTO>> Put([FromBody] PositionGetUpdateDTO dtoUpdate)
         {
-            if (viewModel == null)
-                return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["NoData"] } });
+            if (dtoUpdate == null)
+                return SendErrorForUpdate((int)HttpStatusCode.BadRequest, "NoData");
             if (!ModelState.IsValid)
-                return SetResult(new AppActionResult { Status = (int)HttpStatusCode.BadRequest, ErrorMessages = new List<string> { Localizer["DataIsNotValid"] } });
-            return SetDataResult(await Service.UpdateAsync(Mapper.Map<PositionUpdateVModel, PositionDTO>(viewModel)), Mapper);
+                return SendErrorForUpdate((int)HttpStatusCode.BadRequest, "DataIsNotValid");
+            return SendGetResult(await Service.UpdateAsync(dtoUpdate));
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{guid}")]
         public async Task<IAppActionResult> Delete(Guid guid)
         {
-            return SetResult(await Service.DeleteAsync(guid));
+            return SendResult(await Service.DeleteAsync(guid));
         }
     }
 }

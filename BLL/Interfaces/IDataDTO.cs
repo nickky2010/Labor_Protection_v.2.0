@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BLL.Interfaces
+﻿namespace BLL.Interfaces
 {
-    public interface IDataDTO
-    {
-    }
+    public interface IAddDTO { }
+    public interface IUpdateDTO { }
+    public interface IGetDTO { }
+
 }

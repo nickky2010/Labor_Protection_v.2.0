@@ -35,12 +35,14 @@ namespace BLL.Infrastructure
         public bool IsSuccess { get => (Status >= 200) && (Status <= 299); }
         public IList<string> ErrorMessages { get; set; }
     }
-
     public class AppActionResult<TDTO> : AppActionResult, IAppActionResult<TDTO>
     {
         public TDTO Data { get; set; }
     }
-    public class AppActionResultToken : AppActionResult
+
+    internal class AppActionResultToken : AppActionResult<Token>  {  }
+
+    internal class Token 
     {
         public string AccessToken { get; set; }
         public DateTime ExpiresIn { get; set; }

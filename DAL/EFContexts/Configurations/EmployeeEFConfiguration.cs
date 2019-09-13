@@ -8,6 +8,7 @@ namespace DAL.EFContexts.Configurations
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
+            builder.Property(p => p.Id).ValueGeneratedNever();
             builder.Property(p => p.RowVersion).IsRowVersion();
             builder.HasOne(b => b.DriverLicense).WithOne(ba => ba.Employee).HasForeignKey<DriverLicense>(b => b.EmployeeId);
             builder.HasOne(b => b.DriverMedicalCertificate).WithOne(ba => ba.Employee).HasForeignKey<DriverMedicalCertificate>(b => b.EmployeeId);

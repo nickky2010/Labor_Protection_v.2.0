@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using DAL.EFContexts.Configurations.Identity;
 using DAL.EFContexts.Configurations;
 using DAL.Models;
-using DAL.Models.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using DAL.EFContexts.Configurations.ManyToMany;
 using DAL.Models.ManyToMany;
 
 namespace DAL.EFContexts.Contexts
 {
-    public class LaborProtectionContext : IdentityDbContext<User>
+    public class LaborProtectionContext : DbContext
     {
         readonly string _connectionString;
         public LaborProtectionContext(string connectionString)
@@ -25,10 +22,6 @@ namespace DAL.EFContexts.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new RoleEFConfiguration());
-            modelBuilder.ApplyConfiguration(new UserEFConfiguration());
-            modelBuilder.ApplyConfiguration(new UserProfileEFConfiguration());
-
             modelBuilder.ApplyConfiguration(new DriverLicenseDriverCategoryEFConfiguration());
             modelBuilder.ApplyConfiguration(new DriverMedicalCertificateDriverCategoryEFConfiguration());
 
@@ -41,7 +34,6 @@ namespace DAL.EFContexts.Contexts
 
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<UserProfile> ClientProfiles { get; set; }
         public DbSet<DriverLicenseDriverCategory> DriverLicenseDriverCategories { get; set; }
         public DbSet<DriverMedicalCertificateDriverCategory> DriverMedicalCertificateDriverCategories { get; set; }
         public DbSet<DriverLicense> DriverLicenses { get; set; }
