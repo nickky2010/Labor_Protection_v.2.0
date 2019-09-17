@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    internal class DriverCategoryService : AbstractService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>,
+    internal class DriverCategoryService : 
+        AbstractService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>,
         IDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO>
     {
         public DriverCategoryService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : base(unitOfWorkService, mapper)

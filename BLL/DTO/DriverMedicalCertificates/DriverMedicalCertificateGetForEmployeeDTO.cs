@@ -1,6 +1,5 @@
 ﻿using BLL.DTO.DriverCategories;
 using BLL.DTO.DriverMedicalCertificatePhotos;
-using BLL.Interfaces;
 using DAL.Extentions;
 using System;
 using System.Collections.Generic;

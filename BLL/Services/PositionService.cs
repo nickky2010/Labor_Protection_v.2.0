@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    internal class PositionService : AbstractService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO, Position>,
+    internal class PositionService : 
+        AbstractService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO, Position>,
         IDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>
     {
         public PositionService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : base(unitOfWorkService, mapper)

@@ -12,7 +12,9 @@ namespace DAL.Repositories.EF
                 .Include(b => b.DriverLicense)
                     .ThenInclude(b => b.DriverLicenseDriverCategories)
                     .ThenInclude(x => x.DriverCategory)
-                .Include(b => b.DriverMedicalCertificate);
+                .Include(b => b.DriverMedicalCertificate)
+                    .ThenInclude(b => b.DriverMedicalCertificateDriverCategories)
+                    .ThenInclude(x => x.DriverCategory);
         }
     }
 }

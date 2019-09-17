@@ -9,7 +9,8 @@ using BLL.ValidatorsOfServices;
 
 namespace BLL.Services
 {
-    internal class DriverLicenseService : AbstractService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>, 
+    internal class DriverLicenseService : 
+        AbstractService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>, 
         IDataBaseService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO>
     {
         public DriverLicenseService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : base(unitOfWorkService, mapper)

@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    internal class EmployeeService : AbstractService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee> 
+    internal class EmployeeService : 
+        AbstractService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee> 
         
     {
         public EmployeeService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : base(unitOfWorkService, mapper)

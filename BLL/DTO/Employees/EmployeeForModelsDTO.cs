@@ -1,5 +1,4 @@
-﻿using BLL.Interfaces;
-using DAL.Extentions;
+﻿using DAL.Extentions;
 using System;
 
 namespace BLL.DTO.Employees

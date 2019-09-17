@@ -183,8 +183,17 @@
   <data name="DriverMedicalCertificate" xml:space="preserve">
     <value>Driver medical certificate</value>
   </data>
+  <data name="DriverMedicalCertificateAlreadyExist" xml:space="preserve">
+    <value>Driver medical certificate exist in database!</value>
+  </data>
+  <data name="DriverMedicalCertificateNotFound" xml:space="preserve">
+    <value>Driver medical certificate not found!</value>
+  </data>
   <data name="DriverMedicalCertificatePhotos" xml:space="preserve">
     <value>Driver medical certificate photos</value>
+  </data>
+  <data name="DriverMedicalCertificatesNotFound" xml:space="preserve">
+    <value>Driver medical certificates not found!</value>
   </data>
   <data name="EmployeeAlreadyExist" xml:space="preserve">
     <value>Employee already exist in database!</value>

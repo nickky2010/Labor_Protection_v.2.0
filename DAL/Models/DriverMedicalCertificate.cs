@@ -11,13 +11,13 @@ namespace DAL.Models
         public DateTime ExpiryDate { get; set; }
         public string SerialNumber { get; set; }
         public virtual IList<DriverMedicalCertificateDriverCategory> DriverMedicalCertificateDriverCategories { get; set; }
-        public virtual IList<DriverMedicalCertificatePhoto> Photos { get; set; }
+        //public virtual IList<DriverMedicalCertificatePhoto> Photos { get; set; }
         public Guid EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
         public byte[] RowVersion { get; set; }
         public DriverMedicalCertificate()
         {
-            Photos = new List<DriverMedicalCertificatePhoto>();
+            //Photos = new List<DriverMedicalCertificatePhoto>();
             DriverMedicalCertificateDriverCategories = new List<DriverMedicalCertificateDriverCategory>();
         }
         public override int GetHashCode()

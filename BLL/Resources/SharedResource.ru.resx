@@ -183,8 +183,17 @@
   <data name="DriverMedicalCertificate" xml:space="preserve">
     <value>Медицинская справка водителя</value>
   </data>
+  <data name="DriverMedicalCertificateAlreadyExist" xml:space="preserve">
+    <value>Медицинская справка водителя уже существует в базе данных!</value>
+  </data>
+  <data name="DriverMedicalCertificateNotFound" xml:space="preserve">
+    <value>Медицинская справка водителя не найдена!</value>
+  </data>
   <data name="DriverMedicalCertificatePhotos" xml:space="preserve">
     <value>Фотографии водительской медицинской справки</value>
+  </data>
+  <data name="DriverMedicalCertificatesNotFound" xml:space="preserve">
+    <value>Медицинские справки водителей не найдены!</value>
   </data>
   <data name="EmployeeAlreadyExist" xml:space="preserve">
     <value>Сотрудник уже существует в базе данных.</value>

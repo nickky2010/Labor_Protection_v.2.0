@@ -259,11 +259,38 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Driver medical certificate exist in database!.
+        /// </summary>
+        public static string DriverMedicalCertificateAlreadyExist {
+            get {
+                return ResourceManager.GetString("DriverMedicalCertificateAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver medical certificate not found!.
+        /// </summary>
+        public static string DriverMedicalCertificateNotFound {
+            get {
+                return ResourceManager.GetString("DriverMedicalCertificateNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Driver medical certificate photos.
         /// </summary>
         public static string DriverMedicalCertificatePhotos {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificatePhotos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver medical certificates not found!.
+        /// </summary>
+        public static string DriverMedicalCertificatesNotFound {
+            get {
+                return ResourceManager.GetString("DriverMedicalCertificatesNotFound", resourceCulture);
             }
         }
         

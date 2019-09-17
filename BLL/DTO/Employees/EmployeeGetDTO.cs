@@ -1,4 +1,5 @@
 ﻿using BLL.DTO.DriverLicenses;
+using BLL.DTO.DriverMedicalCertificates;
 using BLL.DTO.Positions;
 using BLL.Interfaces;
 using DAL.Extentions;
@@ -14,6 +15,7 @@ namespace BLL.DTO.Employees
         public string Patronymic { get; set; }
         public PositionGetUpdateDTO Position { get; set; }
         public DriverLicenseGetForEmployeeDTO DriverLicense { get; set; }
+        public DriverMedicalCertificateGetForEmployeeDTO DriverMedicalCertificate { get; set; }
 
         public override int GetHashCode()
         {
