@@ -3,19 +3,12 @@ using System;
 
 namespace DAL.Models
 {
-    public class DriverLicensePhoto
+    public class DriverLicensePhoto : AbstractData<DriverLicensePhoto>
     {
-        public Guid Id { get; set; }
         public Guid DriverLicenseId { get; set; }
         public virtual DriverLicense DriverLicense { get; set; }
         public byte[] Picture { get; set; }
         public byte[] RowVersion { get; set; }
-        public override bool Equals(object obj)
-        {
-            if (obj == null || !(obj is DriverLicensePhoto)) return false;
-            DriverLicensePhoto d = (DriverLicensePhoto)obj;
-            return GetHashCode() == d.GetHashCode();
-        }
         public override int GetHashCode()
         {
             int hash = 17;

@@ -10,6 +10,8 @@ namespace DAL.Repositories.EF
             Query = Query
                 .Include(b => b.Position)
                 .Include(b => b.DriverLicense)
+                    .ThenInclude(b => b.DriverLicenseDriverCategories)
+                    .ThenInclude(x => x.DriverCategory)
                 .Include(b => b.DriverMedicalCertificate);
         }
     }

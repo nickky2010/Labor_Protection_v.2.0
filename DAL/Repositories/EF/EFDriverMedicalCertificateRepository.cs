@@ -8,9 +8,10 @@ namespace DAL.Repositories.EF
         public EFDriverMedicalCertificateRepository(DbContext context) : base(context)
         {
             Query = Query
-                .Include(b => b.DriverMedicalCertificateDriverCategories)
                 .Include(b => b.Photos)
-                .Include(b => b.Employee);
+                .Include(b => b.Employee)
+                .Include(b => b.DriverMedicalCertificateDriverCategories)
+                    .ThenInclude(x => x.DriverCategory);
         }
     }
 }

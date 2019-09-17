@@ -1,26 +1,19 @@
 ﻿using DAL.Extentions;
-using System;
 using System.Collections.Generic;
 
 namespace DAL.Models
 {
-    public class Position
+    public class Position : AbstractData<Position>
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
+        public byte[] RowVersion { get; set; }
+
         public Position()
         {
             Employees = new List<Employee>();
         }
 
-        public byte[] RowVersion { get; set; }
-        public override bool Equals(object obj)
-        {
-            if (obj == null || !(obj is Position)) return false;
-            Position p = (Position)obj;
-            return GetHashCode() == p.GetHashCode();
-        }
         public override int GetHashCode()
         {
             int hash = 17;

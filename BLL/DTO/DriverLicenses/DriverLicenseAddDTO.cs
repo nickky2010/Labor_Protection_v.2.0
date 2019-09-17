@@ -12,10 +12,10 @@ namespace BLL.DTO.DriverLicenses
         public string SerialNumber { get; set; }
         public Guid EmployeeId { get; set; }
         public IList<Guid> DriverCategoriesId { get; set; }
-        public IList<Guid> DriverLicensePhotosId { get; set; }
+        //public IList<Guid> DriverLicensePhotosId { get; set; }
         public DriverLicenseAddDTO()
         {
-            DriverLicensePhotosId = new List<Guid>();
+            //DriverLicensePhotosId = new List<Guid>();
             DriverCategoriesId = new List<Guid>();
         }
         public override int GetHashCode()

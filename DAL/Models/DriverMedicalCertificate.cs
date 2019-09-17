@@ -5,9 +5,8 @@ using System.Collections.Generic;
 
 namespace DAL.Models
 {
-    public class DriverMedicalCertificate
+    public class DriverMedicalCertificate : AbstractData<DriverMedicalCertificate>
     {
-        public Guid Id { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime ExpiryDate { get; set; }
         public string SerialNumber { get; set; }
@@ -20,12 +19,6 @@ namespace DAL.Models
         {
             Photos = new List<DriverMedicalCertificatePhoto>();
             DriverMedicalCertificateDriverCategories = new List<DriverMedicalCertificateDriverCategory>();
-        }
-        public override bool Equals(object obj)
-        {
-            if (obj == null || !(obj is DriverMedicalCertificate)) return false;
-            DriverMedicalCertificate e = (DriverMedicalCertificate)obj;
-            return GetHashCode() == e.GetHashCode();
         }
         public override int GetHashCode()
         {

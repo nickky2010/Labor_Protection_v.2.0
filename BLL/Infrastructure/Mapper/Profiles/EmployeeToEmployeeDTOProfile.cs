@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.DTO.Employees;
 using DAL.Models;
+using System;
 
 namespace BLL.Infrastructure.Mapper.Profiles
 {
@@ -12,7 +13,12 @@ namespace BLL.Infrastructure.Mapper.Profiles
             CreateMap<Employee, EmployeeAddDTO>()
                 .ForPath(d => d.PositionId, opt => opt.MapFrom(s => s.Position.Id));
             CreateMap<EmployeeAddDTO, Employee>()
-                .ForPath(d => d.PositionId, opt => opt.MapFrom(s => s.PositionId));
+                .ForPath(d => d.PositionId, opt => opt.MapFrom(s => s.PositionId))
+                .AfterMap((s, d) =>
+                {
+                    d.Id = Guid.NewGuid();
+                });
+
             CreateMap<Employee, EmployeeUpdateDTO>()
                 .ForPath(d => d.PositionId, opt => opt.MapFrom(s => s.Position.Id));
             CreateMap<EmployeeUpdateDTO, Employee>()

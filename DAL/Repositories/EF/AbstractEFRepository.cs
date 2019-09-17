@@ -1,4 +1,5 @@
 ﻿using DAL.Interfaces;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace DAL.Repositories
 {
     public abstract class AbstractEFRepository<TData> : IRepository<TData>
-        where TData : class
+        where TData : Data
     {
         protected DbContext Context { get; set; }
         protected DbSet<TData> DbSet { get; set; }
@@ -46,19 +47,29 @@ namespace DAL.Repositories
             return Query.FirstOrDefaultAsync(where);
         }
 
-        public virtual async Task<IList<TData>> GetPageAsync(int startItem, int countItem)
+        public virtual Task<List<TData>> GetPageAsync(int startItem, int countItem)
         {
-            return await Query.Skip(startItem - 1).Take(countItem).ToListAsync();
+            return Query.Skip(startItem - 1).Take(countItem).ToListAsync();
         }
 
-        public virtual async Task<IList<TData>> GetAllAsync(Expression<Func<TData, bool>> where)
+        public virtual Task<List<TData>> GetAllAsync(Expression<Func<TData, bool>> where)
         {
-            return await Query.Where(where).ToListAsync();
+            return Query.Where(where).ToListAsync();
         }
 
-        public virtual async Task<IList<TData>> GetAllAsync()
+        public virtual Task<List<TData>> GetAllAsync()
         {
-            return await Query.ToListAsync();
+            return Query.ToListAsync();
+        }
+
+        public virtual Task<bool> IsIdExistAsync(Guid id)
+        {
+            return Query.AnyAsync(m => m.Id == id);
+        }
+
+        public virtual Task<bool> IsAllIdExistAsync(IList<Guid> idList)
+        {
+            return Query.AnyAsync(m => idList.Contains(m.Id));
         }
     }
 }

@@ -9,8 +9,8 @@ namespace DAL.EFContexts.Configurations.ManyToMany
         public void Configure(EntityTypeBuilder<DriverLicenseDriverCategory> builder)
         {
             builder.HasKey(k => new { k.DriverCategoryId, k.DriverLicenseId });
-            builder.HasOne(b => b.DriverCategory).WithMany(bg => bg.DriverLicenseDriverCategories).HasForeignKey(b => b.DriverCategoryId).OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(g => g.DriverLicense).WithMany(bg => bg.DriverLicenseDriverCategories).HasForeignKey(g => g.DriverLicenseId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(b => b.DriverCategory).WithMany(bg => bg.DriverLicenseDriverCategories).HasForeignKey(b => b.DriverCategoryId);
+            builder.HasOne(g => g.DriverLicense).WithMany(bg => bg.DriverLicenseDriverCategories).HasForeignKey(g => g.DriverLicenseId);
             builder.Property(b => b.DriverCategoryId).ValueGeneratedNever();
             builder.Property(g => g.DriverLicenseId).ValueGeneratedNever();
         }

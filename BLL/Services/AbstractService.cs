@@ -1,68 +1,103 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure;
 using BLL.Interfaces;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    internal abstract class AbstractService<TGetDTO, TAddDTO, TUpdateDTO> : IService<LaborProtectionContext>
+    internal abstract class AbstractService<TGetDTO, TAddDTO, TUpdateDTO, TData> : IService<LaborProtectionContext>, 
+        IDataBaseService<TGetDTO, TAddDTO, TUpdateDTO>
         where TGetDTO : IGetDTO
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
+        where TData : IData
     {
         public IStringLocalizer<SharedResource> Localizer { get; set; }
         public IUnitOfWork<LaborProtectionContext> UnitOfWork { get; protected set; }
         public IMapper Mapper { get; protected set; }
+        public IValidatorService<TGetDTO, TAddDTO, TUpdateDTO, TData> Validator { get; protected set; }
 
         public AbstractService(IUnitOfWorkService unitOfWorkService, IMapper mapper)
         {
             UnitOfWork = unitOfWorkService.UnitOfWorkLaborProtectionContext;
             Mapper = mapper;
         }
-        protected virtual IAppActionResult SendError(HttpStatusCode statusCode, string lokalizerKey)
+        public abstract void AddDataToDbAsync(TData data);
+        public abstract void DeleteDataFromDbAsync(TData data);
+        public abstract void UpdateDataInDbAsync(TData data);
+        public abstract Task<TData> FindDataAsync(Guid id);
+        public abstract Task<List<TData>> FindPageDataAsync(int startItem, int countItem);
+        public abstract Task<TData> FindDataIfAddAsync(TAddDTO modelDTO);
+        public abstract Task<TData> FindDataIfUpdateAsync(TUpdateDTO modelDTO); 
+
+        public virtual async Task<IAppActionResult<TGetDTO>> AddAsync(TAddDTO modelDTO)
         {
-            return new AppActionResult { Status = (int)statusCode, ErrorMessages = new List<string> { Localizer[lokalizerKey] } };
+            var data = await FindDataIfAddAsync(modelDTO);
+            var result = await Validator.ValidateAdd(data, modelDTO, HttpStatusCode.BadRequest, HttpStatusCode.OK);
+            if (!result.IsSuccess)
+                return result;
+            data = Mapper.Map<TAddDTO, TData>(modelDTO);
+            AddDataToDbAsync(data);
+            await UnitOfWork.SaveChangesAsync();
+            data = await FindDataAsync(data.Id);
+            result = Validator.ValidateDataFromDb(data, HttpStatusCode.InternalServerError, HttpStatusCode.Created);
+            if (!result.IsSuccess)
+                return result;
+            result.Data = Mapper.Map<TData, TGetDTO>(data);
+            return result;
+        }
+        
+        public virtual async Task<IAppActionResult> DeleteAsync(Guid id)
+        {
+            var data = await FindDataAsync(id);
+            var result = Validator.ValidateDeleteDataFromDb(data, HttpStatusCode.NotFound, HttpStatusCode.OK);
+            if (!result.IsSuccess)
+                return result;
+            DeleteDataFromDbAsync(data);
+            await UnitOfWork.SaveChangesAsync();
+            return result;
         }
 
-        protected virtual IAppActionResult<TGetDTO> SendGetError(HttpStatusCode statusCode, string lokalizerKey)
+        public virtual async Task<IAppActionResult<TGetDTO>> GetAsync(Guid id)
         {
-            return new AppActionResult<TGetDTO> { Status = (int)statusCode, ErrorMessages = new List<string> { Localizer[lokalizerKey] } };
-        }
-        protected virtual IAppActionResult<IList<TGetDTO>> SendForListGetError(HttpStatusCode statusCode, string lokalizerKey)
-        {
-            return new AppActionResult<IList<TGetDTO>> { Status = (int)statusCode, ErrorMessages = new List<string> { Localizer[lokalizerKey] } };
-        }
-        protected virtual IAppActionResult<TUpdateDTO> SendUpdateError(HttpStatusCode statusCode, string lokalizerKey)
-        {
-            return new AppActionResult<TUpdateDTO> { Status = (int)statusCode, ErrorMessages = new List<string> { Localizer[lokalizerKey] } };
+            var data = await FindDataAsync(id);
+            var result = Validator.ValidateDataFromDb(data, HttpStatusCode.NotFound, HttpStatusCode.OK);
+            if (!result.IsSuccess)
+                return result;
+            result.Data = Mapper.Map<TData, TGetDTO>(data);
+            return result;
         }
 
-
-        protected virtual IAppActionResult SendResult(HttpStatusCode statusCode)
+        public virtual async Task<IAppActionResult<List<TGetDTO>>> GetPageAsync(int startItem, int countItem)
         {
-            return new AppActionResult { Status = (int)statusCode};
+            var data = await FindPageDataAsync(startItem, countItem);
+            var result = Validator.ValidateDataFromDb(data, HttpStatusCode.NotFound, HttpStatusCode.OK);
+            if (!result.IsSuccess)
+                return result;
+            result.Data = Mapper.Map<List<TData>, List<TGetDTO>>(data);
+            return result;
         }
 
-        protected virtual IAppActionResult<TGetDTO> SendData(TGetDTO tDTO, HttpStatusCode statusCode)
+        public virtual async Task<IAppActionResult<TUpdateDTO>> UpdateAsync(TUpdateDTO modelDTO)
         {
-            return new AppActionResult<TGetDTO> { Data = tDTO, Status = (int)statusCode };
-        }
-        protected virtual IAppActionResult<TAddDTO> SendAddData(TAddDTO tDTO, HttpStatusCode statusCode)
-        {
-            return new AppActionResult<TAddDTO> { Data = tDTO, Status = (int)statusCode };
-        }
-        protected virtual IAppActionResult<TUpdateDTO> SendUpdateData(TUpdateDTO tDTO, HttpStatusCode statusCode)
-        {
-            return new AppActionResult<TUpdateDTO> { Data = tDTO, Status = (int)statusCode };
-        }
-
-        protected virtual IAppActionResult<IList<TGetDTO>> SendListData(IList<TGetDTO> tDTOs, HttpStatusCode statusCode)
-        {
-            return new AppActionResult<IList<TGetDTO>> { Data = tDTOs, Status = (int)statusCode };
+            var data = await FindDataIfUpdateAsync(modelDTO);
+            var result = await Validator.ValidateUpdate(data, modelDTO, HttpStatusCode.BadRequest, HttpStatusCode.OK);
+            if (!result.IsSuccess)
+                return result;
+            Mapper.Map(modelDTO, data);
+            UpdateDataInDbAsync(data);
+            await UnitOfWork.SaveChangesAsync();
+            data = await FindDataAsync(data.Id);
+            result = Validator.ValidateDataFromDbForUpdate(data, HttpStatusCode.InternalServerError, HttpStatusCode.OK);
+            if (!result.IsSuccess)
+                return result;
+            result.Data = Mapper.Map<TData, TUpdateDTO>(data);
+            return result;
         }
     }
 }

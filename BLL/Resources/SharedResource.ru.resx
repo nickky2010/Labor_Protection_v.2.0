@@ -132,6 +132,9 @@
   <data name="CountItemsLeastOne" xml:space="preserve">
     <value>Количество элементов должно быть не менее 1.</value>
   </data>
+  <data name="CreatingWithRoleIsProhibited" xml:space="preserve">
+    <value>Создание пользователя с текущей ролью запрешено!</value>
+  </data>
   <data name="DataIsNotValid" xml:space="preserve">
     <value>Данные для элемента не являются валидными!</value>
   </data>
@@ -150,11 +153,32 @@
   <data name="DriverCategoriesNotFound" xml:space="preserve">
     <value>Водительские категории(категория) не найдены</value>
   </data>
+  <data name="DriverCategoryAlreadyExist" xml:space="preserve">
+    <value>Водительская категория уже существует в базе данных.</value>
+  </data>
+  <data name="DriverCategoryNotFound" xml:space="preserve">
+    <value>Водительская категория не найдена в базе данных</value>
+  </data>
   <data name="DriverLicense" xml:space="preserve">
     <value>Водительское удостоверение</value>
   </data>
+  <data name="DriverLicenseAlreadyExist" xml:space="preserve">
+    <value>Водительское удостоверение уже существует в базе данных.</value>
+  </data>
+  <data name="DriverLicenseNotFound" xml:space="preserve">
+    <value>Водительское удостоверение не найдено в базе данных.</value>
+  </data>
+  <data name="DriverLicensePhotoNotFound" xml:space="preserve">
+    <value>Фотография водительского удостоверения не найдена в базе данных</value>
+  </data>
   <data name="DriverLicensePhotos" xml:space="preserve">
     <value>Фотографии водительского удостоверения</value>
+  </data>
+  <data name="DriverLicensePhotosNotFound" xml:space="preserve">
+    <value>Фотографии водительских удостоверений не найдены в базе данных</value>
+  </data>
+  <data name="DriverLicensesNotFound" xml:space="preserve">
+    <value>Водительские удостоверения не найдены в базе данных.</value>
   </data>
   <data name="DriverMedicalCertificate" xml:space="preserve">
     <value>Медицинская справка водителя</value>
@@ -269,8 +293,5 @@
   </data>
   <data name="ValidateSurname" xml:space="preserve">
     <value>Фамилия должна начинаться с заглавной буквы и быть не более 30 символов.</value>
-  </data>
-  <data name="СreatingWithRoleIsProhibited" xml:space="preserve">
-    <value>Создание пользователя с текущей ролью запрешено!</value>
   </data>
 </root>

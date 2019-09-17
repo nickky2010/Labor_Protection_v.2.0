@@ -5,27 +5,20 @@ using System.Collections.Generic;
 
 namespace DAL.Models
 {
-    public class DriverLicense
+    public class DriverLicense : AbstractData<DriverLicense>
     {
-        public Guid Id { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime ExpiryDate { get; set; }
         public string SerialNumber { get; set; }
         public virtual IList<DriverLicenseDriverCategory> DriverLicenseDriverCategories { get; set; }
-        public virtual IList<DriverLicensePhoto> Photos { get; set; }
+        //public virtual IList<DriverLicensePhoto> Photos { get; set; }
         public Guid EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
         public byte[] RowVersion { get; set; }
         public DriverLicense()
         {
-            Photos = new List<DriverLicensePhoto>();
+            //Photos = new List<DriverLicensePhoto>();
             DriverLicenseDriverCategories = new List<DriverLicenseDriverCategory>();
-        }
-        public override bool Equals(object obj)
-        {
-            if (obj == null || !(obj is DriverLicense)) return false;
-            DriverLicense e = (DriverLicense)obj;
-            return GetHashCode() == e.GetHashCode();
         }
         public override int GetHashCode()
         {

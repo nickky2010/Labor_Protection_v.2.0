@@ -14,6 +14,6 @@ namespace BLL.Interfaces
         Task<IAppActionResult<TUpdateDTO>> UpdateAsync(TUpdateDTO entity);
         Task<IAppActionResult> DeleteAsync(Guid guid);
         Task<IAppActionResult<TGetDTO>> GetAsync(Guid guid);
-        Task<IAppActionResult<IList<TGetDTO>>> GetPageAsync(int startItem, int countItem);
+        Task<IAppActionResult<List<TGetDTO>>> GetPageAsync(int startItem, int countItem);
     }
 }

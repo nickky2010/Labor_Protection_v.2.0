@@ -8,8 +8,11 @@ namespace DAL.EFContexts.Configurations
     {
         public void Configure(EntityTypeBuilder<DriverLicense> builder)
         {
+            builder.Property(p => p.Id).ValueGeneratedNever();
             builder.Property(p => p.RowVersion).IsRowVersion();
             builder.HasOne(b => b.Employee).WithOne(ba => ba.DriverLicense).HasForeignKey<Employee>(b => b.DriverLicenseId);
+            builder.HasMany(b => b.DriverLicenseDriverCategories).WithOne(bg => bg.DriverLicense).HasForeignKey(b => b.DriverLicenseId);
+
         }
     }
 }

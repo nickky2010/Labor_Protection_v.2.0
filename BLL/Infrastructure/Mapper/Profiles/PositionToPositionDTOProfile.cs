@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.DTO.Positions;
 using DAL.Models;
+using System;
 
 namespace BLL.Infrastructure.Mapper.Profiles
 {
@@ -8,7 +9,12 @@ namespace BLL.Infrastructure.Mapper.Profiles
     {
         public PositionToPositionDTOProfile()
         {
-            CreateMap<Position, PositionAddDTO>().ReverseMap();
+            CreateMap<Position, PositionAddDTO>();
+            CreateMap<PositionAddDTO, Position>()
+                .AfterMap((s, d) =>
+                {
+                    d.Id = Guid.NewGuid();
+                });
             CreateMap<Position, PositionGetUpdateDTO>().ReverseMap();
         }
     }

@@ -1,9 +1,14 @@
-﻿using DAL.Models;
+﻿using DAL.Interfaces;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DAL.Repositories.EF
 {
-    public class EFDriverCategoryRepository : AbstractEFRepository<DriverCategory>/*, IDriverCategoryRepository*/
+    public class EFDriverCategoryRepository : AbstractEFRepository<DriverCategory>
     {
         public EFDriverCategoryRepository(DbContext context) : base(context)
         {
@@ -11,13 +16,5 @@ namespace DAL.Repositories.EF
                 .Include(b => b.DriverLicenseDriverCategories)
                 .Include(b => b.DriverMedicalCertificateDriverCategories);
         }
-
-        //public Task<bool> AllContainNameAsync(IList<IDriverCategory> driverCategory)
-        //{
-        //    var guids = driverCategory.Select(g => g.DriverCategoryId).ToList();
-        //    return _dbSet.AsNoTracking()
-        //        .AsQueryable().
-        //        .AllAsync(m => guids.Contains(m.Id));
-        //}
     }
 }

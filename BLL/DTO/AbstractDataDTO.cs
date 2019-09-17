@@ -1,6 +1,4 @@
-﻿using BLL.Interfaces;
-
-namespace BLL.DTO
+﻿namespace BLL.DTO
 {
     public abstract class AbstractDataDTO<TDTO>
         where TDTO : class

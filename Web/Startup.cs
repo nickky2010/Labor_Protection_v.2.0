@@ -15,6 +15,8 @@ using BLL.Services;
 using BLL;
 using BLL.DTO.Employees;
 using BLL.DTO.Positions;
+using BLL.DTO.DriverCategories;
+using BLL.DTO.DriverLicenses;
 
 namespace Web
 {
@@ -31,9 +33,12 @@ namespace Web
         {
             var mappingConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<EmployeeToEmployeeDTOProfile>();
+                cfg.AddProfile<EmployeeToEmployeeDTOProfile>(); 
                 cfg.AddProfile<PositionToPositionDTOProfile>();
-                
+                cfg.AddProfile<DriverCategoryToDriverCategoryDTOProfile>();
+                cfg.AddProfile<DriverLicensePhotoToDriverLicensePhotoDTOProfile>();
+                cfg.AddProfile<DriverLicenseToDriverLicenseDTOProfile>();
+
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -43,6 +48,8 @@ namespace Web
 
             services.AddScoped<IDataBaseService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO>>(o => new EmployeeService(unitOfWorkService, mapper));
             services.AddScoped<IDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>>(o => new PositionService(unitOfWorkService, mapper));
+            services.AddScoped<IDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO>>(o => new DriverCategoryService(unitOfWorkService, mapper));
+            services.AddScoped<IDataBaseService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO>>(o => new DriverLicenseService(unitOfWorkService, mapper));
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()

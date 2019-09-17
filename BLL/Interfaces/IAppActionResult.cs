@@ -2,16 +2,13 @@
 
 namespace BLL.Interfaces
 {
-    public interface IAppActionResult<TDTO>
+    public interface IAppActionResult<TDTO>: IAppActionResult
     {
-        int Status { get; }
-        bool IsSuccess { get; }
-        IList<string> ErrorMessages { get; }
         TDTO Data { get; set; }
     }
     public interface IAppActionResult
     {
-        int Status { get; }
+        int Status { get; set; }
         bool IsSuccess { get; }
         IList<string> ErrorMessages { get; }
     }

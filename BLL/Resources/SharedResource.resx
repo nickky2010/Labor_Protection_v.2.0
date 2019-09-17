@@ -132,6 +132,9 @@
   <data name="CountItemsLeastOne" xml:space="preserve">
     <value>Count items must be at least 1.</value>
   </data>
+  <data name="CreatingWithRoleIsProhibited" xml:space="preserve">
+    <value>Сreating a user with current role is prohibited!</value>
+  </data>
   <data name="DataIsNotValid" xml:space="preserve">
     <value>Data for item is not valid!</value>
   </data>
@@ -148,13 +151,34 @@
     <value>Date of issue</value>
   </data>
   <data name="DriverCategoriesNotFound" xml:space="preserve">
-    <value>Driving categories (category) not found</value>
+    <value>Driver categories (category) not found</value>
+  </data>
+  <data name="DriverCategoryAlreadyExist" xml:space="preserve">
+    <value>Driver category already exist in database!</value>
+  </data>
+  <data name="DriverCategoryNotFound" xml:space="preserve">
+    <value>Driver category not found!</value>
   </data>
   <data name="DriverLicense" xml:space="preserve">
     <value>Driver license</value>
   </data>
+  <data name="DriverLicenseAlreadyExist" xml:space="preserve">
+    <value>Driver license already exist in database!</value>
+  </data>
+  <data name="DriverLicenseNotFound" xml:space="preserve">
+    <value>Driver license not found!</value>
+  </data>
+  <data name="DriverLicensePhotoNotFound" xml:space="preserve">
+    <value>Driver license photo not found!</value>
+  </data>
   <data name="DriverLicensePhotos" xml:space="preserve">
     <value>Driver license photos</value>
+  </data>
+  <data name="DriverLicensePhotosNotFound" xml:space="preserve">
+    <value>Driver license photos not found!</value>
+  </data>
+  <data name="DriverLicensesNotFound" xml:space="preserve">
+    <value>Driver licenses not found!</value>
   </data>
   <data name="DriverMedicalCertificate" xml:space="preserve">
     <value>Driver medical certificate</value>
@@ -269,8 +293,5 @@
   </data>
   <data name="ValidateSurname" xml:space="preserve">
     <value>The surname must begin with a capital letter and be no more than 30 characters.</value>
-  </data>
-  <data name="СreatingWithRoleIsProhibited" xml:space="preserve">
-    <value>Сreating a user with current role is prohibited!</value>
   </data>
 </root>

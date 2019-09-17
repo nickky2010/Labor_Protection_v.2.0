@@ -106,6 +106,15 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сreating a user with current role is prohibited!.
+        /// </summary>
+        public static string CreatingWithRoleIsProhibited {
+            get {
+                return ResourceManager.GetString("CreatingWithRoleIsProhibited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data for item is not valid!.
         /// </summary>
         public static string DataIsNotValid {
@@ -151,11 +160,29 @@ namespace BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Driving categories (category) not found.
+        ///   Looks up a localized string similar to Driver categories (category) not found.
         /// </summary>
         public static string DriverCategoriesNotFound {
             get {
                 return ResourceManager.GetString("DriverCategoriesNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver category already exist in database!.
+        /// </summary>
+        public static string DriverCategoryAlreadyExist {
+            get {
+                return ResourceManager.GetString("DriverCategoryAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver category not found!.
+        /// </summary>
+        public static string DriverCategoryNotFound {
+            get {
+                return ResourceManager.GetString("DriverCategoryNotFound", resourceCulture);
             }
         }
         
@@ -169,11 +196,56 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Driver license already exist in database!.
+        /// </summary>
+        public static string DriverLicenseAlreadyExist {
+            get {
+                return ResourceManager.GetString("DriverLicenseAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver license not found!.
+        /// </summary>
+        public static string DriverLicenseNotFound {
+            get {
+                return ResourceManager.GetString("DriverLicenseNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver license photo not found!.
+        /// </summary>
+        public static string DriverLicensePhotoNotFound {
+            get {
+                return ResourceManager.GetString("DriverLicensePhotoNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Driver license photos.
         /// </summary>
         public static string DriverLicensePhotos {
             get {
                 return ResourceManager.GetString("DriverLicensePhotos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver license photos not found!.
+        /// </summary>
+        public static string DriverLicensePhotosNotFound {
+            get {
+                return ResourceManager.GetString("DriverLicensePhotosNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver licenses not found!.
+        /// </summary>
+        public static string DriverLicensesNotFound {
+            get {
+                return ResourceManager.GetString("DriverLicensesNotFound", resourceCulture);
             }
         }
         
@@ -516,15 +588,6 @@ namespace BLL.Resources {
         public static string ValidateSurname {
             get {
                 return ResourceManager.GetString("ValidateSurname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Сreating a user with current role is prohibited!.
-        /// </summary>
-        public static string СreatingWithRoleIsProhibited {
-            get {
-                return ResourceManager.GetString("СreatingWithRoleIsProhibited", resourceCulture);
             }
         }
     }

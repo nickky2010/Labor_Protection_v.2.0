@@ -25,6 +25,7 @@ namespace DAL.EFContexts.Contexts
             modelBuilder.ApplyConfiguration(new DriverLicenseDriverCategoryEFConfiguration());
             modelBuilder.ApplyConfiguration(new DriverMedicalCertificateDriverCategoryEFConfiguration());
 
+            modelBuilder.ApplyConfiguration(new DriverCategoryEFConfiguration());
             modelBuilder.ApplyConfiguration(new DriverLicenseEFConfiguration());
             modelBuilder.ApplyConfiguration(new DriverLicensePhotoEFConfiguration());
             modelBuilder.ApplyConfiguration(new DriverMedicalCertificateEFConfiguration());
