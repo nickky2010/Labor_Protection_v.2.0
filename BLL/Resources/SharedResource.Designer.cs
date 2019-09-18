@@ -97,6 +97,15 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder for content not found..
+        /// </summary>
+        public static string ContentPathNotFound {
+            get {
+                return ResourceManager.GetString("ContentPathNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Count items must be at least 1..
         /// </summary>
         public static string CountItemsLeastOne {
@@ -214,6 +223,15 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Driver license photo already exist in database!.
+        /// </summary>
+        public static string DriverLicensePhotoAlreadyExist {
+            get {
+                return ResourceManager.GetString("DriverLicensePhotoAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Driver license photo not found!.
         /// </summary>
         public static string DriverLicensePhotoNotFound {
@@ -277,11 +295,38 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Driver medical certificate photo already exist in database!.
+        /// </summary>
+        public static string DriverMedicalCertificatePhotoAlreadyExist {
+            get {
+                return ResourceManager.GetString("DriverMedicalCertificatePhotoAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver medical certificate photo not found!.
+        /// </summary>
+        public static string DriverMedicalCertificatePhotoNotFound {
+            get {
+                return ResourceManager.GetString("DriverMedicalCertificatePhotoNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Driver medical certificate photos.
         /// </summary>
         public static string DriverMedicalCertificatePhotos {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificatePhotos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver medical certificates photo not found!.
+        /// </summary>
+        public static string DriverMedicalCertificatePhotosNotFound {
+            get {
+                return ResourceManager.GetString("DriverMedicalCertificatePhotosNotFound", resourceCulture);
             }
         }
         
@@ -466,6 +511,15 @@ namespace BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No photo.
+        /// </summary>
+        public static string NoPhoto {
+            get {
+                return ResourceManager.GetString("NoPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open driver categories.
         /// </summary>
         public static string OpenCategories {
@@ -480,6 +534,24 @@ namespace BLL.Resources {
         public static string Patronymic {
             get {
                 return ResourceManager.GetString("Patronymic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo file already exist..
+        /// </summary>
+        public static string PhotoFileAlreadyExist {
+            get {
+                return ResourceManager.GetString("PhotoFileAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo file not found in folder. Name of photo file: .
+        /// </summary>
+        public static string PhotoFileWithIdNotFound {
+            get {
+                return ResourceManager.GetString("PhotoFileWithIdNotFound", resourceCulture);
             }
         }
         

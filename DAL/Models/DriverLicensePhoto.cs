@@ -1,4 +1,5 @@
 ﻿using DAL.Extentions;
+using DAL.Interfaces;
 using System;
 
 namespace DAL.Models
@@ -7,7 +8,7 @@ namespace DAL.Models
     {
         public Guid DriverLicenseId { get; set; }
         public virtual DriverLicense DriverLicense { get; set; }
-        public byte[] Picture { get; set; }
+        public byte[] Photo { get; set; }
         public byte[] RowVersion { get; set; }
         public override int GetHashCode()
         {

@@ -10,7 +10,7 @@ namespace DAL.EFContexts.Configurations
         {
             builder.Property(p => p.Id).ValueGeneratedNever();
             builder.Property(p => p.RowVersion).IsRowVersion();
-            //builder.HasOne(b => b.DriverLicense).WithMany(ba => ba.Photos).HasForeignKey(b => b.DriverLicenseId);
+            builder.HasOne(b => b.DriverLicense).WithMany(ba => ba.Photos).HasForeignKey(b => b.DriverLicenseId);
         }
     }
 }

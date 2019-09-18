@@ -8,26 +8,29 @@ using System.Threading.Tasks;
 
 namespace BLL.ValidatorsOfServices
 {
-    internal class ValidatorEmployeeService: AbstractValidatorOfServices<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>
+    internal class ValidatorEmployeeService: 
+        AbstractValidatorOfServices<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>
     {
-        public override string EntityAlreadyExist { get => "EmployeeAlreadyExist"; }
-        public override string EntityNotFound { get => "EmployeeNotFound"; }
-        public override string EntitiesNotFound { get => "EmployeesNotFound"; }
+        protected override string EntityAlreadyExist { get => "EmployeeAlreadyExist"; }
+        protected override string EntityNotFound { get => "EmployeeNotFound"; }
+        protected override string EntitiesNotFound { get => "EmployeesNotFound"; }
 
         public ValidatorEmployeeService(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
             :base(unitOfWork, localizer) { }
 
-        protected override async Task<IAppActionResult<EmployeeGetDTO>> ValidateConnectedEntities(IAppActionResult<EmployeeGetDTO> getResult, Employee data, EmployeeAddDTO model)
+        protected override async Task<IAppActionResult<EmployeeGetDTO>> ValidateConnectedAddEntities(Employee data, 
+            EmployeeAddDTO model, IStringLocalizer<SharedResource> localizer)
         {
             if (!await UnitOfWork.Positions.IsIdExistAsync(model.PositionId))
-                getResult.ErrorMessages.Add(Localizer["PositionNotFound"]);
-            return getResult;
+                GetResult.ErrorMessages.Add(localizer["PositionNotFound"]);
+            return GetResult;
         }
-        protected override async Task<IAppActionResult<EmployeeUpdateDTO>> ValidateConnectedEntities(IAppActionResult<EmployeeUpdateDTO> updateResult, Employee data, EmployeeUpdateDTO model)
+        protected override async Task<IAppActionResult<EmployeeGetDTO>> ValidateConnectedUpdateEntities(Employee data, 
+            EmployeeUpdateDTO model, IStringLocalizer<SharedResource> localizer)
         {
             if (!await UnitOfWork.Positions.IsIdExistAsync(model.PositionId))
-                updateResult.ErrorMessages.Add(Localizer["PositionNotFound"]);
-            return updateResult;
+                GetResult.ErrorMessages.Add(localizer["PositionNotFound"]);
+            return GetResult;
         }
     }
 }

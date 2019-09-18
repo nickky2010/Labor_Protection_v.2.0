@@ -11,7 +11,7 @@ using Web.Interfaces;
 
 namespace Web.Controllers
 {
-    public abstract class AbstractController<TGetDTO, TAddDTO, TUpdateDTO> : 
+    public abstract class AbstractPhotoController<TGetDTO, TAddDTO, TUpdateDTO> : 
         AbstractBaseController<TGetDTO, TAddDTO, TUpdateDTO>, 
         ICRUDController<TGetDTO, TAddDTO, TUpdateDTO>
 
@@ -19,7 +19,7 @@ namespace Web.Controllers
         where TUpdateDTO : IUpdateDTO
         where TAddDTO : IAddDTO
     {
-        public AbstractController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
+        public AbstractPhotoController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
             IDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> service, IHostingEnvironment environment) :
             base(localizer, mapper, service, environment) { }
 
@@ -42,7 +42,7 @@ namespace Web.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public virtual async Task<IAppActionResult<TGetDTO>> Post([FromBody] TAddDTO addDTO)
+        public virtual async Task<IAppActionResult<TGetDTO>> Post(TAddDTO addDTO)
         {
             var result = Validator.ValidateAdd(addDTO, ModelState);
             if (!result.IsSuccess)
@@ -52,7 +52,7 @@ namespace Web.Controllers
 
         // PUT api/<controller>/5
         [HttpPut]
-        public virtual async Task<IAppActionResult<TGetDTO>> Put([FromBody] TUpdateDTO updateDTO)
+        public virtual async Task<IAppActionResult<TGetDTO>> Put(TUpdateDTO updateDTO)
         {
             var result = Validator.ValidateUpdate(updateDTO, ModelState);
             if (!result.IsSuccess)

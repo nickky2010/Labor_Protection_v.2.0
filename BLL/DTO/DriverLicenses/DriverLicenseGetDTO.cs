@@ -16,10 +16,10 @@ namespace BLL.DTO.DriverLicenses
         public string SerialNumber { get; set; }
         public EmployeeForModelsDTO Employee { get; set; }
         public IList<DriverCategoryGetUpdateDTO> DriverCategories { get; set; }
-        public IList<DriverLicensePhotoGetUpdateDTO> Photos { get; set; }
+        public IList<DriverLicensePhotoGetDTO> Photos { get; set; }
         public DriverLicenseGetDTO()
         {
-            Photos = new List<DriverLicensePhotoGetUpdateDTO>();
+            Photos = new List<DriverLicensePhotoGetDTO>();
             DriverCategories = new List<DriverCategoryGetUpdateDTO>();
         }
         public override int GetHashCode()

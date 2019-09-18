@@ -8,30 +8,33 @@ using System.Threading.Tasks;
 
 namespace BLL.ValidatorsOfServices
 {
-    internal class ValidatorDriverLicenseService : AbstractValidatorOfServices<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>
+    internal class ValidatorDriverLicenseService : 
+        AbstractValidatorOfServices<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>
     {
-        public override string EntityAlreadyExist { get => "DriverLicenseAlreadyExist"; }
-        public override string EntityNotFound { get => "DriverLicenseNotFound"; }
-        public override string EntitiesNotFound { get => "DriverLicensesNotFound"; }
+        protected override string EntityAlreadyExist { get => "DriverLicenseAlreadyExist"; }
+        protected override string EntityNotFound { get => "DriverLicenseNotFound"; }
+        protected override string EntitiesNotFound { get => "DriverLicensesNotFound"; }
 
         public ValidatorDriverLicenseService(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
             : base(unitOfWork, localizer) { }
 
-        protected override async Task<IAppActionResult<DriverLicenseGetDTO>> ValidateConnectedEntities(IAppActionResult<DriverLicenseGetDTO> getResult, DriverLicense data, DriverLicenseAddDTO model)
+        protected override async Task<IAppActionResult<DriverLicenseGetDTO>> ValidateConnectedAddEntities(DriverLicense data, 
+            DriverLicenseAddDTO model, IStringLocalizer<SharedResource> localizer)
         {
             if (!await UnitOfWork.Employees.IsIdExistAsync(model.EmployeeId))
-                getResult.ErrorMessages.Add(Localizer["EmployeeNotFound"]);
+                GetResult.ErrorMessages.Add(localizer["EmployeeNotFound"]);
             if (!await UnitOfWork.DriverCategories.IsAllIdExistAsync(model.DriverCategoriesId))
-                getResult.ErrorMessages.Add(Localizer["DriverCategoriesNotFound"]);
-            return getResult;
+                GetResult.ErrorMessages.Add(localizer["DriverCategoriesNotFound"]);
+            return GetResult;
         }
-        protected override async Task<IAppActionResult<DriverLicenseUpdateDTO>> ValidateConnectedEntities(IAppActionResult<DriverLicenseUpdateDTO> updateResult, DriverLicense data, DriverLicenseUpdateDTO model)
+        protected override async Task<IAppActionResult<DriverLicenseGetDTO>> ValidateConnectedUpdateEntities(DriverLicense data, 
+            DriverLicenseUpdateDTO model, IStringLocalizer<SharedResource> localizer)
         {
             if (!await UnitOfWork.Employees.IsIdExistAsync(model.EmployeeId))
-                updateResult.ErrorMessages.Add(Localizer["EmployeeNotFound"]);
+                GetResult.ErrorMessages.Add(localizer["EmployeeNotFound"]);
             if (!await UnitOfWork.DriverCategories.IsAllIdExistAsync(model.DriverCategoriesId))
-                updateResult.ErrorMessages.Add(Localizer["DriverCategoriesNotFound"]);
-            return updateResult;
+                GetResult.ErrorMessages.Add(localizer["DriverCategoriesNotFound"]);
+            return GetResult;
         }
     }
 }

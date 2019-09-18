@@ -129,6 +129,9 @@
   <data name="AfterAddUserNotFound" xml:space="preserve">
     <value>User after add not found!</value>
   </data>
+  <data name="ContentPathNotFound" xml:space="preserve">
+    <value>Folder for content not found.</value>
+  </data>
   <data name="CountItemsLeastOne" xml:space="preserve">
     <value>Count items must be at least 1.</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="DriverLicenseNotFound" xml:space="preserve">
     <value>Driver license not found!</value>
   </data>
+  <data name="DriverLicensePhotoAlreadyExist" xml:space="preserve">
+    <value>Driver license photo already exist in database!</value>
+  </data>
   <data name="DriverLicensePhotoNotFound" xml:space="preserve">
     <value>Driver license photo not found!</value>
   </data>
@@ -189,8 +195,17 @@
   <data name="DriverMedicalCertificateNotFound" xml:space="preserve">
     <value>Driver medical certificate not found!</value>
   </data>
+  <data name="DriverMedicalCertificatePhotoAlreadyExist" xml:space="preserve">
+    <value>Driver medical certificate photo already exist in database!</value>
+  </data>
+  <data name="DriverMedicalCertificatePhotoNotFound" xml:space="preserve">
+    <value>Driver medical certificate photo not found!</value>
+  </data>
   <data name="DriverMedicalCertificatePhotos" xml:space="preserve">
     <value>Driver medical certificate photos</value>
+  </data>
+  <data name="DriverMedicalCertificatePhotosNotFound" xml:space="preserve">
+    <value>Driver medical certificates photo not found!</value>
   </data>
   <data name="DriverMedicalCertificatesNotFound" xml:space="preserve">
     <value>Driver medical certificates not found!</value>
@@ -252,11 +267,20 @@
   <data name="NoData" xml:space="preserve">
     <value>No data for item!</value>
   </data>
+  <data name="NoPhoto" xml:space="preserve">
+    <value>No photo</value>
+  </data>
   <data name="OpenCategories" xml:space="preserve">
     <value>Open driver categories</value>
   </data>
   <data name="Patronymic" xml:space="preserve">
     <value>Patronymic</value>
+  </data>
+  <data name="PhotoFileAlreadyExist" xml:space="preserve">
+    <value>Photo file already exist.</value>
+  </data>
+  <data name="PhotoFileWithIdNotFound" xml:space="preserve">
+    <value>Photo file not found in folder. Name of photo file: </value>
   </data>
   <data name="Position" xml:space="preserve">
     <value>Position</value>

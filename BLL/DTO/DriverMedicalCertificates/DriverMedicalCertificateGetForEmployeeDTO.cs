@@ -13,10 +13,10 @@ namespace BLL.DTO.DriverMedicalCertificates
         public DateTime ExpiryDate { get; set; }
         public string SerialNumber { get; set; }
         public IList<DriverCategoryGetUpdateDTO> DriverCategories { get; set; }
-        public IList<DriverMedicalCertificatePhotoGetUpdateDTO> Photos { get; set; }
+        public IList<DriverMedicalCertificatePhotoGetDTO> Photos { get; set; }
         public DriverMedicalCertificateGetForEmployeeDTO()
         {
-            Photos = new List<DriverMedicalCertificatePhotoGetUpdateDTO>();
+            Photos = new List<DriverMedicalCertificatePhotoGetDTO>();
             DriverCategories = new List<DriverCategoryGetUpdateDTO>();
         }
         public override int GetHashCode()

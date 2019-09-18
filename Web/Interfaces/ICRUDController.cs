@@ -13,8 +13,8 @@ namespace Web.Interfaces
     {
         Task<IAppActionResult<List<TGetDTO>>> Get([FromQuery]int startItem, [FromQuery]int countItem);
         Task<IAppActionResult<TGetDTO>> Get(Guid guid);
-        Task<IAppActionResult<TGetDTO>> Post([FromBody]TAddDTO addDTO);
-        Task<IAppActionResult<TUpdateDTO>> Put([FromBody]TUpdateDTO updateDTO);
+        Task<IAppActionResult<TGetDTO>> Post(TAddDTO addDTO);
+        Task<IAppActionResult<TGetDTO>> Put([FromBody]TUpdateDTO updateDTO);
         Task<IAppActionResult> Delete(Guid guid);
     }
 }

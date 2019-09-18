@@ -7,7 +7,7 @@ namespace DAL.Models
     {
         public Guid DriverMedicalCertificateId { get; set; }
         public virtual DriverMedicalCertificate DriverMedicalCertificate { get; set; }
-        public byte[] Picture { get; set; }
+        public byte[] Photo { get; set; }
         public byte[] RowVersion { get; set; }
         public override int GetHashCode()
         {

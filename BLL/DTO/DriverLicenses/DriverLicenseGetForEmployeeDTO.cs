@@ -1,6 +1,5 @@
 ﻿using BLL.DTO.DriverCategories;
 using BLL.DTO.DriverLicensePhotos;
-using BLL.Interfaces;
 using DAL.Extentions;
 using System;
 using System.Collections.Generic;
@@ -14,10 +13,10 @@ namespace BLL.DTO.DriverLicenses
         public DateTime ExpiryDate { get; set; }
         public string SerialNumber { get; set; }
         public IList<DriverCategoryGetUpdateDTO> DriverCategories { get; set; }
-        public IList<DriverLicensePhotoGetUpdateDTO> Photos { get; set; }
+        public IList<DriverLicensePhotoGetDTO> Photos { get; set; }
         public DriverLicenseGetForEmployeeDTO()
         {
-            Photos = new List<DriverLicensePhotoGetUpdateDTO>();
+            Photos = new List<DriverLicensePhotoGetDTO>();
             DriverCategories = new List<DriverCategoryGetUpdateDTO>();
         }
         public override int GetHashCode()

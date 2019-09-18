@@ -18,7 +18,6 @@ namespace BLL.ValidatorsOfServices
         public IStringLocalizer<SharedResource> Localizer { get; set; }
         public IAppActionResult<TGetDTO> GetResult { get; set; }
         public IAppActionResult<List<TGetDTO>> GetListResult { get; set; }
-        public IAppActionResult<TUpdateDTO> UpdateResult { get; set; }
         public IAppActionResult DeleteResult { get; set; }
 
         public virtual string StartItemNotExist { get => "StartItemNotExist"; }
@@ -30,7 +29,6 @@ namespace BLL.ValidatorsOfServices
         public AbstractValidatorOfControllers(IStringLocalizer<SharedResource> localizer)
         {
             GetResult = new AppActionResult<TGetDTO>();
-            UpdateResult = new AppActionResult<TUpdateDTO>();
             DeleteResult = new AppActionResult();
             GetListResult = new AppActionResult<List<TGetDTO>>();
             Localizer = localizer;
@@ -56,17 +54,17 @@ namespace BLL.ValidatorsOfServices
             return GetResult;
         }
 
-        public IAppActionResult<TUpdateDTO> ValidateUpdate(TUpdateDTO updateDTO, ModelStateDictionary modelState)
+        public virtual IAppActionResult<TGetDTO> ValidateUpdate(TUpdateDTO updateDTO, ModelStateDictionary modelState)
         {
             if (updateDTO == null)
-                UpdateResult.ErrorMessages.Add(Localizer[NoData]);
+                GetResult.ErrorMessages.Add(Localizer[NoData]);
             if (!modelState.IsValid)
-                UpdateResult.ErrorMessages.Add(Localizer[DataIsNotValid]);
-            SetStatus(UpdateResult, HttpStatusCode.BadRequest, HttpStatusCode.OK);
-            return UpdateResult;
+                GetResult.ErrorMessages.Add(Localizer[DataIsNotValid]);
+            SetStatus(GetResult, HttpStatusCode.BadRequest, HttpStatusCode.OK);
+            return GetResult;
         }
 
-        private void SetStatus(IAppActionResult appActionResult, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
+        protected void SetStatus(IAppActionResult appActionResult, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
         {
             if (appActionResult.ErrorMessages.Count != 0)
                 appActionResult.Status = (int)statusCodeIsError;

@@ -12,6 +12,8 @@ namespace DAL.EFContexts.Configurations
             builder.Property(p => p.RowVersion).IsRowVersion();
             builder.HasOne(b => b.Employee).WithOne(ba => ba.DriverLicense).HasForeignKey<Employee>(b => b.DriverLicenseId);
             builder.HasMany(b => b.DriverLicenseDriverCategories).WithOne(bg => bg.DriverLicense).HasForeignKey(b => b.DriverLicenseId);
+            builder.HasMany(b => b.Photos).WithOne(ba => ba.DriverLicense).HasForeignKey(b => b.DriverLicenseId);
+
         }
     }
 }

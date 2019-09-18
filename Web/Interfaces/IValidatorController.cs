@@ -14,7 +14,6 @@ namespace Web.Interfaces
         IStringLocalizer<SharedResource> Localizer { get; set; }
         IAppActionResult<TGetDTO> GetResult { get; set; }
         IAppActionResult<List<TGetDTO>> GetListResult { get; set; }
-        IAppActionResult<TUpdateDTO> UpdateResult { get; set; }
         IAppActionResult DeleteResult { get; set; }
         string StartItemNotExist { get; }
         string CountItemsLeastOne { get; }
@@ -23,6 +22,6 @@ namespace Web.Interfaces
 
         IAppActionResult<List<TGetDTO>> ValidatePaging(int startItem, int countItem);
         IAppActionResult<TGetDTO> ValidateAdd(TAddDTO addDTO, ModelStateDictionary modelState);
-        IAppActionResult<TUpdateDTO> ValidateUpdate(TUpdateDTO updateDTO, ModelStateDictionary modelState);
+        IAppActionResult<TGetDTO> ValidateUpdate(TUpdateDTO updateDTO, ModelStateDictionary modelState);
     }
 }

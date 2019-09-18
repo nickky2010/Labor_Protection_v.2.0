@@ -8,30 +8,33 @@ using System.Threading.Tasks;
 
 namespace BLL.ValidatorsOfServices
 {
-    internal class ValidatorDriverMedicalCertificateService : AbstractValidatorOfServices<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate>
+    internal class ValidatorDriverMedicalCertificateService : 
+        AbstractValidatorOfServices<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate>
     {
-        public override string EntityAlreadyExist { get => "DriverMedicalCertificateAlreadyExist"; }
-        public override string EntityNotFound { get => "DriverMedicalCertificateNotFound"; }
-        public override string EntitiesNotFound { get => "DriverMedicalCertificatesNotFound"; }
+        protected override string EntityAlreadyExist { get => "DriverMedicalCertificateAlreadyExist"; }
+        protected override string EntityNotFound { get => "DriverMedicalCertificateNotFound"; }
+        protected override string EntitiesNotFound { get => "DriverMedicalCertificatesNotFound"; }
 
         public ValidatorDriverMedicalCertificateService(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
             : base(unitOfWork, localizer) { }
 
-        protected override async Task<IAppActionResult<DriverMedicalCertificateGetDTO>> ValidateConnectedEntities(IAppActionResult<DriverMedicalCertificateGetDTO> getResult, DriverMedicalCertificate data, DriverMedicalCertificateAddDTO model)
+        protected override async Task<IAppActionResult<DriverMedicalCertificateGetDTO>> ValidateConnectedAddEntities(DriverMedicalCertificate data, 
+            DriverMedicalCertificateAddDTO model, IStringLocalizer<SharedResource> localizer)
         {
             if (!await UnitOfWork.Employees.IsIdExistAsync(model.EmployeeId))
-                getResult.ErrorMessages.Add(Localizer["EmployeeNotFound"]);
+                GetResult.ErrorMessages.Add(localizer["EmployeeNotFound"]);
             if (!await UnitOfWork.DriverCategories.IsAllIdExistAsync(model.DriverCategoriesId))
-                getResult.ErrorMessages.Add(Localizer["DriverCategoriesNotFound"]);
-            return getResult;
+                GetResult.ErrorMessages.Add(localizer["DriverCategoriesNotFound"]);
+            return GetResult;
         }
-        protected override async Task<IAppActionResult<DriverMedicalCertificateUpdateDTO>> ValidateConnectedEntities(IAppActionResult<DriverMedicalCertificateUpdateDTO> updateResult, DriverMedicalCertificate data, DriverMedicalCertificateUpdateDTO model)
+        protected override async Task<IAppActionResult<DriverMedicalCertificateGetDTO>> ValidateConnectedUpdateEntities(DriverMedicalCertificate data, 
+            DriverMedicalCertificateUpdateDTO model, IStringLocalizer<SharedResource> localizer)
         {
             if (!await UnitOfWork.Employees.IsIdExistAsync(model.EmployeeId))
-                updateResult.ErrorMessages.Add(Localizer["EmployeeNotFound"]);
+                GetResult.ErrorMessages.Add(localizer["EmployeeNotFound"]);
             if (!await UnitOfWork.DriverCategories.IsAllIdExistAsync(model.DriverCategoriesId))
-                updateResult.ErrorMessages.Add(Localizer["DriverCategoriesNotFound"]);
-            return updateResult;
+                GetResult.ErrorMessages.Add(localizer["DriverCategoriesNotFound"]);
+            return GetResult;
         }
     }
 }

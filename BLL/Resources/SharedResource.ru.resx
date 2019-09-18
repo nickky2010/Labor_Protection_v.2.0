@@ -129,6 +129,9 @@
   <data name="AfterAddUserNotFound" xml:space="preserve">
     <value>Пользователь после добавления не найден!</value>
   </data>
+  <data name="ContentPathNotFound" xml:space="preserve">
+    <value>Папка для фотографий не найдена.</value>
+  </data>
   <data name="CountItemsLeastOne" xml:space="preserve">
     <value>Количество элементов должно быть не менее 1.</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="DriverLicenseNotFound" xml:space="preserve">
     <value>Водительское удостоверение не найдено в базе данных.</value>
   </data>
+  <data name="DriverLicensePhotoAlreadyExist" xml:space="preserve">
+    <value>Фотография водительского удостоверения уже существует в базе данных.</value>
+  </data>
   <data name="DriverLicensePhotoNotFound" xml:space="preserve">
     <value>Фотография водительского удостоверения не найдена в базе данных</value>
   </data>
@@ -189,8 +195,17 @@
   <data name="DriverMedicalCertificateNotFound" xml:space="preserve">
     <value>Медицинская справка водителя не найдена!</value>
   </data>
+  <data name="DriverMedicalCertificatePhotoAlreadyExist" xml:space="preserve">
+    <value>Фотография медицинской справки водителя уже существует в базе данных.</value>
+  </data>
+  <data name="DriverMedicalCertificatePhotoNotFound" xml:space="preserve">
+    <value>Фотография медицинской справки водителя не найдена в базе данных.</value>
+  </data>
   <data name="DriverMedicalCertificatePhotos" xml:space="preserve">
     <value>Фотографии водительской медицинской справки</value>
+  </data>
+  <data name="DriverMedicalCertificatePhotosNotFound" xml:space="preserve">
+    <value>Фотографии медицинских справок водителей не найдены в базе данных.</value>
   </data>
   <data name="DriverMedicalCertificatesNotFound" xml:space="preserve">
     <value>Медицинские справки водителей не найдены!</value>
@@ -252,11 +267,20 @@
   <data name="NoData" xml:space="preserve">
     <value>Нет данных для элемента!</value>
   </data>
+  <data name="NoPhoto" xml:space="preserve">
+    <value>Нет фотографии</value>
+  </data>
   <data name="OpenCategories" xml:space="preserve">
     <value>Открытые водительские категории</value>
   </data>
   <data name="Patronymic" xml:space="preserve">
     <value>Отчество</value>
+  </data>
+  <data name="PhotoFileAlreadyExist" xml:space="preserve">
+    <value>Фотография уже существует в папке.</value>
+  </data>
+  <data name="PhotoFileWithIdNotFound" xml:space="preserve">
+    <value>Фотография не найдена в папке. Название фотографии: </value>
   </data>
   <data name="Position" xml:space="preserve">
     <value>Должность (профессия)</value>

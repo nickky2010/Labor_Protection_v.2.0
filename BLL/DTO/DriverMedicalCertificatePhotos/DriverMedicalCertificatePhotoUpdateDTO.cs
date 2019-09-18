@@ -5,14 +5,17 @@ using System;
 
 namespace BLL.DTO.DriverMedicalCertificatePhotos
 {
-    public class DriverMedicalCertificatePhotoAddDTO : AbstractDataDTO<DriverMedicalCertificatePhotoAddDTO>, IAddDTO, IAddUpdatePhotoDTO
+    public class DriverMedicalCertificatePhotoUpdateDTO : 
+        AbstractDataDTO<DriverMedicalCertificatePhotoUpdateDTO>, IUpdateDTO, IGetDTO, IAddUpdatePhotoDTO
     {
+        public Guid Id { get; set; }
         public IFormFile Picture { get; set; }
         public Guid DriverMedicalCertificateId { get; set; }
 
         public override int GetHashCode()
         {
             int hash = 17;
+            hash ^= 31 + Id.ToString().ToInt();
             return hash ^= 31 + DriverMedicalCertificateId.ToString().ToInt();
         }
     }

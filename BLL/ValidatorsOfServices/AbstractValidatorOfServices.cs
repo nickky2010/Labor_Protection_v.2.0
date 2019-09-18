@@ -9,39 +9,39 @@ using System.Threading.Tasks;
 
 namespace BLL.ValidatorsOfServices
 {
-    internal abstract class AbstractValidatorOfServices<TGetDTO, TAddDTO, TUpdateDTO, TData> : IValidatorService<TGetDTO, TAddDTO, TUpdateDTO, TData>
+    internal abstract class AbstractValidatorOfServices<TGetDTO, TAddDTO, TUpdateDTO, TData> :
+        IValidatorService<TGetDTO, TAddDTO, TUpdateDTO, TData>
+
         where TGetDTO : IGetDTO
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
         where TData : IData
     {
         public IUnitOfWork<LaborProtectionContext> UnitOfWork { get; set; }
-        public IStringLocalizer<SharedResource> Localizer { get; set; }
         public IAppActionResult<TGetDTO> GetResult { get; set; }
         public IAppActionResult<List<TGetDTO>> GetListResult { get; set; }
-        public IAppActionResult<TUpdateDTO> UpdateResult { get; set; }
         public IAppActionResult DeleteResult { get; set; }
 
-        public abstract string EntityAlreadyExist { get; }
-        public abstract string EntityNotFound { get; }
-        public abstract string EntitiesNotFound { get; }
+        protected abstract string EntityAlreadyExist { get; }
+        protected abstract string EntityNotFound { get; }
+        protected abstract string EntitiesNotFound { get; }
+
 
         public AbstractValidatorOfServices(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
         {
             GetResult = new AppActionResult<TGetDTO>();
-            UpdateResult = new AppActionResult<TUpdateDTO>();
             DeleteResult = new AppActionResult();
             GetListResult = new AppActionResult<List<TGetDTO>>();
             UnitOfWork = unitOfWork;
-            Localizer = localizer;
         }
 
-        public virtual async Task<IAppActionResult<TGetDTO>> ValidateAdd(TData data, TAddDTO model, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
+        public virtual async Task<IAppActionResult<TGetDTO>> ValidateAdd(TData data, TAddDTO model, 
+            HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer)
         {
             if (data != null)
-                GetResult.ErrorMessages.Add(Localizer[EntityAlreadyExist]);
+                GetResult.ErrorMessages.Add(localizer[EntityAlreadyExist]);
             else
-                GetResult = await ValidateConnectedEntities(GetResult, data, model);
+                GetResult = await ValidateConnectedAddEntities(data, model, localizer);
             if (GetResult.ErrorMessages.Count!=0)
                 GetResult.Status = (int)statusCodeIsError;
             else
@@ -49,31 +49,34 @@ namespace BLL.ValidatorsOfServices
             return GetResult;
         }
 
-        public virtual IAppActionResult<TGetDTO> ValidateDataFromDb(TData data, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
+        public virtual IAppActionResult<TGetDTO> ValidateDataFromDb(TData data, 
+            HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer)
         {
             if (data == null)
-                GetResult.ErrorMessages.Add(Localizer[EntityNotFound]);
+                GetResult.ErrorMessages.Add(localizer[EntityNotFound]);
             if (GetResult.ErrorMessages.Count != 0)
                 GetResult.Status = (int)statusCodeIsError;
             else
                 GetResult.Status = (int)statusCodeIsSuccess;
             return GetResult;
         }
-        public virtual IAppActionResult<TUpdateDTO> ValidateDataFromDbForUpdate(TData data, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
+        public virtual IAppActionResult<TGetDTO> ValidateDataFromDbForUpdate(TData data, 
+            HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer)
         {
             if (data == null)
-                UpdateResult.ErrorMessages.Add(Localizer[EntityNotFound]);
-            if (UpdateResult.ErrorMessages.Count != 0)
-                UpdateResult.Status = (int)statusCodeIsError;
+                GetResult.ErrorMessages.Add(localizer[EntityNotFound]);
+            if (GetResult.ErrorMessages.Count != 0)
+                GetResult.Status = (int)statusCodeIsError;
             else
-                UpdateResult.Status = (int)statusCodeIsSuccess;
-            return UpdateResult;
+                GetResult.Status = (int)statusCodeIsSuccess;
+            return GetResult;
         }
 
-        public virtual IAppActionResult<List<TGetDTO>> ValidateDataFromDb(IList<TData> data, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
+        public virtual IAppActionResult<List<TGetDTO>> ValidateDataFromDb(IList<TData> data, 
+            HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer)
         {
             if (data == null)
-                GetListResult.ErrorMessages.Add(Localizer[EntitiesNotFound]);
+                GetListResult.ErrorMessages.Add(localizer[EntitiesNotFound]);
             if (GetListResult.ErrorMessages.Count != 0)
                 GetListResult.Status = (int)statusCodeIsError;
             else
@@ -81,10 +84,11 @@ namespace BLL.ValidatorsOfServices
             return GetListResult;
         }
 
-        public virtual IAppActionResult ValidateDeleteDataFromDb(TData data, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
+        public virtual IAppActionResult ValidateDeleteDataFromDb(TData data, 
+            HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer)
         {
             if (data == null)
-                DeleteResult.ErrorMessages.Add(Localizer[EntityNotFound]);
+                DeleteResult.ErrorMessages.Add(localizer[EntityNotFound]);
             if (DeleteResult.ErrorMessages.Count != 0)
                 DeleteResult.Status = (int)statusCodeIsError;
             else
@@ -92,26 +96,27 @@ namespace BLL.ValidatorsOfServices
             return DeleteResult;
         }
 
-        public virtual async Task<IAppActionResult<TUpdateDTO>> ValidateUpdate(TData data, TUpdateDTO model, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
+        public virtual async Task<IAppActionResult<TGetDTO>> ValidateUpdate(TData data, TUpdateDTO model, 
+            HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer)
         {
             if (data == null)
-                UpdateResult.ErrorMessages.Add(Localizer[EntityNotFound]);
+                GetResult.ErrorMessages.Add(localizer[EntityNotFound]);
             else
-                UpdateResult = await ValidateConnectedEntities(UpdateResult, data, model);
-            if (UpdateResult.ErrorMessages.Count != 0)
-                UpdateResult.Status = (int)statusCodeIsError;
+                GetResult = await ValidateConnectedUpdateEntities(data, model, localizer);
+            if (GetResult.ErrorMessages.Count != 0)
+                GetResult.Status = (int)statusCodeIsError;
             else
-                UpdateResult.Status = (int)statusCodeIsSuccess;
-            return UpdateResult;
+                GetResult.Status = (int)statusCodeIsSuccess;
+            return GetResult;
         }
 
-        protected virtual async Task<IAppActionResult<TUpdateDTO>> ValidateConnectedEntities(IAppActionResult<TUpdateDTO> updateResult, TData data, TUpdateDTO model)
+        protected virtual Task<IAppActionResult<TGetDTO>> ValidateConnectedAddEntities(TData data, TAddDTO model, IStringLocalizer<SharedResource> localizer)
         {
-            return await Task.Run(() => updateResult);
+            return Task.Run(() => GetResult);
         }
-        protected virtual async Task<IAppActionResult<TGetDTO>> ValidateConnectedEntities(IAppActionResult<TGetDTO> getResult, TData data, TAddDTO model)
+        protected virtual async Task<IAppActionResult<TGetDTO>> ValidateConnectedUpdateEntities(TData data, TUpdateDTO model, IStringLocalizer<SharedResource> localizer)
         {
-            return await Task.Run(() => getResult);
+            return await Task.Run(() => GetResult);
         }
     }
 }

@@ -1,18 +1,20 @@
 ﻿using BLL.Interfaces;
 using DAL.Extentions;
-using Microsoft.AspNetCore.Http;
 using System;
 
 namespace BLL.DTO.DriverMedicalCertificatePhotos
 {
-    public class DriverMedicalCertificatePhotoAddDTO : AbstractDataDTO<DriverMedicalCertificatePhotoAddDTO>, IAddDTO, IAddUpdatePhotoDTO
+    public class DriverMedicalCertificatePhotoGetDTO : 
+        AbstractDataDTO<DriverMedicalCertificatePhotoGetDTO>, IUpdateDTO, IGetDTO, IGetPhotoDTO
     {
-        public IFormFile Picture { get; set; }
+        public Guid Id { get; set; }
+        public byte[] Picture { get; set; }
         public Guid DriverMedicalCertificateId { get; set; }
 
         public override int GetHashCode()
         {
             int hash = 17;
+            hash ^= 31 + Id.ToString().ToInt();
             return hash ^= 31 + DriverMedicalCertificateId.ToString().ToInt();
         }
     }

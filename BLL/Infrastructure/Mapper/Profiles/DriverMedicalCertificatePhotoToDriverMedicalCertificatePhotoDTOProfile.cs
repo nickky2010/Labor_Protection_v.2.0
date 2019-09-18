@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using BLL.DTO.DriverLicensePhotos;
+using BLL.DTO.DriverMedicalCertificatePhotos;
 using DAL.Models;
 using System;
 using System.IO;
 
 namespace BLL.Infrastructure.Mapper.Profiles
 {
-    internal class DriverLicensePhotoToDriverLicensePhotoDTOProfile : Profile
+    internal class DriverMedicalCertificatePhotoToDriverMedicalCertificatePhotoDTOProfile : Profile
     {
-        public DriverLicensePhotoToDriverLicensePhotoDTOProfile()
+        public DriverMedicalCertificatePhotoToDriverMedicalCertificatePhotoDTOProfile()
         {
-            CreateMap<DriverLicensePhoto, DriverLicensePhotoAddDTO>();
-            CreateMap<DriverLicensePhotoAddDTO, DriverLicensePhoto>()
+            CreateMap<DriverMedicalCertificatePhoto, DriverMedicalCertificatePhotoAddDTO>();
+            CreateMap<DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhoto>()
                 .AfterMap((s, d) =>
                 {
                     d.Id = Guid.NewGuid();
@@ -20,13 +20,13 @@ namespace BLL.Infrastructure.Mapper.Profiles
                         d.Photo = reader.ReadBytes((int)s.Picture.Length);
                     }
                 });
-            CreateMap<DriverLicensePhoto, DriverLicensePhotoGetDTO>()
+            CreateMap<DriverMedicalCertificatePhoto, DriverMedicalCertificatePhotoGetDTO>()
                 .ForPath(d => d.Picture, opt => opt.MapFrom(s => s.Photo));
-            CreateMap<DriverLicensePhotoGetDTO, DriverLicensePhoto>()
+            CreateMap<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhoto>()
                 .ForPath(d => d.Photo, opt => opt.MapFrom(s => s.Picture));
 
-            CreateMap<DriverLicensePhoto, DriverLicensePhotoUpdateDTO>();
-            CreateMap<DriverLicensePhotoUpdateDTO, DriverLicensePhoto>()
+            CreateMap<DriverMedicalCertificatePhoto, DriverMedicalCertificatePhotoUpdateDTO>();
+            CreateMap<DriverMedicalCertificatePhotoUpdateDTO, DriverMedicalCertificatePhoto>()
                 .AfterMap((s, d) =>
                 {
                     using (var reader = new BinaryReader(s.Picture.OpenReadStream()))
