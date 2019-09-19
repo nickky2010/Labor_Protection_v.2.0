@@ -22,7 +22,7 @@ namespace BLL.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class SharedResource {
+    internal class SharedResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace BLL.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BLL.Resources.SharedResource", typeof(SharedResource).Assembly);
@@ -51,7 +51,7 @@ namespace BLL.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Employee after add not found!.
         /// </summary>
-        public static string AfterAddEmployeeNotFound {
+        internal static string AfterAddEmployeeNotFound {
             get {
                 return ResourceManager.GetString("AfterAddEmployeeNotFound", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to After add position not found.
         /// </summary>
-        public static string AfterAddPositionNotFound {
+        internal static string AfterAddPositionNotFound {
             get {
                 return ResourceManager.GetString("AfterAddPositionNotFound", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Role after add not found!.
         /// </summary>
-        public static string AfterAddRoleNotFound {
+        internal static string AfterAddRoleNotFound {
             get {
                 return ResourceManager.GetString("AfterAddRoleNotFound", resourceCulture);
             }
@@ -90,16 +90,25 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to User after add not found!.
         /// </summary>
-        public static string AfterAddUserNotFound {
+        internal static string AfterAddUserNotFound {
             get {
                 return ResourceManager.GetString("AfterAddUserNotFound", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fewer columns than necessary for data model.
+        /// </summary>
+        internal static string ColCountSmallerThanDataModels {
+            get {
+                return ResourceManager.GetString("ColCountSmallerThanDataModels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder for content not found..
         /// </summary>
-        public static string ContentPathNotFound {
+        internal static string ContentPathNotFound {
             get {
                 return ResourceManager.GetString("ContentPathNotFound", resourceCulture);
             }
@@ -108,7 +117,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Count items must be at least 1..
         /// </summary>
-        public static string CountItemsLeastOne {
+        internal static string CountItemsLeastOne {
             get {
                 return ResourceManager.GetString("CountItemsLeastOne", resourceCulture);
             }
@@ -117,7 +126,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Сreating a user with current role is prohibited!.
         /// </summary>
-        public static string CreatingWithRoleIsProhibited {
+        internal static string CreatingWithRoleIsProhibited {
             get {
                 return ResourceManager.GetString("CreatingWithRoleIsProhibited", resourceCulture);
             }
@@ -126,7 +135,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Data for item is not valid!.
         /// </summary>
-        public static string DataIsNotValid {
+        internal static string DataIsNotValid {
             get {
                 return ResourceManager.GetString("DataIsNotValid", resourceCulture);
             }
@@ -135,7 +144,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Data has not been deleted from the database!.
         /// </summary>
-        public static string DataNotDeletedFromDB {
+        internal static string DataNotDeletedFromDB {
             get {
                 return ResourceManager.GetString("DataNotDeletedFromDB", resourceCulture);
             }
@@ -144,7 +153,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Data has not been updated in the database!.
         /// </summary>
-        public static string DataNotUpdatedInDB {
+        internal static string DataNotUpdatedInDB {
             get {
                 return ResourceManager.GetString("DataNotUpdatedInDB", resourceCulture);
             }
@@ -153,7 +162,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Data was not written to the database!.
         /// </summary>
-        public static string DataNotWrittenToDB {
+        internal static string DataNotWrittenToDB {
             get {
                 return ResourceManager.GetString("DataNotWrittenToDB", resourceCulture);
             }
@@ -162,7 +171,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Date of issue.
         /// </summary>
-        public static string DateOfIssue {
+        internal static string DateOfIssue {
             get {
                 return ResourceManager.GetString("DateOfIssue", resourceCulture);
             }
@@ -171,7 +180,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver categories (category) not found.
         /// </summary>
-        public static string DriverCategoriesNotFound {
+        internal static string DriverCategoriesNotFound {
             get {
                 return ResourceManager.GetString("DriverCategoriesNotFound", resourceCulture);
             }
@@ -180,7 +189,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver category already exist in database!.
         /// </summary>
-        public static string DriverCategoryAlreadyExist {
+        internal static string DriverCategoryAlreadyExist {
             get {
                 return ResourceManager.GetString("DriverCategoryAlreadyExist", resourceCulture);
             }
@@ -189,7 +198,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver category not found!.
         /// </summary>
-        public static string DriverCategoryNotFound {
+        internal static string DriverCategoryNotFound {
             get {
                 return ResourceManager.GetString("DriverCategoryNotFound", resourceCulture);
             }
@@ -198,7 +207,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver license.
         /// </summary>
-        public static string DriverLicense {
+        internal static string DriverLicense {
             get {
                 return ResourceManager.GetString("DriverLicense", resourceCulture);
             }
@@ -207,7 +216,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver license already exist in database!.
         /// </summary>
-        public static string DriverLicenseAlreadyExist {
+        internal static string DriverLicenseAlreadyExist {
             get {
                 return ResourceManager.GetString("DriverLicenseAlreadyExist", resourceCulture);
             }
@@ -216,7 +225,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver license not found!.
         /// </summary>
-        public static string DriverLicenseNotFound {
+        internal static string DriverLicenseNotFound {
             get {
                 return ResourceManager.GetString("DriverLicenseNotFound", resourceCulture);
             }
@@ -225,7 +234,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver license photo already exist in database!.
         /// </summary>
-        public static string DriverLicensePhotoAlreadyExist {
+        internal static string DriverLicensePhotoAlreadyExist {
             get {
                 return ResourceManager.GetString("DriverLicensePhotoAlreadyExist", resourceCulture);
             }
@@ -234,7 +243,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver license photo not found!.
         /// </summary>
-        public static string DriverLicensePhotoNotFound {
+        internal static string DriverLicensePhotoNotFound {
             get {
                 return ResourceManager.GetString("DriverLicensePhotoNotFound", resourceCulture);
             }
@@ -243,7 +252,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver license photos.
         /// </summary>
-        public static string DriverLicensePhotos {
+        internal static string DriverLicensePhotos {
             get {
                 return ResourceManager.GetString("DriverLicensePhotos", resourceCulture);
             }
@@ -252,7 +261,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver license photos not found!.
         /// </summary>
-        public static string DriverLicensePhotosNotFound {
+        internal static string DriverLicensePhotosNotFound {
             get {
                 return ResourceManager.GetString("DriverLicensePhotosNotFound", resourceCulture);
             }
@@ -261,7 +270,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver licenses not found!.
         /// </summary>
-        public static string DriverLicensesNotFound {
+        internal static string DriverLicensesNotFound {
             get {
                 return ResourceManager.GetString("DriverLicensesNotFound", resourceCulture);
             }
@@ -270,7 +279,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver medical certificate.
         /// </summary>
-        public static string DriverMedicalCertificate {
+        internal static string DriverMedicalCertificate {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificate", resourceCulture);
             }
@@ -279,7 +288,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver medical certificate exist in database!.
         /// </summary>
-        public static string DriverMedicalCertificateAlreadyExist {
+        internal static string DriverMedicalCertificateAlreadyExist {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificateAlreadyExist", resourceCulture);
             }
@@ -288,7 +297,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver medical certificate not found!.
         /// </summary>
-        public static string DriverMedicalCertificateNotFound {
+        internal static string DriverMedicalCertificateNotFound {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificateNotFound", resourceCulture);
             }
@@ -297,7 +306,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver medical certificate photo already exist in database!.
         /// </summary>
-        public static string DriverMedicalCertificatePhotoAlreadyExist {
+        internal static string DriverMedicalCertificatePhotoAlreadyExist {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificatePhotoAlreadyExist", resourceCulture);
             }
@@ -306,7 +315,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver medical certificate photo not found!.
         /// </summary>
-        public static string DriverMedicalCertificatePhotoNotFound {
+        internal static string DriverMedicalCertificatePhotoNotFound {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificatePhotoNotFound", resourceCulture);
             }
@@ -315,7 +324,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver medical certificate photos.
         /// </summary>
-        public static string DriverMedicalCertificatePhotos {
+        internal static string DriverMedicalCertificatePhotos {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificatePhotos", resourceCulture);
             }
@@ -324,7 +333,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver medical certificates photo not found!.
         /// </summary>
-        public static string DriverMedicalCertificatePhotosNotFound {
+        internal static string DriverMedicalCertificatePhotosNotFound {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificatePhotosNotFound", resourceCulture);
             }
@@ -333,7 +342,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Driver medical certificates not found!.
         /// </summary>
-        public static string DriverMedicalCertificatesNotFound {
+        internal static string DriverMedicalCertificatesNotFound {
             get {
                 return ResourceManager.GetString("DriverMedicalCertificatesNotFound", resourceCulture);
             }
@@ -342,7 +351,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Employee already exist in database!.
         /// </summary>
-        public static string EmployeeAlreadyExist {
+        internal static string EmployeeAlreadyExist {
             get {
                 return ResourceManager.GetString("EmployeeAlreadyExist", resourceCulture);
             }
@@ -351,7 +360,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Failed to delete employee from database.
         /// </summary>
-        public static string EmployeeFoundAfterDelete {
+        internal static string EmployeeFoundAfterDelete {
             get {
                 return ResourceManager.GetString("EmployeeFoundAfterDelete", resourceCulture);
             }
@@ -360,7 +369,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Employee not found!.
         /// </summary>
-        public static string EmployeeNotFound {
+        internal static string EmployeeNotFound {
             get {
                 return ResourceManager.GetString("EmployeeNotFound", resourceCulture);
             }
@@ -369,7 +378,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Employees not found!.
         /// </summary>
-        public static string EmployeesNotFound {
+        internal static string EmployeesNotFound {
             get {
                 return ResourceManager.GetString("EmployeesNotFound", resourceCulture);
             }
@@ -378,7 +387,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Enter date of issue.
         /// </summary>
-        public static string EnterDateOfIssue {
+        internal static string EnterDateOfIssue {
             get {
                 return ResourceManager.GetString("EnterDateOfIssue", resourceCulture);
             }
@@ -387,7 +396,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Load driver license photos.
         /// </summary>
-        public static string EnterDriverLicensePhotos {
+        internal static string EnterDriverLicensePhotos {
             get {
                 return ResourceManager.GetString("EnterDriverLicensePhotos", resourceCulture);
             }
@@ -396,7 +405,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Load driver medical certificate photos.
         /// </summary>
-        public static string EnterDriverMedicalCertificatePhotos {
+        internal static string EnterDriverMedicalCertificatePhotos {
             get {
                 return ResourceManager.GetString("EnterDriverMedicalCertificatePhotos", resourceCulture);
             }
@@ -405,7 +414,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Enter expiry date.
         /// </summary>
-        public static string EnterExpiryDate {
+        internal static string EnterExpiryDate {
             get {
                 return ResourceManager.GetString("EnterExpiryDate", resourceCulture);
             }
@@ -414,7 +423,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Enter firstname.
         /// </summary>
-        public static string EnterFirstName {
+        internal static string EnterFirstName {
             get {
                 return ResourceManager.GetString("EnterFirstName", resourceCulture);
             }
@@ -423,7 +432,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Enter patronymic.
         /// </summary>
-        public static string EnterPatronymic {
+        internal static string EnterPatronymic {
             get {
                 return ResourceManager.GetString("EnterPatronymic", resourceCulture);
             }
@@ -432,7 +441,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Enter position.
         /// </summary>
-        public static string EnterPosition {
+        internal static string EnterPosition {
             get {
                 return ResourceManager.GetString("EnterPosition", resourceCulture);
             }
@@ -441,7 +450,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Enter serial number.
         /// </summary>
-        public static string EnterSerialNumber {
+        internal static string EnterSerialNumber {
             get {
                 return ResourceManager.GetString("EnterSerialNumber", resourceCulture);
             }
@@ -450,7 +459,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Enter surname.
         /// </summary>
-        public static string EnterSurname {
+        internal static string EnterSurname {
             get {
                 return ResourceManager.GetString("EnterSurname", resourceCulture);
             }
@@ -459,16 +468,34 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Expiry date.
         /// </summary>
-        public static string ExpiryDate {
+        internal static string ExpiryDate {
             get {
                 return ResourceManager.GetString("ExpiryDate", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploaded file not a picture!.
+        /// </summary>
+        internal static string FileNotPicture {
+            get {
+                return ResourceManager.GetString("FileNotPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploaded file not a Excel!.
+        /// </summary>
+        internal static string FileNotXLWorkbook {
+            get {
+                return ResourceManager.GetString("FileNotXLWorkbook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FirstName.
         /// </summary>
-        public static string FirstName {
+        internal static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
             }
@@ -477,7 +504,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to User not found! Invalid login and / or password intered..
         /// </summary>
-        public static string InvalidLoginAndOrPassword {
+        internal static string InvalidLoginAndOrPassword {
             get {
                 return ResourceManager.GetString("InvalidLoginAndOrPassword", resourceCulture);
             }
@@ -486,7 +513,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Role not found! Invalid role name intered..
         /// </summary>
-        public static string InvalidRoleName {
+        internal static string InvalidRoleName {
             get {
                 return ResourceManager.GetString("InvalidRoleName", resourceCulture);
             }
@@ -495,7 +522,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to User with current login already exists!.
         /// </summary>
-        public static string LoginAlreadyExists {
+        internal static string LoginAlreadyExists {
             get {
                 return ResourceManager.GetString("LoginAlreadyExists", resourceCulture);
             }
@@ -504,7 +531,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to No data for item!.
         /// </summary>
-        public static string NoData {
+        internal static string NoData {
             get {
                 return ResourceManager.GetString("NoData", resourceCulture);
             }
@@ -513,7 +540,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to No photo.
         /// </summary>
-        public static string NoPhoto {
+        internal static string NoPhoto {
             get {
                 return ResourceManager.GetString("NoPhoto", resourceCulture);
             }
@@ -522,7 +549,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Open driver categories.
         /// </summary>
-        public static string OpenCategories {
+        internal static string OpenCategories {
             get {
                 return ResourceManager.GetString("OpenCategories", resourceCulture);
             }
@@ -531,7 +558,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Patronymic.
         /// </summary>
-        public static string Patronymic {
+        internal static string Patronymic {
             get {
                 return ResourceManager.GetString("Patronymic", resourceCulture);
             }
@@ -540,7 +567,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Photo file already exist..
         /// </summary>
-        public static string PhotoFileAlreadyExist {
+        internal static string PhotoFileAlreadyExist {
             get {
                 return ResourceManager.GetString("PhotoFileAlreadyExist", resourceCulture);
             }
@@ -549,7 +576,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Photo file not found in folder. Name of photo file: .
         /// </summary>
-        public static string PhotoFileWithIdNotFound {
+        internal static string PhotoFileWithIdNotFound {
             get {
                 return ResourceManager.GetString("PhotoFileWithIdNotFound", resourceCulture);
             }
@@ -558,7 +585,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Position.
         /// </summary>
-        public static string Position {
+        internal static string Position {
             get {
                 return ResourceManager.GetString("Position", resourceCulture);
             }
@@ -567,7 +594,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Position already exist in database!.
         /// </summary>
-        public static string PositionAlreadyExist {
+        internal static string PositionAlreadyExist {
             get {
                 return ResourceManager.GetString("PositionAlreadyExist", resourceCulture);
             }
@@ -576,7 +603,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Failed to delete position from database.
         /// </summary>
-        public static string PositionFoundAfterDelete {
+        internal static string PositionFoundAfterDelete {
             get {
                 return ResourceManager.GetString("PositionFoundAfterDelete", resourceCulture);
             }
@@ -585,7 +612,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Position not found!.
         /// </summary>
-        public static string PositionNotFound {
+        internal static string PositionNotFound {
             get {
                 return ResourceManager.GetString("PositionNotFound", resourceCulture);
             }
@@ -594,7 +621,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Positions not found!.
         /// </summary>
-        public static string PositionsNotFound {
+        internal static string PositionsNotFound {
             get {
                 return ResourceManager.GetString("PositionsNotFound", resourceCulture);
             }
@@ -603,7 +630,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed. If you still want to edit this record, try begin again..
         /// </summary>
-        public static string RecordToEditWasModifiedAnotherUser {
+        internal static string RecordToEditWasModifiedAnotherUser {
             get {
                 return ResourceManager.GetString("RecordToEditWasModifiedAnotherUser", resourceCulture);
             }
@@ -612,7 +639,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Role with current name already exists!.
         /// </summary>
-        public static string RoleAlreadyExists {
+        internal static string RoleAlreadyExists {
             get {
                 return ResourceManager.GetString("RoleAlreadyExists", resourceCulture);
             }
@@ -621,16 +648,25 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Role with current name not found! Perhaps such a role does not exist..
         /// </summary>
-        public static string RoleNotFound {
+        internal static string RoleNotFound {
             get {
                 return ResourceManager.GetString("RoleNotFound", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Row count one or less.
+        /// </summary>
+        internal static string RowCountOneOrLess {
+            get {
+                return ResourceManager.GetString("RowCountOneOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Serial number.
         /// </summary>
-        public static string SerialNumber {
+        internal static string SerialNumber {
             get {
                 return ResourceManager.GetString("SerialNumber", resourceCulture);
             }
@@ -639,7 +675,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Current start item does not exist..
         /// </summary>
-        public static string StartItemNotExist {
+        internal static string StartItemNotExist {
             get {
                 return ResourceManager.GetString("StartItemNotExist", resourceCulture);
             }
@@ -648,7 +684,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Surname.
         /// </summary>
-        public static string Surname {
+        internal static string Surname {
             get {
                 return ResourceManager.GetString("Surname", resourceCulture);
             }
@@ -657,7 +693,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The firstname must begin with a capital letter and be no more than 30 characters..
         /// </summary>
-        public static string ValidateFirstName {
+        internal static string ValidateFirstName {
             get {
                 return ResourceManager.GetString("ValidateFirstName", resourceCulture);
             }
@@ -666,7 +702,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The patronymic must begin with a capital letter and be no more than 30 characters..
         /// </summary>
-        public static string ValidatePatronymic {
+        internal static string ValidatePatronymic {
             get {
                 return ResourceManager.GetString("ValidatePatronymic", resourceCulture);
             }
@@ -675,7 +711,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The position must begin with a capital letter and be no more than 30 characters..
         /// </summary>
-        public static string ValidatePosition {
+        internal static string ValidatePosition {
             get {
                 return ResourceManager.GetString("ValidatePosition", resourceCulture);
             }
@@ -684,7 +720,7 @@ namespace BLL.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The surname must begin with a capital letter and be no more than 30 characters..
         /// </summary>
-        public static string ValidateSurname {
+        internal static string ValidateSurname {
             get {
                 return ResourceManager.GetString("ValidateSurname", resourceCulture);
             }

@@ -11,8 +11,8 @@ namespace DAL.EFContexts.Configurations
             builder.Property(p => p.Id).ValueGeneratedNever();
             builder.Property(p => p.RowVersion).IsRowVersion();
             builder.HasOne(b => b.Employee).WithOne(ba => ba.DriverMedicalCertificate).HasForeignKey<Employee>(b => b.DriverMedicalCertificateId);
-            builder.HasMany(b => b.DriverMedicalCertificateDriverCategories).WithOne(bg => bg.DriverMedicalCertificate).HasForeignKey(b => b.DriverMedicalCertificateId);
-            builder.HasMany(b => b.Photos).WithOne(ba => ba.DriverMedicalCertificate).HasForeignKey(b => b.DriverMedicalCertificateId);
+            builder.HasMany(b => b.DriverMedicalCertificateDriverCategories).WithOne(bg => bg.DriverMedicalCertificate).HasForeignKey(b => b.DriverMedicalCertificateId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(b => b.Photos).WithOne(ba => ba.DriverMedicalCertificate).HasForeignKey(b => b.DriverMedicalCertificateId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

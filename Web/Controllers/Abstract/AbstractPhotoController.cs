@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using BLL;
 using BLL.Interfaces;
-using Microsoft.AspNetCore.Hosting;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
@@ -9,19 +8,25 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Web.Interfaces;
 
-namespace Web.Controllers
+namespace Web.Controllers.Abstract
 {
     public abstract class AbstractPhotoController<TGetDTO, TAddDTO, TUpdateDTO> : 
-        AbstractBaseController<TGetDTO, TAddDTO, TUpdateDTO>, 
+        AbstractBaseController<TGetDTO>, 
         ICRUDController<TGetDTO, TAddDTO, TUpdateDTO>
 
         where TGetDTO : IGetDTO
         where TUpdateDTO : IUpdateDTO
         where TAddDTO : IAddDTO
     {
+        public ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> Service { get; set; }
+        public IValidatorCRUDController<TGetDTO, TAddDTO, TUpdateDTO> Validator { get; set; }
+
         public AbstractPhotoController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
-            IDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> service, IHostingEnvironment environment) :
-            base(localizer, mapper, service, environment) { }
+            ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> service) : base(localizer, mapper)
+        {
+            Service = service;
+            Service.Localizer = localizer;
+        }
 
         // GET: api/<controller>?startItem=1&countItem=1
         [HttpGet]

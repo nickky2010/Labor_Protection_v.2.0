@@ -5,18 +5,19 @@ using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
+using BLL.ValidatorsOfServices.Abstract;
 
 namespace BLL.ValidatorsOfServices
 {
     internal class ValidatorDriverMedicalCertificateService : 
-        AbstractValidatorOfServices<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate>
+        AbstractValidatorOfCRUDDataBaseServices<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate>
     {
         protected override string EntityAlreadyExist { get => "DriverMedicalCertificateAlreadyExist"; }
         protected override string EntityNotFound { get => "DriverMedicalCertificateNotFound"; }
         protected override string EntitiesNotFound { get => "DriverMedicalCertificatesNotFound"; }
 
-        public ValidatorDriverMedicalCertificateService(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            : base(unitOfWork, localizer) { }
+        public ValidatorDriverMedicalCertificateService(IUnitOfWork<LaborProtectionContext> unitOfWork)
+            : base(unitOfWork) { }
 
         protected override async Task<IAppActionResult<DriverMedicalCertificateGetDTO>> ValidateConnectedAddEntities(DriverMedicalCertificate data, 
             DriverMedicalCertificateAddDTO model, IStringLocalizer<SharedResource> localizer)

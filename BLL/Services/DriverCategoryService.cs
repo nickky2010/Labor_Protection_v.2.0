@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.DTO.DriverCategories;
 using BLL.Interfaces;
+using BLL.Services.Abstract;
 using BLL.ValidatorsOfServices;
 using DAL.Models;
 using System;
@@ -10,12 +11,12 @@ using System.Threading.Tasks;
 namespace BLL.Services
 {
     internal class DriverCategoryService : 
-        AbstractService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>
+        AbstractCRUDDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>
     {
         public DriverCategoryService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : 
             base(unitOfWorkService, mapper)
         {
-            Validator = new ValidatorDriverCategoryService(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);
+            Validator = new ValidatorDriverCategoryService(unitOfWorkService.UnitOfWorkLaborProtectionContext);
         }
 
         protected override void AddDataToDbAsync(DriverCategory data) => UnitOfWork.DriverCategories.AddAsync(data);

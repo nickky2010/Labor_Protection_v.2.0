@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
-using BLL;
 using BLL.DTO.Positions;
 using BLL.Interfaces;
-using BLL.ValidatorsOfServices;
-using Microsoft.AspNetCore.Hosting;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Web.Interfaces;
+using Web.ValidatorsOfControllers;
+using Web.Controllers.Abstract;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class PositionsController : AbstractController<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>,
-        IControllerServices<PositionsController, IDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>>
+    public class PositionsController : AbstractCRUDController<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>,
+        IControllerServices<PositionsController, ICRUDDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>>
     {
         public PositionsController(IStringLocalizer<SharedResource> localizer, IMapper mapper, 
-            IDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO> service, IHostingEnvironment environment)
-            : base(localizer, mapper, service, environment)
+            ICRUDDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO> service)
+            : base(localizer, mapper, service)
         {
             Validator = new ValidatorPositionController(Localizer);
         }

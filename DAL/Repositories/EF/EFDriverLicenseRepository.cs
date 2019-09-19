@@ -10,7 +10,7 @@ namespace DAL.Repositories.EF
         {
             Query = Query
 
-                //.Include(b => b.Photos)
+                .Include(b => b.Photos)
                 .Include(b => b.Employee)
                 .Include(b => b.DriverLicenseDriverCategories)
                     .ThenInclude(x => x.DriverCategory);

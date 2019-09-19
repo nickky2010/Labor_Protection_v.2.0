@@ -6,16 +6,17 @@ using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BLL.Services.Abstract;
 
 namespace BLL.Services
 {
     internal class PositionService : 
-        AbstractService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO, Position>
+        AbstractCRUDDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO, Position>
     {
         public PositionService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
             base(unitOfWorkService, mapper)
         {
-            Validator = new ValidatorPositionService(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);
+            Validator = new ValidatorPositionService(unitOfWorkService.UnitOfWorkLaborProtectionContext);
         }
 
         protected override void AddDataToDbAsync(Position data) => UnitOfWork.Positions.AddAsync(data);

@@ -5,18 +5,19 @@ using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
+using BLL.ValidatorsOfServices.Abstract;
 
 namespace BLL.ValidatorsOfServices
 {
     internal class ValidatorEmployeeService: 
-        AbstractValidatorOfServices<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>
+        AbstractValidatorOfCRUDDataBaseServices<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>
     {
         protected override string EntityAlreadyExist { get => "EmployeeAlreadyExist"; }
         protected override string EntityNotFound { get => "EmployeeNotFound"; }
         protected override string EntitiesNotFound { get => "EmployeesNotFound"; }
 
-        public ValidatorEmployeeService(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            :base(unitOfWork, localizer) { }
+        public ValidatorEmployeeService(IUnitOfWork<LaborProtectionContext> unitOfWork)
+            :base(unitOfWork) { }
 
         protected override async Task<IAppActionResult<EmployeeGetDTO>> ValidateConnectedAddEntities(Employee data, 
             EmployeeAddDTO model, IStringLocalizer<SharedResource> localizer)

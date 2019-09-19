@@ -14,6 +14,7 @@ namespace DAL.Interfaces
         Task AddRangeAsync(IList<TData> datas);
         EntityEntry<TData> Update(TData data);
         EntityEntry<TData> Delete(TData data);
+        void DeleteRange(IList<TData> datas);
         Task<TData> FindAsync(Expression<Func<TData, bool>> where);
         Task<List<TData>> GetPageAsync(int startItem, int countItem);
         Task<List<TData>> GetAllAsync(Expression<Func<TData, bool>> where);

@@ -5,18 +5,19 @@ using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
+using BLL.ValidatorsOfServices.Abstract;
 
 namespace BLL.ValidatorsOfServices
 {
     internal class ValidatorDriverLicenseService : 
-        AbstractValidatorOfServices<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>
+        AbstractValidatorOfCRUDDataBaseServices<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>
     {
         protected override string EntityAlreadyExist { get => "DriverLicenseAlreadyExist"; }
         protected override string EntityNotFound { get => "DriverLicenseNotFound"; }
         protected override string EntitiesNotFound { get => "DriverLicensesNotFound"; }
 
-        public ValidatorDriverLicenseService(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            : base(unitOfWork, localizer) { }
+        public ValidatorDriverLicenseService(IUnitOfWork<LaborProtectionContext> unitOfWork)
+            : base(unitOfWork) { }
 
         protected override async Task<IAppActionResult<DriverLicenseGetDTO>> ValidateConnectedAddEntities(DriverLicense data, 
             DriverLicenseAddDTO model, IStringLocalizer<SharedResource> localizer)

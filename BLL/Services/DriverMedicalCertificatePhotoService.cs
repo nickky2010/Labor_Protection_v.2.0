@@ -7,16 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using BLL.Services.Abstract;
 
 namespace BLL.Services
 {
     internal class DriverMedicalCertificatePhotoService : 
-        AbstractService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO, DriverMedicalCertificatePhoto>
+        AbstractCRUDDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO, DriverMedicalCertificatePhoto>
     {
         public DriverMedicalCertificatePhotoService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
             base(unitOfWorkService, mapper)
         {
-            Validator = new ValidatorDriverMedicalCertificatePhotoService(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);
+            Validator = new ValidatorDriverMedicalCertificatePhotoService(unitOfWorkService.UnitOfWorkLaborProtectionContext);
         }
         protected override void AddDataToDbAsync(DriverMedicalCertificatePhoto data) => UnitOfWork.DriverMedicalCertificatePhotos.AddAsync(data);
         protected override void UpdateDataInDbAsync(DriverMedicalCertificatePhoto data) => UnitOfWork.DriverMedicalCertificatePhotos.Update(data);

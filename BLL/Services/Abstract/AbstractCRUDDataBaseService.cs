@@ -1,34 +1,25 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
-using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace BLL.Services
+namespace BLL.Services.Abstract
 {
-    internal abstract class AbstractService<TGetDTO, TAddDTO, TUpdateDTO, TData> : 
-        IDataBaseService<TGetDTO, TAddDTO, TUpdateDTO>
+    internal abstract class AbstractCRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO, TData> :  AbstractBaseService,
+        ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO>
         where TGetDTO : IGetDTO
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
         where TData : IData
     {
-        public IStringLocalizer<SharedResource> Localizer { get; set; }
-        public IUnitOfWork<LaborProtectionContext> UnitOfWork { get; protected set; }
-        public IMapper Mapper { get; protected set; }
-        public IHostingEnvironment Environment { get; set; }
-        public IValidatorService<TGetDTO, TAddDTO, TUpdateDTO, TData> Validator { get; protected set; }
+        public AbstractCRUDDataBaseService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : 
+            base(unitOfWorkService, mapper) { }
 
-        public AbstractService(IUnitOfWorkService unitOfWorkService, IMapper mapper)
-        {
-            UnitOfWork = unitOfWorkService.UnitOfWorkLaborProtectionContext;
-            Mapper = mapper;
-        }
+        protected IValidatorCRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO, TData> Validator { get; set; }
+
         protected abstract void AddDataToDbAsync(TData data);
         protected abstract void DeleteDataFromDbAsync(TData data);
         protected abstract void UpdateDataInDbAsync(TData data);
@@ -95,7 +86,7 @@ namespace BLL.Services
             UpdateDataInDbAsync(data);
             await UnitOfWork.SaveChangesAsync();
             data = await FindDataAsync(data.Id);
-            result = Validator.ValidateDataFromDbForUpdate(data, HttpStatusCode.InternalServerError, HttpStatusCode.OK, Localizer);
+            result = Validator.ValidateDataFromDb(data, HttpStatusCode.InternalServerError, HttpStatusCode.OK, Localizer);
             if (!result.IsSuccess)
                 return result;
             result.Data = Mapper.Map<TData, TGetDTO>(data);

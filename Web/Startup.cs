@@ -20,6 +20,8 @@ using BLL.DTO.DriverLicenses;
 using BLL.DTO.DriverMedicalCertificates;
 using BLL.DTO.DriverLicensePhotos;
 using BLL.DTO.DriverMedicalCertificatePhotos;
+using ClosedXML.Excel;
+using BLL.Infrastructure.Readers.ReadModels;
 
 namespace Web
 {
@@ -51,13 +53,15 @@ namespace Web
             IKernel ninjectKernel = new StandardKernel(new InterfacesRegistrationsBLL(Configuration.GetConnectionString("LaborProtectionDatabase")));
             IUnitOfWorkService unitOfWorkService = ninjectKernel.Get<IUnitOfWorkService>();
 
-            services.AddScoped<IDataBaseService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO>>(o => new EmployeeService(unitOfWorkService, mapper));
-            services.AddScoped<IDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>>(o => new PositionService(unitOfWorkService, mapper));
-            services.AddScoped<IDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO>>(o => new DriverCategoryService(unitOfWorkService, mapper));
-            services.AddScoped<IDataBaseService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO>>(o => new DriverLicenseService(unitOfWorkService, mapper));
-            services.AddScoped<IDataBaseService<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO>>(o => new DriverMedicalCertificateService(unitOfWorkService, mapper));
-            services.AddScoped<IDataBaseService<DriverLicensePhotoGetDTO, DriverLicensePhotoAddDTO, DriverLicensePhotoUpdateDTO>>(o => new DriverLicensePhotoService(unitOfWorkService, mapper));
-            services.AddScoped<IDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO>>(o => new DriverMedicalCertificatePhotoService(unitOfWorkService, mapper));
+            services.AddScoped<ICRUDDataBaseService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO>>(o => new EmployeeService(unitOfWorkService, mapper));
+            services.AddScoped<ICRUDDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>>(o => new PositionService(unitOfWorkService, mapper));
+            services.AddScoped<ICRUDDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO>>(o => new DriverCategoryService(unitOfWorkService, mapper));
+            services.AddScoped<ICRUDDataBaseService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO>>(o => new DriverLicenseService(unitOfWorkService, mapper));
+            services.AddScoped<ICRUDDataBaseService<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO>>(o => new DriverMedicalCertificateService(unitOfWorkService, mapper));
+            services.AddScoped<ICRUDDataBaseService<DriverLicensePhotoGetDTO, DriverLicensePhotoAddDTO, DriverLicensePhotoUpdateDTO>>(o => new DriverLicensePhotoService(unitOfWorkService, mapper));
+            services.AddScoped<ICRUDDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO>>(o => new DriverMedicalCertificatePhotoService(unitOfWorkService, mapper));
+            services.AddScoped<ICRUDDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO>>(o => new DriverMedicalCertificatePhotoService(unitOfWorkService, mapper));
+            services.AddScoped<IUploadDataFromFileService<XLWorkbook, ReadModelForExcel>>(o => new UploadDataFromExcelService(unitOfWorkService, mapper));
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()

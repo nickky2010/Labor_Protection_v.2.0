@@ -1,23 +1,23 @@
 ﻿using AutoMapper;
-using BLL;
 using BLL.DTO.DriverMedicalCertificatePhotos;
 using BLL.Interfaces;
-using BLL.ValidatorsOfServices;
-using Microsoft.AspNetCore.Hosting;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Web.Interfaces;
+using Web.ValidatorsOfControllers;
+using Web.Controllers.Abstract;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
     public class DriverMedicalCertificatePhotosController :
         AbstractPhotoController<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO>,
-        IControllerServices<DriverMedicalCertificatePhotosController, IDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO>>
+        IControllerServices<DriverMedicalCertificatePhotosController, ICRUDDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO>>
     {
         public DriverMedicalCertificatePhotosController(IStringLocalizer<SharedResource> localizer, IMapper mapper, 
-            IDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO> service, IHostingEnvironment environment)
-            : base(localizer, mapper, service, environment)
+            ICRUDDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO> service)
+            : base(localizer, mapper, service)
         {
             Validator = new ValidatorDriverMedicalCertificatePhotoController(Localizer);  
         }

@@ -41,6 +41,10 @@ namespace DAL.Repositories
         {
             return DbSet.Remove(data);
         }
+        public virtual void DeleteRange(IList<TData> datas)
+        {
+            DbSet.RemoveRange(datas);
+        }
 
         public virtual Task<TData> FindAsync(Expression<Func<TData, bool>> where)
         {

@@ -1,7 +1,9 @@
 ﻿using BLL.DTO.Positions;
+using BLL;
 using Microsoft.Extensions.Localization;
+using Web.ValidatorsOfControllers.Abstract;
 
-namespace BLL.ValidatorsOfServices
+namespace Web.ValidatorsOfControllers
 {
     internal class ValidatorPositionController : 
         AbstractValidatorOfControllers<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO>

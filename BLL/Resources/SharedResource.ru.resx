@@ -129,6 +129,9 @@
   <data name="AfterAddUserNotFound" xml:space="preserve">
     <value>Пользователь после добавления не найден!</value>
   </data>
+  <data name="ColCountSmallerThanDataModels" xml:space="preserve">
+    <value>Количество колонок меньше чем необходимо для модели данных</value>
+  </data>
   <data name="ContentPathNotFound" xml:space="preserve">
     <value>Папка для фотографий не найдена.</value>
   </data>
@@ -145,7 +148,7 @@
     <value>Данные не были удалены из базы данных!</value>
   </data>
   <data name="DataNotUpdatedInDB" xml:space="preserve">
-    <value />
+    <value>Данные не были обновлены в базе данных</value>
   </data>
   <data name="DataNotWrittenToDB" xml:space="preserve">
     <value>Данные не были записаны в базу данных!</value>
@@ -252,6 +255,12 @@
   <data name="ExpiryDate" xml:space="preserve">
     <value>Срок действия</value>
   </data>
+  <data name="FileNotPicture" xml:space="preserve">
+    <value>Загруженный файл не изображение.</value>
+  </data>
+  <data name="FileNotXLWorkbook" xml:space="preserve">
+    <value>Загруженный файл не Excel.</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>Имя</value>
   </data>
@@ -305,6 +314,9 @@
   </data>
   <data name="RoleNotFound" xml:space="preserve">
     <value>Роль с текущим названием не найдена! Возможно такой роли не существует.</value>
+  </data>
+  <data name="RowCountOneOrLess" xml:space="preserve">
+    <value>Количество строк одна или менее.</value>
   </data>
   <data name="SerialNumber" xml:space="preserve">
     <value>Серийный номер</value>

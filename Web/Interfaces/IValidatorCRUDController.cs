@@ -1,12 +1,12 @@
-﻿using BLL;
-using BLL.Interfaces;
+﻿using BLL.Interfaces;
+using BLL;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 
 namespace Web.Interfaces
 {
-    public interface IValidatorController<TGetDTO, TAddDTO, TUpdateDTO>
+    public interface IValidatorCRUDController<TGetDTO, TAddDTO, TUpdateDTO>
         where TGetDTO : IGetDTO
         where TUpdateDTO : IUpdateDTO
         where TAddDTO : IAddDTO
@@ -14,7 +14,7 @@ namespace Web.Interfaces
         IStringLocalizer<SharedResource> Localizer { get; set; }
         IAppActionResult<TGetDTO> GetResult { get; set; }
         IAppActionResult<List<TGetDTO>> GetListResult { get; set; }
-        IAppActionResult DeleteResult { get; set; }
+        IAppActionResult Result { get; set; }
         string StartItemNotExist { get; }
         string CountItemsLeastOne { get; }
         string NoData { get; }

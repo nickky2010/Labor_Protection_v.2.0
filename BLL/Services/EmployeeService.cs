@@ -6,16 +6,17 @@ using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BLL.Services.Abstract;
 
 namespace BLL.Services
 {
     internal class EmployeeService : 
-        AbstractService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>         
+        AbstractCRUDDataBaseService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>         
     {
         public EmployeeService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
             base(unitOfWorkService, mapper)
         {
-            Validator = new ValidatorEmployeeService(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);
+            Validator = new ValidatorEmployeeService(unitOfWorkService.UnitOfWorkLaborProtectionContext);
         }
 
         protected override void AddDataToDbAsync(Employee data) => UnitOfWork.Employees.AddAsync(data);

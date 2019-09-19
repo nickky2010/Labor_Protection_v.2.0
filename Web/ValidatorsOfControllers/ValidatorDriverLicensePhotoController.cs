@@ -1,10 +1,12 @@
 ﻿using BLL.DTO.DriverLicensePhotos;
 using BLL.Interfaces;
+using BLL;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Localization;
 using System.Net;
+using Web.ValidatorsOfControllers.Abstract;
 
-namespace BLL.ValidatorsOfServices
+namespace Web.ValidatorsOfControllers
 {
     internal class ValidatorDriverLicensePhotoController : 
         AbstractValidatorOfControllers<DriverLicensePhotoGetDTO, DriverLicensePhotoAddDTO, DriverLicensePhotoUpdateDTO>
@@ -15,7 +17,7 @@ namespace BLL.ValidatorsOfServices
         {
             if (addDTO == null)
                 GetResult.ErrorMessages.Add(Localizer[NoData]);
-            else if (addDTO.Picture.Length == 0)
+            else if (addDTO.Picture == null || addDTO.Picture.Length == 0)
                 GetResult.ErrorMessages.Add(Localizer["NoPhoto"]);            
             if (!modelState.IsValid)
                 GetResult.ErrorMessages.Add(Localizer[DataIsNotValid]);

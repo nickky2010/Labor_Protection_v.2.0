@@ -129,6 +129,9 @@
   <data name="AfterAddUserNotFound" xml:space="preserve">
     <value>User after add not found!</value>
   </data>
+  <data name="ColCountSmallerThanDataModels" xml:space="preserve">
+    <value>Fewer columns than necessary for data model</value>
+  </data>
   <data name="ContentPathNotFound" xml:space="preserve">
     <value>Folder for content not found.</value>
   </data>
@@ -252,6 +255,12 @@
   <data name="ExpiryDate" xml:space="preserve">
     <value>Expiry date</value>
   </data>
+  <data name="FileNotPicture" xml:space="preserve">
+    <value>Uploaded file not a picture!</value>
+  </data>
+  <data name="FileNotXLWorkbook" xml:space="preserve">
+    <value>Uploaded file not a Excel!</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>FirstName</value>
   </data>
@@ -305,6 +314,9 @@
   </data>
   <data name="RoleNotFound" xml:space="preserve">
     <value>Role with current name not found! Perhaps such a role does not exist.</value>
+  </data>
+  <data name="RowCountOneOrLess" xml:space="preserve">
+    <value>Row count one or less</value>
   </data>
   <data name="SerialNumber" xml:space="preserve">
     <value>Serial number</value>

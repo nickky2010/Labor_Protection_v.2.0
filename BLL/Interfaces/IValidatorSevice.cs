@@ -1,5 +1,6 @@
 ﻿using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    internal interface IValidatorService<TGetDTO, TAddDTO, TUpdateDTO, TData>:
-        IBaseValidatorService<TGetDTO, TAddDTO, TUpdateDTO, TData>
+    internal interface IValidatorCRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO, TData>:
+        IValidatorDataBaseService<TGetDTO>
         where TGetDTO : IGetDTO
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
@@ -17,11 +18,9 @@ namespace BLL.Interfaces
     {
         Task<IAppActionResult<TGetDTO>> ValidateUpdate(TData data, TUpdateDTO model, 
             HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer);
-        IAppActionResult<TGetDTO> ValidateDataFromDbForUpdate(TData data, 
+        IAppActionResult<TGetDTO> ValidateDataFromDb(TData data, 
             HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer);
         Task<IAppActionResult<TGetDTO>> ValidateAdd(TData data, TAddDTO model, 
-            HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer);
-        IAppActionResult<TGetDTO> ValidateDataFromDb(TData data, 
             HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer);
         IAppActionResult<List<TGetDTO>> ValidateDataFromDb(IList<TData> data, 
             HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer);
@@ -29,8 +28,8 @@ namespace BLL.Interfaces
             HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer);
     }
 
-    internal interface IValidatorPhotoService<TGetDTO, TAddDTO, TUpdateDTO, TData> :
-    IBaseValidatorService<TGetDTO, TAddDTO, TUpdateDTO, TData>
+    internal interface IValidatorCRUDDataBasePhotoService<TGetDTO, TAddDTO, TUpdateDTO, TData> :
+    IValidatorDataBaseService<TGetDTO>
         where TGetDTO : IGetDTO, IGetPhotoDTO
         where TAddDTO : IAddDTO, IAddUpdatePhotoDTO
         where TUpdateDTO : IUpdateDTO, IAddUpdatePhotoDTO
@@ -50,15 +49,32 @@ namespace BLL.Interfaces
             HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess, IStringLocalizer<SharedResource> localizer);
     }
 
-    internal interface IBaseValidatorService<TGetDTO, TAddDTO, TUpdateDTO, TData>
-    where TGetDTO : IGetDTO
-    where TAddDTO : IAddDTO
-    where TUpdateDTO : IUpdateDTO
-    where TData : IData
+    internal interface IValidatorDataBaseService<TGetDTO>:
+        IBaseValidatorService
+        where TGetDTO : IGetDTO
     {
-        IUnitOfWork<LaborProtectionContext> UnitOfWork { get; set; }
         IAppActionResult<TGetDTO> GetResult { get; set; }
         IAppActionResult<List<TGetDTO>> GetListResult { get; set; }
-        IAppActionResult DeleteResult { get; set; }
+    }
+    
+    internal interface IBaseValidatorService
+    {
+        IUnitOfWork<LaborProtectionContext> UnitOfWork { get; set; }
+        IAppActionResult Result { get; set; }
+    }
+
+    internal interface IValidatorUploadDataFromFileService<FileType> :
+        IBaseValidatorService
+        where FileType: class
+    {
+        IAppActionResult<FileType> ValidateFile(IFormFile file, IStringLocalizer<SharedResource> localizer);
+        void SetStatus(IAppActionResult appActionResult, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess);
+    }
+
+    internal interface IValidatorUploadDataFromFileForCRUDService<FileType> :
+    IBaseValidatorService
+        where FileType : class
+    {
+        IAppActionResult<FileType> ValidateFile(IFormFile file, IAppActionResult result, IStringLocalizer<SharedResource> localizer);
     }
 }

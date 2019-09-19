@@ -10,6 +10,7 @@ namespace DAL.EFContexts.Configurations
         {
             builder.Property(p => p.Id).ValueGeneratedNever();
             builder.Property(p => p.RowVersion).IsRowVersion();
+            builder.HasMany(b => b.Employees).WithOne(ba => ba.Position).HasForeignKey(b => b.PositionId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

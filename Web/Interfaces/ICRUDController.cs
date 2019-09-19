@@ -11,6 +11,9 @@ namespace Web.Interfaces
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
     {
+        ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> Service { get; set; }
+        IValidatorCRUDController<TGetDTO, TAddDTO, TUpdateDTO> Validator { get; set; }
+
         Task<IAppActionResult<List<TGetDTO>>> Get([FromQuery]int startItem, [FromQuery]int countItem);
         Task<IAppActionResult<TGetDTO>> Get(Guid guid);
         Task<IAppActionResult<TGetDTO>> Post(TAddDTO addDTO);
