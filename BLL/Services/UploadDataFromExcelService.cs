@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
-using BLL.ValidatorsOfServices;
+using BLL.ValidatorsOfDTO;
 using System.Threading.Tasks;
 using BLL.Services.Abstract;
 using ClosedXML.Excel;

@@ -2,13 +2,13 @@
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using DAL.Models;
-using BLL.ValidatorsOfServices.Abstract;
+using BLL.ValidatorsOfDTO.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 
-namespace BLL.ValidatorsOfServices
+namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorPositionDTO: 
         AbstractValidatorDTO<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO, Position>

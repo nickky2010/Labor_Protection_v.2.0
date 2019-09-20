@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BLL.DTO.Positions;
 using BLL.Interfaces;
-using BLL.ValidatorsOfServices;
+using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;

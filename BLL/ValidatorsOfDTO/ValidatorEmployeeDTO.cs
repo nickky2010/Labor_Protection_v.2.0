@@ -5,11 +5,11 @@ using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
-using BLL.ValidatorsOfServices.Abstract;
+using BLL.ValidatorsOfDTO.Abstract;
 using System;
 using System.Collections.Generic;
 
-namespace BLL.ValidatorsOfServices
+namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorEmployeeDTO: 
         AbstractValidatorDTO<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>

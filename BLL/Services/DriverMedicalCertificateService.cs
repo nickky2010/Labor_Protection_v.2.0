@@ -4,7 +4,7 @@ using BLL.Interfaces;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
-using BLL.ValidatorsOfServices;
+using BLL.ValidatorsOfDTO;
 using BLL.Services.Abstract;
 
 namespace BLL.Services

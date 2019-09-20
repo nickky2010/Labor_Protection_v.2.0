@@ -5,13 +5,13 @@ using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
-using BLL.ValidatorsOfServices.Abstract;
+using BLL.ValidatorsOfDTO.Abstract;
 using System.Net;
 using System.Drawing;
 using System;
 using System.Collections.Generic;
 
-namespace BLL.ValidatorsOfServices
+namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorDriverMedicalCertificatePhotoDTO : 
         AbstractValidatorDTO<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO, DriverMedicalCertificatePhoto>

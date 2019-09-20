@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace BLL.ValidatorsOfServices.Abstract
+namespace BLL.ValidatorsOfDTO.Abstract
 {
     internal abstract class AbstractValidatorDTO<TGetDTO, TAddDTO, TUpdateDTO, TData> :
         AbstractBaseValidator,

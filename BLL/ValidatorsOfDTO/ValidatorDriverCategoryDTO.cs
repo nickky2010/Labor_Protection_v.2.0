@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BLL.DTO.DriverCategories;
-using BLL.ValidatorsOfServices.Abstract;
+using BLL.ValidatorsOfDTO.Abstract;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.Extensions.Localization;
 
-namespace BLL.ValidatorsOfServices
+namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorDriverCategoryDTO : 
         AbstractValidatorDTO<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>

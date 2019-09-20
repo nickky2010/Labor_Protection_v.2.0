@@ -5,7 +5,7 @@ using DAL.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 
-namespace BLL.ValidatorsOfServices.Abstract
+namespace BLL.ValidatorsOfDTO.Abstract
 {
     internal abstract class AbstractValidatorOfUploadFile<FileType> : 
         AbstractBaseValidator, IValidatorOfUploadFile<FileType>

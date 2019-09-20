@@ -1,12 +1,12 @@
 ﻿using BLL.Interfaces;
-using BLL.ValidatorsOfServices.Abstract;
+using BLL.ValidatorsOfDTO.Abstract;
 using ClosedXML.Excel;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 
-namespace BLL.ValidatorsOfServices
+namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorExcelFile : AbstractValidatorOfUploadFile<XLWorkbook>
     {

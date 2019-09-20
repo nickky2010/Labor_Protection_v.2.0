@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using System.Drawing;
 
-namespace BLL.ValidatorsOfServices.Abstract
+namespace BLL.ValidatorsOfDTO.Abstract
 {
     internal class ValidatorPhotoFile<FileType> : AbstractBaseValidator,
         IValidatorUploadDataFromFileForCRUDService<Image>

@@ -5,7 +5,7 @@ using DAL.Interfaces;
 using Microsoft.Extensions.Localization;
 using System.Net;
 
-namespace BLL.ValidatorsOfServices.Abstract
+namespace BLL.ValidatorsOfDTO.Abstract
 {
     internal abstract class AbstractBaseValidator : IBaseValidator
     {
