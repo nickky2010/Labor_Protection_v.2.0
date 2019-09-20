@@ -15,15 +15,12 @@ namespace BLL.Services
     internal class UploadDataFromExcelService : AbstractUploadDataFromFileService<XLWorkbook, ReadModelForExcel>
     {
         public UploadDataFromExcelService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
-            base(unitOfWorkService, mapper)
-        {
-            Validator = new ValidatorExcelFile(unitOfWorkService.UnitOfWorkLaborProtectionContext);
-            Reader = new ReaderFromExcel(Localizer);
-        }
+            base(unitOfWorkService, mapper) { }
 
         public override async Task<IAppActionResult> SynchronizeData(IFormFile file)
         {
-            var result = Validator.ValidateFile(file, Localizer);
+            CreateTools();
+            var result = Validator.ValidateFile(file);
             if (!result.IsSuccess)
                 return result;
             var readResult = Reader.Read(result.Data);
@@ -71,6 +68,11 @@ namespace BLL.Services
                 await UnitOfWork.SaveChangesAsync();
             readResult.Data = null;
             return readResult;
+        }
+        private void CreateTools()
+        {
+            Validator = new ValidatorExcelFile(UnitOfWork, Localizer);
+            Reader = new ReaderFromExcel(Localizer);
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using BLL.Infrastructure;
 using BLL.Interfaces;
 using DAL.Interfaces;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace BLL.Services.Abstract
@@ -16,81 +17,88 @@ namespace BLL.Services.Abstract
         where TData : IData
     {
         public AbstractCRUDDataBaseService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : 
-            base(unitOfWorkService, mapper) { }
+            base(unitOfWorkService, mapper)
+        {
+            DataResult = new AppActionResult<TGetDTO>();
+            DataListResult = new AppActionResult<List<TGetDTO>>();
+        }
 
-        protected IValidatorCRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO, TData> Validator { get; set; }
+        protected IValidatorDTO<TGetDTO, TAddDTO, TUpdateDTO, TData> Validator { get; set; }
+        public IAppActionResult<TGetDTO> DataResult { get; set; }
+        public IAppActionResult<List<TGetDTO>> DataListResult { get; set; }
 
         protected abstract void AddDataToDbAsync(TData data);
         protected abstract void DeleteDataFromDbAsync(TData data);
         protected abstract void UpdateDataInDbAsync(TData data);
         protected abstract Task<TData> FindDataAsync(Guid id);
-        protected abstract Task<List<TData>> FindPageDataAsync(int startItem, int countItem);
-        protected abstract Task<TData> FindDataIfAddAsync(TAddDTO modelDTO);
-        protected abstract Task<TData> FindDataIfUpdateAsync(TUpdateDTO modelDTO);
-
         public virtual async Task<IAppActionResult<TGetDTO>> AddAsync(TAddDTO modelDTO)
         {
-            var data = await FindDataIfAddAsync(modelDTO);
-            var result = await Validator.ValidateAdd(data, modelDTO, HttpStatusCode.BadRequest, HttpStatusCode.OK, Localizer);
-            if (!result.IsSuccess)
-                return result;
-            data = Mapper.Map<TAddDTO, TData>(modelDTO);
+            SetEmptyDataResult(await Validator.ValidateAdd(modelDTO));
+            if (!DataResult.IsSuccess)
+                return DataResult;
+            var data = Mapper.Map<TAddDTO, TData>(modelDTO);
             AddDataToDbAsync(data);
             await UnitOfWork.SaveChangesAsync();
             data = await FindDataAsync(data.Id);
-            result = Validator.ValidateDataFromDb(data, HttpStatusCode.InternalServerError, HttpStatusCode.Created, Localizer);
-            if (!result.IsSuccess)
-                return result;
-            result.Data = Mapper.Map<TData, TGetDTO>(data);
-            return result;
+            DataResult.Data = Mapper.Map<TData, TGetDTO>(data);
+            return DataResult;
         }
         
         public virtual async Task<IAppActionResult> DeleteAsync(Guid id)
         {
-            var data = await FindDataAsync(id);
-            var result = Validator.ValidateDeleteDataFromDb(data, HttpStatusCode.NotFound, HttpStatusCode.OK, Localizer);
+            var result = await Validator.ValidateDelete(id);
             if (!result.IsSuccess)
                 return result;
-            DeleteDataFromDbAsync(data);
+            DeleteDataFromDbAsync(result.Data);
             await UnitOfWork.SaveChangesAsync();
             return result;
         }
 
         public virtual async Task<IAppActionResult<TGetDTO>> GetAsync(Guid id)
         {
-            var data = await FindDataAsync(id);
-            var result = Validator.ValidateDataFromDb(data, HttpStatusCode.NotFound, HttpStatusCode.OK, Localizer);
-            if (!result.IsSuccess)
-                return result;
-            result.Data = Mapper.Map<TData, TGetDTO>(data);
-            return result;
+            return SetDataResult(await Validator.ValidateGetData(id));
         }
 
         public virtual async Task<IAppActionResult<List<TGetDTO>>> GetPageAsync(int startItem, int countItem)
         {
-            var data = await FindPageDataAsync(startItem, countItem);
-            var result = Validator.ValidateDataFromDb(data, HttpStatusCode.NotFound, HttpStatusCode.OK, Localizer);
-            if (!result.IsSuccess)
-                return result;
-            result.Data = Mapper.Map<List<TData>, List<TGetDTO>>(data);
-            return result;
+            return SetDataResult(await Validator.ValidateGetData(startItem, countItem));
         }
 
         public virtual async Task<IAppActionResult<TGetDTO>> UpdateAsync(TUpdateDTO modelDTO)
         {
-            var data = await FindDataIfUpdateAsync(modelDTO);
-            var result = await Validator.ValidateUpdate(data, modelDTO, HttpStatusCode.BadRequest, HttpStatusCode.OK, Localizer);
+            var result = await Validator.ValidateUpdate(modelDTO);
             if (!result.IsSuccess)
-                return result;
-            Mapper.Map(modelDTO, data);
-            UpdateDataInDbAsync(data);
+                return SetEmptyDataResult(result);
+            Mapper.Map(modelDTO, result.Data);
+            UpdateDataInDbAsync(result.Data);
             await UnitOfWork.SaveChangesAsync();
-            data = await FindDataAsync(data.Id);
-            result = Validator.ValidateDataFromDb(data, HttpStatusCode.InternalServerError, HttpStatusCode.OK, Localizer);
-            if (!result.IsSuccess)
-                return result;
-            result.Data = Mapper.Map<TData, TGetDTO>(data);
-            return result;
+            return SetDataResult(result);
+        }
+
+        protected IAppActionResult<TGetDTO> SetEmptyDataResult(IAppActionResult result)
+        {
+            SetBaseResult(result, DataResult);
+            return DataResult;
+        }
+        protected IAppActionResult<TGetDTO> SetDataResult(IAppActionResult<TData> result)
+        {
+            if (result.Data != null)
+                DataResult.Data = Mapper.Map<TData, TGetDTO>(result.Data);
+            SetBaseResult(result, DataResult);
+            return DataResult;
+        }
+
+        protected IAppActionResult<List<TGetDTO>> SetDataResult(IAppActionResult<List<TData>> result)
+        {
+            if (result.Data != null)
+                DataListResult.Data = Mapper.Map<List<TData>, List<TGetDTO>>(result.Data);
+            SetBaseResult(result, DataListResult);
+            return DataListResult;
+        }
+        protected void SetBaseResult(IAppActionResult sourceResult, IAppActionResult destResult)
+        {
+            destResult.ErrorMessages = sourceResult.ErrorMessages;
+            destResult.Status = sourceResult.Status;
         }
     }
 }

@@ -10,6 +10,6 @@ namespace BLL.Interfaces
     {
         int Status { get; set; }
         bool IsSuccess { get; }
-        IList<string> ErrorMessages { get; }
+        IList<string> ErrorMessages { get; set; }
     }
 }

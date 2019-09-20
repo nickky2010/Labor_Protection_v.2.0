@@ -7,20 +7,20 @@ using Microsoft.Extensions.Localization;
 
 namespace BLL.ValidatorsOfServices.Abstract
 {
-    internal abstract class AbstractValidatorOfUploadDataFromFileServices<FileType> : 
-        AbstractBaseValidatorOfServices, IValidatorUploadDataFromFileService<FileType>
+    internal abstract class AbstractValidatorOfUploadFile<FileType> : 
+        AbstractBaseValidator, IValidatorOfUploadFile<FileType>
         where FileType : class
     {
         public IAppActionResult<FileType> ResultFileType { get; set; }
 
-        public AbstractValidatorOfUploadDataFromFileServices(IUnitOfWork<LaborProtectionContext> unitOfWork)
-            : base(unitOfWork)
+        public AbstractValidatorOfUploadFile(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
+            : base(unitOfWork, localizer)
         {
             ResultFileType = new AppActionResult<FileType>();
         }
 
         public abstract string ErrorMessage { get; }
 
-        public abstract IAppActionResult<FileType> ValidateFile(IFormFile file, IStringLocalizer<SharedResource> localizer);
+        public abstract IAppActionResult<FileType> ValidateFile(IFormFile file);
     }
 }

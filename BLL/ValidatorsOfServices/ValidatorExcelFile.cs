@@ -8,14 +8,14 @@ using Microsoft.Extensions.Localization;
 
 namespace BLL.ValidatorsOfServices
 {
-    internal class ValidatorExcelFile : AbstractValidatorOfUploadDataFromFileServices<XLWorkbook>
+    internal class ValidatorExcelFile : AbstractValidatorOfUploadFile<XLWorkbook>
     {
-        public ValidatorExcelFile(IUnitOfWork<LaborProtectionContext> unitOfWork) 
-            : base(unitOfWork) { }
+        public ValidatorExcelFile(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
+            : base(unitOfWork, localizer) { }
 
         public override string ErrorMessage => "FileNotXLWorkbook";
 
-        public override IAppActionResult<XLWorkbook> ValidateFile(IFormFile file, IStringLocalizer<SharedResource> localizer)
+        public override IAppActionResult<XLWorkbook> ValidateFile(IFormFile file)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace BLL.ValidatorsOfServices
             }
             catch
             {
-                ResultFileType.ErrorMessages.Add(localizer[ErrorMessage]);
+                ResultFileType.ErrorMessages.Add(Localizer[ErrorMessage]);
             }
             SetStatus(ResultFileType, System.Net.HttpStatusCode.BadRequest, System.Net.HttpStatusCode.OK);
             return ResultFileType;

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    public interface ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> :
-    IService<LaborProtectionContext>
+    public interface ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO>:
+        IService<LaborProtectionContext>
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
         where TGetDTO : IGetDTO

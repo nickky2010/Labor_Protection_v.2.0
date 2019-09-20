@@ -9,8 +9,6 @@ namespace BLL.Interfaces
         int DataModelColCount { get; set; }
         IStringLocalizer<SharedResource> Localizer { get; set; }
         IAppActionResult<ReadModel> Result { get; set; }
-
-
         IAppActionResult<ReadModel> Read(FileType file);
     }
 }

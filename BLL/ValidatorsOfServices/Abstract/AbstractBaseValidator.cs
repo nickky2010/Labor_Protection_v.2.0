@@ -2,19 +2,22 @@
 using BLL.Interfaces;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
+using Microsoft.Extensions.Localization;
 using System.Net;
 
 namespace BLL.ValidatorsOfServices.Abstract
 {
-    internal abstract class AbstractBaseValidatorOfServices : IBaseValidatorService
+    internal abstract class AbstractBaseValidator : IBaseValidator
     {
         public IUnitOfWork<LaborProtectionContext> UnitOfWork { get; set; }
         public IAppActionResult Result { get; set; }
+        public IStringLocalizer<SharedResource> Localizer { get; set; }
 
-        public AbstractBaseValidatorOfServices(IUnitOfWork<LaborProtectionContext> unitOfWork)
+        public AbstractBaseValidator(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
         {
             Result = new AppActionResult();
             UnitOfWork = unitOfWork;
+            Localizer = localizer;
         }
         public void SetStatus(IAppActionResult appActionResult, HttpStatusCode statusCodeIsError, HttpStatusCode statusCodeIsSuccess)
         {

@@ -8,21 +8,21 @@ using System.Drawing;
 
 namespace BLL.ValidatorsOfServices.Abstract
 {
-    internal class ValidatorPhotoFile<FileType> : AbstractBaseValidatorOfServices,
+    internal class ValidatorPhotoFile<FileType> : AbstractBaseValidator,
         IValidatorUploadDataFromFileForCRUDService<Image>
         where FileType : Image
     {
         public IAppActionResult<Image> ResultFileType { get; set; }
 
-        public ValidatorPhotoFile(IUnitOfWork<LaborProtectionContext> unitOfWork) 
-            : base(unitOfWork)
+        public ValidatorPhotoFile(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
+            : base(unitOfWork, localizer)
         {
             ResultFileType = new AppActionResult<Image>();
         }
 
         public string ErrorMessage => "FileNotPicture";
 
-        public IAppActionResult<Image> ValidateFile(IFormFile file, IAppActionResult result, IStringLocalizer<SharedResource> localizer)
+        public IAppActionResult<Image> ValidateFile(IFormFile file, IAppActionResult result)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace BLL.ValidatorsOfServices.Abstract
             }
             catch
             {
-                result.ErrorMessages.Add(localizer[ErrorMessage]);
+                result.ErrorMessages.Add(Localizer[ErrorMessage]);
             }
             SetStatus(ResultFileType, System.Net.HttpStatusCode.BadRequest, System.Net.HttpStatusCode.OK);
             return ResultFileType;

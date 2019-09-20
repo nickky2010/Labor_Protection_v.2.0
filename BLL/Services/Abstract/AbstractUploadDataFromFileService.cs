@@ -10,10 +10,11 @@ namespace BLL.Services.Abstract
         where FileType : class
         where ReadModel : IReadModel
     {
-        public AbstractUploadDataFromFileService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : 
+        public AbstractUploadDataFromFileService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
             base(unitOfWorkService, mapper) { }
+
         protected IReader<FileType, ReadModel> Reader { get; set; }
-        protected IValidatorUploadDataFromFileService<FileType> Validator { get; set; }
+        protected IValidatorOfUploadFile<FileType> Validator { get; set; }
 
         public abstract Task<IAppActionResult> SynchronizeData(IFormFile file);
     }

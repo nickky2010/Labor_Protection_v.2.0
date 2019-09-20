@@ -21,7 +21,7 @@ namespace Web.Controllers.Abstract
         public ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> Service { get; set; }
         public IValidatorCRUDController<TGetDTO, TAddDTO, TUpdateDTO> Validator { get; set; }
 
-        public AbstractCRUDController(IStringLocalizer<BLL.SharedResource> localizer, IMapper mapper,
+        public AbstractCRUDController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
             ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> service) :  base(localizer, mapper)
         {
             Service = service;

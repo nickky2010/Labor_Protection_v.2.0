@@ -9,7 +9,7 @@ namespace Web.Controllers.Abstract
     public abstract class AbstractBaseController<TGetDTO> : BaseController
         where TGetDTO : IGetDTO
     {
-        public AbstractBaseController(IStringLocalizer<BLL.SharedResource> localizer, IMapper mapper)
+        public AbstractBaseController(IStringLocalizer<SharedResource> localizer, IMapper mapper)
             : base(localizer, mapper) { }
 
         protected IAppActionResult<List<TGetDTO>> SendResult(IAppActionResult<List<TGetDTO>> result)
