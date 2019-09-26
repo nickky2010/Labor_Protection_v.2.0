@@ -16,8 +16,9 @@ namespace BLL.Services.Abstract
         where TUpdateDTO : IUpdateDTO
         where TData : IData
     {
-        public AbstractCRUDDataBaseService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : 
-            base(unitOfWorkService, mapper)  { }
+        public AbstractCRUDDataBaseService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
+            base(unitOfWorkService, mapper)
+        { }
 
         protected IValidatorDTO<TAddDTO, TUpdateDTO, TData> Validator { get; set; }
 

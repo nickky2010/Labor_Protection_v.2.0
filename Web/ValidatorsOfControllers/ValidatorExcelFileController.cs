@@ -12,8 +12,9 @@ namespace Web.ValidatorsOfControllers
 {
     internal class ValidatorExcelFileController : AbstractBaseValidatorOfControllers, IValidatorFileController
     {
-        public ValidatorExcelFileController(IStringLocalizer<SharedResource> localizer):
-            base(localizer) { }
+        public ValidatorExcelFileController(IStringLocalizer<SharedResource> localizer) :
+            base(localizer)
+        { }
 
         public IAppActionResult ValidateFile(IFormFile file)
         {

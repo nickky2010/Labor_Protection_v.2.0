@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BLL.Interfaces;
 using BLL;
+using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;

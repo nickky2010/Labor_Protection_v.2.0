@@ -9,7 +9,7 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using BLL.Infrastructure.Extentions;
+using System.Threading.Tasks;
 
 namespace BLL.ValidatorsOfDTO
 {

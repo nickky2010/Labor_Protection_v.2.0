@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BLL.Interfaces;
 using BLL;
+using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
@@ -19,7 +19,7 @@ namespace Web.Controllers.Abstract
         protected IValidatorCRUDController<TGetDTO, TAddDTO, TUpdateDTO> Validator { get; set; }
 
         public AbstractCRUDBaseController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
-            ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> service) :  base(localizer, mapper)
+            ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> service) : base(localizer, mapper)
         {
             Service = service;
             Service.Localizer = localizer;

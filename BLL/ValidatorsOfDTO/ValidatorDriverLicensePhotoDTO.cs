@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using BLL.Infrastructure.Extentions;
-using Microsoft.AspNetCore.Http;
+using System.Drawing;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace BLL.ValidatorsOfDTO
 {
@@ -28,7 +29,7 @@ namespace BLL.ValidatorsOfDTO
         {
             var result = await base.ValidateAdd(model);
             ValidateConnected(result, model.DriverLicenseId, model.Picture);
-            return result;            
+            return result;
         }
 
         public override async Task<IAppActionResult<DriverLicensePhoto>> ValidateUpdate(DriverLicensePhotoUpdateDTO model)

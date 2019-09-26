@@ -12,7 +12,7 @@ namespace BLL.Infrastructure.Readers
 {
     internal class ReaderFromExcel : IReader<XLWorkbook, ReadModelForExcel>
     {
-        private int workSheetNumber = 1;
+        private readonly int workSheetNumber = 1;
         private string SeparatorFIO { get; set; } = " ";
         private IStringLocalizer<SharedResource> Localizer { get; set; }
 

@@ -19,8 +19,8 @@ namespace BLL.Interfaces
         Task<IAppActionResult<int>> ValidateCount();
     }
 
-    internal interface IValidatorOfUploadFile<FileType> 
-        where FileType: class
+    internal interface IValidatorOfUploadFile<FileType>
+        where FileType : class
     {
         IAppActionResult<FileType> ValidateFile(IFormFile file);
     }

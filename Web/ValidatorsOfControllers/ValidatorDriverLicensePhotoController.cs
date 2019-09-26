@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Localization;
 using System.Net;
 using Web.ValidatorsOfControllers.Abstract;
-using BLL.Infrastructure.Extentions;
-using Microsoft.AspNetCore.Http;
 
 namespace Web.ValidatorsOfControllers
 {
@@ -16,7 +14,7 @@ namespace Web.ValidatorsOfControllers
         AbstractValidatorOfControllers<DriverLicensePhotoGetDTO, DriverLicensePhotoAddDTO, DriverLicensePhotoUpdateDTO>
     {
         public ValidatorDriverLicensePhotoController(IStringLocalizer<SharedResource> localizer)
-            :base(localizer) { }
+            : base(localizer) { }
 
         public override IAppActionResult<DriverLicensePhotoGetDTO> ValidateAdd(DriverLicensePhotoAddDTO addDTO, ModelStateDictionary modelState)
         {

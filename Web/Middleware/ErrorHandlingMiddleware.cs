@@ -30,10 +30,10 @@ namespace Web.Middleware
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var code = HttpStatusCode.InternalServerError; 
+            var code = HttpStatusCode.InternalServerError;
             var exceptionMessage = JsonConvert.SerializeObject(new { error = exception.Message });
             if (exception is CultureNotFoundException) code = HttpStatusCode.InternalServerError;
-            else if(exception is DbUpdateConcurrencyException)
+            else if (exception is DbUpdateConcurrencyException)
             {
                 code = HttpStatusCode.Conflict;
             }
