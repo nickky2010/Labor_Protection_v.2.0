@@ -9,12 +9,12 @@ using Web.Interfaces;
 
 namespace Web.Controllers.Abstract
 {
-    public abstract class AbstractFileController<FileType, ReadModel> : BaseController, IFileController<FileType, ReadModel>
+    public abstract class AbstractFileController<FileType, ReadModel> : BaseController, IFileController
         where FileType : class
         where ReadModel : IReadModel
     {
-        public IUploadDataFromFileService<FileType, ReadModel> Service { get; set; }
-        public IValidatorFileController Validator { get; set; }
+        protected IUploadDataFromFileService<FileType, ReadModel> Service { get; private set; }
+        protected IValidatorFileController Validator { get; set; }
 
         public AbstractFileController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
             IUploadDataFromFileService<FileType, ReadModel> service) : base(localizer, mapper)
@@ -27,9 +27,12 @@ namespace Web.Controllers.Abstract
         public virtual async Task<IAppActionResult> SynchronizeData(IFormFile file)
         {
             var result = Validator.ValidateFile(file);
+            SetResponseStatusCode(result);
             if (!result.IsSuccess)
                 return result;
-            return SendResult(await Service.SynchronizeData(file));
+            result = await Service.SynchronizeData(file);
+            SetResponseStatusCode(result);
+            return result;
         }
     }
 }

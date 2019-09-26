@@ -11,7 +11,7 @@ using System.Net;
 
 namespace BLL.ValidatorsOfDTO
 {
-    internal class ValidatorExcelFile : AbstractBaseValidator,
+    internal class ValidatorExcelFile : AbstractBaseValidator, 
         IValidatorOfUploadFile<XLWorkbook>
     {
         public ValidatorExcelFile(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)

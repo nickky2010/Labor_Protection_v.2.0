@@ -4,13 +4,12 @@ using BLL.DTO.Employees;
 using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using Web.Controllers.Abstract;
 using Web.ValidatorsOfControllers;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class EmployeesController : AbstractCRUDDataController<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO>
+    public class EmployeesController : AbstractCRUDDataController<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO> 
     {
         public EmployeesController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
             ICRUDDataBaseService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO> service)

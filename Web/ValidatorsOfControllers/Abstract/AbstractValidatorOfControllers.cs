@@ -7,6 +7,7 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Net;
 using Web.Interfaces;
+using BLL.Infrastructure.Extentions;
 
 namespace Web.ValidatorsOfControllers.Abstract
 {
@@ -20,7 +21,7 @@ namespace Web.ValidatorsOfControllers.Abstract
         public virtual string StartItemNotExist { get => "StartItemNotExist"; }
         public virtual string CountItemsLeastOne { get => "CountItemsLeastOne"; }
         public virtual string DataIsNotValid { get => "DataIsNotValid"; }
-
+        
         public AbstractValidatorOfControllers(IStringLocalizer<SharedResource> localizer)
             : base(localizer) { }
 

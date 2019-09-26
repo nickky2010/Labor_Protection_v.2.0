@@ -6,11 +6,10 @@ using Microsoft.Extensions.Localization;
 
 namespace BLL.Services.Abstract
 {
-    internal abstract class AbstractBaseService : 
-        IService<LaborProtectionContext>
+    internal abstract class AbstractBaseService : IService
     {
-        public IUnitOfWork<LaborProtectionContext> UnitOfWork { get; protected set; }
-        public IMapper Mapper { get; protected set; }
+        protected IUnitOfWork<LaborProtectionContext> UnitOfWork { get; private set; }
+        protected IMapper Mapper { get; private set; }
         public IStringLocalizer<SharedResource> Localizer { get; set; }
 
         public AbstractBaseService(IUnitOfWorkService unitOfWorkService, IMapper mapper)

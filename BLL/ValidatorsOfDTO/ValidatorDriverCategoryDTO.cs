@@ -25,7 +25,7 @@ namespace BLL.ValidatorsOfDTO
         protected override Task<List<DriverCategory>> FindPageDataAsync(int startItem, int countItem) =>
             UnitOfWork.DriverCategories.GetPageAsync(startItem, countItem);
         protected override Task<DriverCategory> FindDataAsync(DriverCategoryAddDTO modelDTO) =>
-            UnitOfWork.DriverCategories.FindAsync(x => x.Name == modelDTO.Name);
+            UnitOfWork.DriverCategories.FindAsync(x=>x.Name == modelDTO.Name);
         protected override Task<int> GetCountElementAsync() => UnitOfWork.DriverCategories.CountElementAsync();
     }
 }

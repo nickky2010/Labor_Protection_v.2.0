@@ -1,41 +1,36 @@
 ﻿using BLL.Infrastructure;
+using BLL.Infrastructure.Extentions;
 using BLL.Interfaces;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using System.Drawing;
+using System.Net;
 
 namespace BLL.ValidatorsOfDTO.Abstract
 {
-    internal class ValidatorPhotoFile<FileType> : AbstractBaseValidator,
-        IValidatorUploadDataFromFileForCRUDService<Image>
-        where FileType : Image
+    internal class ValidatorPhotoFile : AbstractBaseValidator,
+        IValidatorOfUploadFile<Image>
     {
-        public IAppActionResult<Image> ResultFileType { get; set; }
-
         public ValidatorPhotoFile(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            : base(unitOfWork, localizer)
-        {
-            ResultFileType = new AppActionResult<Image>();
-        }
+            : base(unitOfWork, localizer) { }
 
-        public string ErrorMessage => "FileNotPicture";
-
-        public IAppActionResult<Image> ValidateFile(IFormFile file, IAppActionResult result)
+        public IAppActionResult<Image> ValidateFile(IFormFile file)
         {
+            IAppActionResult<Image> result = new AppActionResult<Image>();
             try
             {
-                using (ResultFileType.Data = Image.FromStream(file.OpenReadStream()))
+                using (result.Data = Image.FromStream(file.OpenReadStream()))
                 {
                 }
             }
             catch
             {
-                result.ErrorMessages.Add(Localizer[ErrorMessage]);
+                result.ErrorMessages.Add(Localizer["FileNotPicture"]);
             }
-            SetStatus(ResultFileType, System.Net.HttpStatusCode.BadRequest, System.Net.HttpStatusCode.OK);
-            return ResultFileType;
+            result.SetStatus(HttpStatusCode.BadRequest, HttpStatusCode.OK);
+            return result;
         }
     }
 }

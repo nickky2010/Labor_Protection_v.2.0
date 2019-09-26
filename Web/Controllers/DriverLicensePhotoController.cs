@@ -4,7 +4,6 @@ using BLL.DTO.DriverLicensePhotos;
 using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using Web.Controllers.Abstract;
 using Web.ValidatorsOfControllers;
 
 namespace Web.Controllers

@@ -9,8 +9,8 @@ using BLL.ValidatorsOfDTO;
 using ClosedXML.Excel;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+using BLL.Infrastructure.Extentions;
+using BLL.Infrastructure;
 
 namespace BLL.Services
 {

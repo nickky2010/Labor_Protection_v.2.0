@@ -10,7 +10,7 @@ using Web.ValidatorsOfControllers;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class DriverCategoriesController :
+    public class DriverCategoriesController : 
         AbstractCRUDDataController<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO>
     {
         public DriverCategoriesController(IStringLocalizer<SharedResource> localizer, IMapper mapper,

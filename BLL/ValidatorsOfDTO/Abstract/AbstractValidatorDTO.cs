@@ -29,7 +29,7 @@ namespace BLL.ValidatorsOfDTO.Abstract
         protected abstract string EntityNotFound { get; }
         protected abstract string EntitiesNotFound { get; }
 
-        public AbstractValidatorDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
+        public AbstractValidatorDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer) 
             : base(unitOfWork, localizer) { }
 
         public virtual async Task<IAppActionResult> ValidateAdd(TAddDTO model)
