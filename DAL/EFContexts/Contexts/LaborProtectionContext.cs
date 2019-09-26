@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DAL.EFContexts.Configurations;
-using DAL.Models;
+﻿using DAL.EFContexts.Configurations;
 using DAL.EFContexts.Configurations.ManyToMany;
+using DAL.Models;
 using DAL.Models.ManyToMany;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.EFContexts.Contexts
 {

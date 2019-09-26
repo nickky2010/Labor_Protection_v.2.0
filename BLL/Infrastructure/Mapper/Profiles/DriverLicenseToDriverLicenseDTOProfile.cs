@@ -19,7 +19,7 @@ namespace BLL.Infrastructure.Mapper.Profiles
                         d.DriverCategoriesId.Add(src.DriverCategoryId);
                 });
             CreateMap<DriverLicenseAddDTO, DriverLicense>()
-                .AfterMap((s, d) => 
+                .AfterMap((s, d) =>
                 {
                     d.Id = Guid.NewGuid();
                 })

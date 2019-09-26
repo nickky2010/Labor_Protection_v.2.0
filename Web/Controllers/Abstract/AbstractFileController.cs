@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BLL.Interfaces;
 using BLL;
+using BLL.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -17,7 +17,7 @@ namespace Web.Controllers.Abstract
         public IValidatorFileController Validator { get; set; }
 
         public AbstractFileController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
-            IUploadDataFromFileService<FileType, ReadModel> service): base(localizer, mapper) 
+            IUploadDataFromFileService<FileType, ReadModel> service) : base(localizer, mapper)
         {
             Service = service;
             Service.Localizer = localizer;

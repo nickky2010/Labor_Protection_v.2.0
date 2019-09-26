@@ -3,7 +3,7 @@ using System;
 
 namespace DAL.Models.ManyToMany
 {
-    public class DriverLicenseDriverCategory 
+    public class DriverLicenseDriverCategory
     {
         public Guid DriverLicenseId { get; set; }
         public virtual DriverLicense DriverLicense { get; set; }

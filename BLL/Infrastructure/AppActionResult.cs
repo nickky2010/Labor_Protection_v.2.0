@@ -40,9 +40,9 @@ namespace BLL.Infrastructure
         public TDTO Data { get; set; }
     }
 
-    internal class AppActionResultToken : AppActionResult<Token>  {  }
+    internal class AppActionResultToken : AppActionResult<Token> { }
 
-    internal class Token 
+    internal class Token
     {
         public string AccessToken { get; set; }
         public DateTime ExpiresIn { get; set; }

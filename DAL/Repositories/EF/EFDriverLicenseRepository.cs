@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories.EF
 {
-    public class EFDriverLicenseRepository: AbstractEFRepository<DriverLicense>
+    public class EFDriverLicenseRepository : AbstractEFRepository<DriverLicense>
     {
         public EFDriverLicenseRepository(DbContext context) : base(context)
         {

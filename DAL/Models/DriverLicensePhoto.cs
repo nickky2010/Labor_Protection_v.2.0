@@ -1,5 +1,4 @@
 ﻿using DAL.Extentions;
-using DAL.Interfaces;
 using System;
 
 namespace DAL.Models

@@ -4,7 +4,7 @@ using System;
 
 namespace BLL.DTO.DriverMedicalCertificatePhotos
 {
-    public class DriverMedicalCertificatePhotoGetDTO : 
+    public class DriverMedicalCertificatePhotoGetDTO :
         AbstractDataDTO<DriverMedicalCertificatePhotoGetDTO>, IUpdateDTO, IGetDTO, IGetPhotoDTO
     {
         public Guid Id { get; set; }

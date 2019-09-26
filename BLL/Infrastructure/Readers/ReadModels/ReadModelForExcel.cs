@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BLL.Infrastructure.Readers.ReadModels
 {
-    public class ReadModelForExcel: IReadModel
+    public class ReadModelForExcel : IReadModel
     {
         public List<Employee> Employees { get; set; }
         public List<Position> Positions { get; set; }
@@ -12,7 +12,7 @@ namespace BLL.Infrastructure.Readers.ReadModels
         public ReadModelForExcel()
         {
             Employees = new List<Employee>();
-            Positions = new List<Position>(); 
+            Positions = new List<Position>();
         }
     }
 }

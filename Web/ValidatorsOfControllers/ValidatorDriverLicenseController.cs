@@ -1,13 +1,13 @@
-﻿using BLL.DTO.DriverLicenses;
-using BLL;
+﻿using BLL;
+using BLL.DTO.DriverLicenses;
 using Microsoft.Extensions.Localization;
 using Web.ValidatorsOfControllers.Abstract;
 
 namespace Web.ValidatorsOfControllers
 {
-    internal class ValidatorDriverLicenseController: 
+    internal class ValidatorDriverLicenseController :
         AbstractValidatorOfControllers<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO>
     {
-        public ValidatorDriverLicenseController(IStringLocalizer<SharedResource> localizer):base(localizer) { }
+        public ValidatorDriverLicenseController(IStringLocalizer<SharedResource> localizer) : base(localizer) { }
     }
 }

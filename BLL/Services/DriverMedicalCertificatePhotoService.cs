@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using BLL.DTO.DriverMedicalCertificatePhotos;
 using BLL.Interfaces;
+using BLL.Services.Abstract;
 using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
-using BLL.Services.Abstract;
 
 namespace BLL.Services
 {
-    internal class DriverMedicalCertificatePhotoService : 
+    internal class DriverMedicalCertificatePhotoService :
         AbstractCRUDDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO, DriverMedicalCertificatePhoto>
     {
         public DriverMedicalCertificatePhotoService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :

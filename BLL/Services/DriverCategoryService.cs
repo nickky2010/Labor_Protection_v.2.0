@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    internal class DriverCategoryService : 
+    internal class DriverCategoryService :
         AbstractCRUDDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>
     {
-        public DriverCategoryService(IUnitOfWorkService unitOfWorkService, IMapper mapper) : 
+        public DriverCategoryService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
             base(unitOfWorkService, mapper)
         {
             Validator = new ValidatorDriverCategoryDTO(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);

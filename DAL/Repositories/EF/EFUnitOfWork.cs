@@ -22,10 +22,10 @@ namespace DAL.Repositories.EF
         public IRepository<DriverMedicalCertificate> DriverMedicalCertificates => new Lazy<IRepository<DriverMedicalCertificate>>(new EFDriverMedicalCertificateRepository(_context)).Value;
         public IRepository<Employee> Employees => new Lazy<IRepository<Employee>>(new EFEmployeeRepository(_context)).Value;
         public IRepository<Position> Positions => new Lazy<IRepository<Position>>(new EFPositionRepository(_context)).Value;
-        public IRepository<DriverLicensePhoto> DriverLicensePhotos => 
+        public IRepository<DriverLicensePhoto> DriverLicensePhotos =>
             new Lazy<IRepository<DriverLicensePhoto>>(new EFDriverLicensePhotoRepository(_context)).Value;
 
-        public IRepository<DriverMedicalCertificatePhoto> DriverMedicalCertificatePhotos => 
+        public IRepository<DriverMedicalCertificatePhoto> DriverMedicalCertificatePhotos =>
             new Lazy<IRepository<DriverMedicalCertificatePhoto>>(new EFDriverMedicalCertificatePhotoRepository(_context)).Value;
 
         public void Dispose()

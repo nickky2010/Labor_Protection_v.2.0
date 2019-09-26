@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DAL.Models
 {
-    public class DriverCategory: AbstractData<DriverCategory>
+    public class DriverCategory : AbstractData<DriverCategory>
     {
         public string Name { get; set; }
         public virtual IList<DriverLicenseDriverCategory> DriverLicenseDriverCategories { get; set; }

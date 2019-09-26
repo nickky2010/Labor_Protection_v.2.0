@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using BLL.DTO.DriverMedicalCertificates;
 using BLL.Interfaces;
+using BLL.Services.Abstract;
+using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
-using BLL.ValidatorsOfDTO;
-using BLL.Services.Abstract;
 
 namespace BLL.Services
 {
-    internal class DriverMedicalCertificateService : 
-        AbstractCRUDDataBaseService<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate> 
+    internal class DriverMedicalCertificateService :
+        AbstractCRUDDataBaseService<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate>
     {
         public DriverMedicalCertificateService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
             base(unitOfWorkService, mapper)

@@ -2,7 +2,7 @@
 
 namespace BLL.Interfaces
 {
-    public interface IAppActionResult<TDTO>: IAppActionResult
+    public interface IAppActionResult<TDTO> : IAppActionResult
     {
         TDTO Data { get; set; }
     }

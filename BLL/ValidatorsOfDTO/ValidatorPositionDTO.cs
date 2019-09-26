@@ -1,16 +1,16 @@
 ﻿using BLL.DTO.Positions;
+using BLL.ValidatorsOfDTO.Abstract;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using DAL.Models;
-using BLL.ValidatorsOfDTO.Abstract;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 
 namespace BLL.ValidatorsOfDTO
 {
-    internal class ValidatorPositionDTO: 
+    internal class ValidatorPositionDTO :
         AbstractValidatorDTO<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO, Position>
     {
         protected override string EntityAlreadyExist { get => "PositionAlreadyExist"; }

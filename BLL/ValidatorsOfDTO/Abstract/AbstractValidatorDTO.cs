@@ -1,4 +1,5 @@
 ﻿using BLL.Infrastructure;
+using BLL.Infrastructure.Extentions;
 using BLL.Interfaces;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
@@ -12,85 +13,81 @@ namespace BLL.ValidatorsOfDTO.Abstract
 {
     internal abstract class AbstractValidatorDTO<TGetDTO, TAddDTO, TUpdateDTO, TData> :
         AbstractBaseValidator,
-        IValidatorDTO<TGetDTO, TAddDTO, TUpdateDTO, TData>
+        IValidatorDTO<TAddDTO, TUpdateDTO, TData>
 
         where TGetDTO : IGetDTO
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
         where TData : IData
     {
-        public IAppActionResult<TData> DataResult { get; set; }
-        public IAppActionResult<List<TData>> DataListResult { get; set; }
+        protected abstract Task<int> GetCountElementAsync();
         protected abstract Task<TData> FindDataAsync(Guid id);
+        protected abstract Task<TData> FindDataAsync(TAddDTO modelDTO);
         protected abstract Task<List<TData>> FindPageDataAsync(int startItem, int countItem);
-        protected abstract Task<TData> FindDataIfAddAsync(TAddDTO modelDTO);
 
         protected abstract string EntityAlreadyExist { get; }
         protected abstract string EntityNotFound { get; }
         protected abstract string EntitiesNotFound { get; }
 
-        public AbstractValidatorDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer) 
-            : base(unitOfWork, localizer)
-        {
-            DataResult = new AppActionResult<TData>();
-            DataListResult = new AppActionResult<List<TData>>();
-        }
+        public AbstractValidatorDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
+            : base(unitOfWork, localizer) { }
+
         public virtual async Task<IAppActionResult> ValidateAdd(TAddDTO model)
         {
-            DataResult.Data = await FindDataIfAddAsync(model);
-            if (DataResult.Data != null)
-                DataResult.ErrorMessages.Add(Localizer[EntityAlreadyExist]);
-            else
-                DataResult = await ValidateConnectedEntities(DataResult.Data, model);
-            SetStatus(DataResult, HttpStatusCode.BadRequest, HttpStatusCode.OK);
-            return DataResult;
+            IAppActionResult<TData> result = new AppActionResult<TData>();
+            result.Data = await FindDataAsync(model);
+            if (result.Data != null)
+                result.ErrorMessages.Add(Localizer[EntityAlreadyExist]);
+            return result.SetStatus(HttpStatusCode.BadRequest, HttpStatusCode.OK);
         }
 
         public virtual async Task<IAppActionResult<TData>> ValidateGetData(Guid id)
         {
-            DataResult.Data = await FindDataAsync(id);
-            if (DataResult.Data == null)
-                DataResult.ErrorMessages.Add(Localizer[EntityNotFound]);
-            SetStatus(DataResult, HttpStatusCode.NotFound, HttpStatusCode.OK);
-            return DataResult;
+            IAppActionResult<TData> result = new AppActionResult<TData>();
+            result.Data = await FindDataAsync(id);
+            if (result.Data == null)
+                result.ErrorMessages.Add(Localizer[EntityNotFound]);
+            result.SetStatus(HttpStatusCode.NotFound, HttpStatusCode.OK);
+            return result;
         }
 
         public virtual async Task<IAppActionResult<List<TData>>> ValidateGetData(int startItem, int countItem)
         {
-            DataListResult.Data = await FindPageDataAsync(startItem, countItem);
-            if (DataListResult.Data == null)
-                DataListResult.ErrorMessages.Add(Localizer[EntitiesNotFound]);
-            SetStatus(DataListResult, HttpStatusCode.NotFound, HttpStatusCode.OK);
-            return DataListResult;
+            IAppActionResult<List<TData>> result = new AppActionResult<List<TData>>();
+            result.Data = await FindPageDataAsync(startItem, countItem);
+            if (result.Data == null)
+                result.ErrorMessages.Add(Localizer[EntitiesNotFound]);
+            result.SetStatus(HttpStatusCode.NotFound, HttpStatusCode.OK);
+            return result;
         }
 
         public virtual async Task<IAppActionResult<TData>> ValidateUpdate(TUpdateDTO model)
         {
-            DataResult.Data = await FindDataAsync(model.Id);
-            if (DataResult.Data == null)
-                DataResult.ErrorMessages.Add(Localizer[EntityNotFound]);
-            else
-                DataResult = await ValidateConnectedEntities(DataResult.Data, model);
-            SetStatus(DataResult, HttpStatusCode.BadRequest, HttpStatusCode.OK);
-            return DataResult;
+            return await ValidateFind(new AppActionResult<TData>(), model.Id);
         }
 
         public virtual async Task<IAppActionResult<TData>> ValidateDelete(Guid id)
         {
-            DataResult.Data = await FindDataAsync(id);
-            if (DataResult.Data == null)
-                DataResult.ErrorMessages.Add(Localizer[EntityNotFound]);
-            SetStatus(DataResult, HttpStatusCode.NotFound, HttpStatusCode.OK);
-            return DataResult;
+            return await ValidateFind(new AppActionResult<TData>(), id);
         }
 
-        protected virtual async Task<IAppActionResult<TData>> ValidateConnectedEntities(TData data, TUpdateDTO model)
+        public virtual async Task<IAppActionResult<int>> ValidateCount()
         {
-            return await Task.Run(() => DataResult);
+            IAppActionResult<int> result = new AppActionResult<int>();
+            result.Data = await GetCountElementAsync();
+            if (result.Data == 0)
+                result.ErrorMessages.Add(Localizer[EntitiesNotFound]);
+            result.SetStatus(HttpStatusCode.NotFound, HttpStatusCode.OK);
+            return result;
         }
-        protected virtual async Task<IAppActionResult<TData>> ValidateConnectedEntities(TData data, TAddDTO model)
+
+        private async Task<IAppActionResult<TData>> ValidateFind(IAppActionResult<TData> result, Guid id)
         {
-            return await Task.Run(() => DataResult);
+            result.Data = await FindDataAsync(id);
+            if (result.Data == null)
+                result.ErrorMessages.Add(Localizer[EntityNotFound]);
+            result.SetStatus(HttpStatusCode.NotFound, HttpStatusCode.OK);
+            return result;
         }
     }
 }

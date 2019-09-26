@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using BLL.DTO.DriverLicenses;
 using BLL.Interfaces;
+using BLL.Services.Abstract;
+using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
-using BLL.ValidatorsOfDTO;
-using BLL.Services.Abstract;
 
 namespace BLL.Services
 {
-    internal class DriverLicenseService : 
+    internal class DriverLicenseService :
         AbstractCRUDDataBaseService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>
     {
         public DriverLicenseService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :

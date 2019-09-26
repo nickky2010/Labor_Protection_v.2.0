@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using BLL.DTO.Employees;
 using BLL.Interfaces;
+using BLL.Services.Abstract;
 using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
-using BLL.Services.Abstract;
 
 namespace BLL.Services
 {
-    internal class EmployeeService : 
-        AbstractCRUDDataBaseService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>         
+    internal class EmployeeService :
+        AbstractCRUDDataBaseService<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>
     {
         public EmployeeService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
             base(unitOfWorkService, mapper)

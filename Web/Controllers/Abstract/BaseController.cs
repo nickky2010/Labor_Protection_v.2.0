@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Web.Controllers.Abstract
 {
-    public class BaseController : Controller 
+    public class BaseController : Controller
     {
         public IStringLocalizer<BLL.SharedResource> Localizer { get; protected set; }
         public IMapper Mapper { get; protected set; }

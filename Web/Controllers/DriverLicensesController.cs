@@ -1,21 +1,19 @@
 ﻿using AutoMapper;
+using BLL;
 using BLL.DTO.DriverLicenses;
 using BLL.Interfaces;
-using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using Web.Interfaces;
-using Web.ValidatorsOfControllers;
 using Web.Controllers.Abstract;
+using Web.ValidatorsOfControllers;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class DriverLicensesController : 
-        AbstractCRUDController<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO>,
-        IControllerServices<DriverLicensesController, ICRUDDataBaseService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO>>
+    public class DriverLicensesController :
+        AbstractCRUDDataController<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO>
     {
-        public DriverLicensesController(IStringLocalizer<SharedResource> localizer, IMapper mapper, 
+        public DriverLicensesController(IStringLocalizer<SharedResource> localizer, IMapper mapper,
             ICRUDDataBaseService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO> service)
             : base(localizer, mapper, service)
         {

@@ -2,7 +2,7 @@
 
 namespace DAL.Models
 {
-    public abstract class AbstractData<TDTO>: Data, IData
+    public abstract class AbstractData<TDTO> : Data, IData
         where TDTO : Data
     {
         public override bool Equals(object obj)

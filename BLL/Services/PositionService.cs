@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using BLL.DTO.Positions;
 using BLL.Interfaces;
+using BLL.Services.Abstract;
 using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
-using BLL.Services.Abstract;
 
 namespace BLL.Services
 {
-    internal class PositionService : 
+    internal class PositionService :
         AbstractCRUDDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO, Position>
     {
         public PositionService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :

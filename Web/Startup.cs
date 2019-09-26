@@ -1,27 +1,27 @@
-﻿using BLL.Infrastructure.Dependency;
+﻿using AutoMapper;
+using BLL;
+using BLL.DTO.DriverCategories;
+using BLL.DTO.DriverLicensePhotos;
+using BLL.DTO.DriverLicenses;
+using BLL.DTO.DriverMedicalCertificatePhotos;
+using BLL.DTO.DriverMedicalCertificates;
+using BLL.DTO.Employees;
+using BLL.DTO.Positions;
+using BLL.Infrastructure.Dependency;
+using BLL.Infrastructure.Mapper.Profiles;
+using BLL.Infrastructure.Readers.ReadModels;
 using BLL.Interfaces;
+using BLL.Services;
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Ninject;
-using Web.Extentions;
-using AutoMapper;
-using BLL.Infrastructure.Mapper.Profiles;
 using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using BLL.Services;
-using BLL;
-using BLL.DTO.Employees;
-using BLL.DTO.Positions;
-using BLL.DTO.DriverCategories;
-using BLL.DTO.DriverLicenses;
-using BLL.DTO.DriverMedicalCertificates;
-using BLL.DTO.DriverLicensePhotos;
-using BLL.DTO.DriverMedicalCertificatePhotos;
-using ClosedXML.Excel;
-using BLL.Infrastructure.Readers.ReadModels;
+using Web.Extentions;
 
 namespace Web
 {
@@ -38,11 +38,11 @@ namespace Web
         {
             var mappingConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<EmployeeToEmployeeDTOProfile>(); 
+                cfg.AddProfile<EmployeeToEmployeeDTOProfile>();
                 cfg.AddProfile<PositionToPositionDTOProfile>();
                 cfg.AddProfile<DriverCategoryToDriverCategoryDTOProfile>();
                 cfg.AddProfile<DriverLicensePhotoToDriverLicensePhotoDTOProfile>();
-                cfg.AddProfile<DriverLicenseToDriverLicenseDTOProfile>(); 
+                cfg.AddProfile<DriverLicenseToDriverLicenseDTOProfile>();
                 cfg.AddProfile<DriverMedicalCertificateToDriverMedicalCertificateDTOProfile>();
                 cfg.AddProfile<DriverMedicalCertificatePhotoToDriverMedicalCertificatePhotoDTOProfile>();
 
@@ -65,7 +65,8 @@ namespace Web
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
-                .AddDataAnnotationsLocalization(options => {
+                .AddDataAnnotationsLocalization(options =>
+                {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
                         factory.Create(typeof(SharedResource));
                 })
