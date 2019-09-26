@@ -30,20 +30,12 @@ namespace Web.Middleware
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+            var code = HttpStatusCode.InternalServerError; 
             var exceptionMessage = JsonConvert.SerializeObject(new { error = exception.Message });
             if (exception is CultureNotFoundException) code = HttpStatusCode.InternalServerError;
-            //else if (exception is NotFoundException) code = HttpStatusCode.NotFound;
-            //else if (exception is UnauthorizedException) code = HttpStatusCode.Unauthorized;
-            //else if (exception is ForbiddenException) code = HttpStatusCode.Forbidden;
-            //else if (exception is BadRequestException) code = HttpStatusCode.BadRequest;
             else if(exception is DbUpdateConcurrencyException)
             {
                 code = HttpStatusCode.Conflict;
-                //exceptionMessage = JsonConvert.SerializeObject(new
-                //{
-                //    error = Localizer["StartItemNotExist"]
-                //});
             }
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;

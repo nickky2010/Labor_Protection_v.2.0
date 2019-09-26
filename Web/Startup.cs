@@ -60,7 +60,6 @@ namespace Web
             services.AddScoped<ICRUDDataBaseService<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO>>(o => new DriverMedicalCertificateService(unitOfWorkService, mapper));
             services.AddScoped<ICRUDDataBaseService<DriverLicensePhotoGetDTO, DriverLicensePhotoAddDTO, DriverLicensePhotoUpdateDTO>>(o => new DriverLicensePhotoService(unitOfWorkService, mapper));
             services.AddScoped<ICRUDDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO>>(o => new DriverMedicalCertificatePhotoService(unitOfWorkService, mapper));
-            services.AddScoped<ICRUDDataBaseService<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO>>(o => new DriverMedicalCertificatePhotoService(unitOfWorkService, mapper));
             services.AddScoped<IUploadDataFromFileService<XLWorkbook, ReadModelForExcel>>(o => new UploadDataFromExcelService(unitOfWorkService, mapper));
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -71,7 +70,6 @@ namespace Web
                 })
                 .AddViewLocalization()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new[]

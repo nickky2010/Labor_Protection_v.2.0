@@ -5,15 +5,13 @@ using BLL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Web.Controllers.Abstract;
-using Web.Interfaces;
 using Web.ValidatorsOfControllers;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
     public class DriverCategoriesController : 
-        AbstractCRUDController<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO>,
-        IControllerServices<DriverCategoriesController, ICRUDDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO>>
+        AbstractCRUDDataController<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO>
     {
         public DriverCategoriesController(IStringLocalizer<SharedResource> localizer, IMapper mapper, 
             ICRUDDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO> service)

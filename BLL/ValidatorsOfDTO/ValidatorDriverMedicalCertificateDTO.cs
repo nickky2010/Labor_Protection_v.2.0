@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using BLL.ValidatorsOfDTO.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using BLL.Infrastructure.Extentions;
 
 namespace BLL.ValidatorsOfDTO
 {
@@ -21,23 +23,18 @@ namespace BLL.ValidatorsOfDTO
         public ValidatorDriverMedicalCertificateDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
             : base(unitOfWork, localizer) { }
 
-        protected override async Task<IAppActionResult<DriverMedicalCertificate>> ValidateConnectedEntities(DriverMedicalCertificate data, 
-            DriverMedicalCertificateAddDTO model)
+        public override async Task<IAppActionResult> ValidateAdd(DriverMedicalCertificateAddDTO model)
         {
-            if (!await UnitOfWork.Employees.IsIdExistAsync(model.EmployeeId))
-                DataResult.ErrorMessages.Add(Localizer["EmployeeNotFound"]);
-            if (!await UnitOfWork.DriverCategories.IsAllIdExistAsync(model.DriverCategoriesId))
-                DataResult.ErrorMessages.Add(Localizer["DriverCategoriesNotFound"]);
-            return DataResult;
+            var result = await base.ValidateAdd(model);
+            ValidateConnected(result, model.EmployeeId, model.DriverCategoriesId);
+            return result;
         }
-        protected override async Task<IAppActionResult<DriverMedicalCertificate>> ValidateConnectedEntities(DriverMedicalCertificate data, 
-            DriverMedicalCertificateUpdateDTO model)
+
+        public override async Task<IAppActionResult<DriverMedicalCertificate>> ValidateUpdate(DriverMedicalCertificateUpdateDTO model)
         {
-            if (!await UnitOfWork.Employees.IsIdExistAsync(model.EmployeeId))
-                DataResult.ErrorMessages.Add(Localizer["EmployeeNotFound"]);
-            if (!await UnitOfWork.DriverCategories.IsAllIdExistAsync(model.DriverCategoriesId))
-                DataResult.ErrorMessages.Add(Localizer["DriverCategoriesNotFound"]);
-            return DataResult;
+            var result = await base.ValidateUpdate(model);
+            ValidateConnected(result, model.EmployeeId, model.DriverCategoriesId);
+            return result;
         }
 
         protected override Task<DriverMedicalCertificate> FindDataAsync(Guid id) =>
@@ -46,7 +43,17 @@ namespace BLL.ValidatorsOfDTO
         protected override Task<List<DriverMedicalCertificate>> FindPageDataAsync(int startItem, int countItem) =>
             UnitOfWork.DriverMedicalCertificates.GetPageAsync(startItem, countItem);
 
-        protected override Task<DriverMedicalCertificate> FindDataIfAddAsync(DriverMedicalCertificateAddDTO modelDTO) =>
+        protected override Task<DriverMedicalCertificate> FindDataAsync(DriverMedicalCertificateAddDTO modelDTO) =>
             UnitOfWork.DriverMedicalCertificates.FindAsync(x => x.SerialNumber == modelDTO.SerialNumber);
+        protected override Task<int> GetCountElementAsync() => UnitOfWork.DriverMedicalCertificates.CountElementAsync();
+
+        private async void ValidateConnected(IAppActionResult result, Guid employeeId, IList<Guid> driverCategoriesId)
+        {
+            if (!await UnitOfWork.Employees.IsIdExistAsync(employeeId))
+                result.ErrorMessages.Add(Localizer["EmployeeNotFound"]);
+            if (!await UnitOfWork.DriverCategories.IsAllIdExistAsync(driverCategoriesId))
+                result.ErrorMessages.Add(Localizer["DriverCategoriesNotFound"]);
+            result.SetStatus(HttpStatusCode.BadRequest, HttpStatusCode.OK);
+        }
     }
 }

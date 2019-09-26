@@ -9,24 +9,31 @@ using BLL.Infrastructure.Readers.ReadModels;
 using BLL.Infrastructure.Readers;
 using System.Net;
 using System.Linq;
+using BLL.Infrastructure.Extentions;
+using BLL.Infrastructure;
 
 namespace BLL.Services
 {
-    internal class UploadDataFromExcelService : AbstractUploadDataFromFileService<XLWorkbook, ReadModelForExcel>
+    internal class UploadDataFromExcelService : AbstractBaseService,
+        IUploadDataFromFileService<XLWorkbook, ReadModelForExcel>
     {
         public UploadDataFromExcelService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
             base(unitOfWorkService, mapper) { }
 
-        public override async Task<IAppActionResult> SynchronizeData(IFormFile file)
+        public async Task<IAppActionResult> SynchronizeData(IFormFile file)
         {
-            CreateTools();
-            var result = Validator.ValidateFile(file);
+            IValidatorOfUploadFile<XLWorkbook> validator = new ValidatorExcelFile(UnitOfWork, Localizer);
+            IReader<XLWorkbook, ReadModelForExcel> reader = new ReaderFromExcel(Localizer);
+            var result = new AppActionResult();
+            var resultData = validator.ValidateFile(file);
+            result.SetResult(resultData);
             if (!result.IsSuccess)
                 return result;
-            var readResult = Reader.Read(result.Data);
-            Validator.SetStatus(readResult, HttpStatusCode.BadRequest, HttpStatusCode.OK);
-            if (!readResult.IsSuccess)
-                return readResult;
+            var readResult = reader.Read(resultData.Data);
+            readResult.SetStatus(HttpStatusCode.BadRequest, HttpStatusCode.OK);
+            result.SetResult(readResult);
+            if (!result.IsSuccess)
+                return result;
             bool isSave = false;
             var allPos = await UnitOfWork.Positions.GetAllAsync();
             var positionNames = readResult.Data.Positions.Select(x => x.Name).ToList();
@@ -66,13 +73,7 @@ namespace BLL.Services
             }
             if(isSave)
                 await UnitOfWork.SaveChangesAsync();
-            readResult.Data = null;
-            return readResult;
-        }
-        private void CreateTools()
-        {
-            Validator = new ValidatorExcelFile(UnitOfWork, Localizer);
-            Reader = new ReaderFromExcel(Localizer);
+            return result;
         }
     }
 }

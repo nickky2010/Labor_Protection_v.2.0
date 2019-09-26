@@ -11,7 +11,6 @@ namespace BLL.Infrastructure.Mapper.Profiles
     {
         public DriverLicenseToDriverLicenseDTOProfile()
         {
-            // Add
             CreateMap<DriverLicense, DriverLicenseAddDTO>()
                 .AfterMap((s, d) =>
                 {
@@ -33,7 +32,6 @@ namespace BLL.Infrastructure.Mapper.Profiles
                         });
                 });
 
-            // Update
             CreateMap<DriverLicense, DriverLicenseUpdateDTO>()
                 .AfterMap((s, d) =>
                 {
@@ -51,7 +49,6 @@ namespace BLL.Infrastructure.Mapper.Profiles
                         });
                 });
 
-            // Get
             CreateMap<DriverLicense, DriverLicenseGetDTO>()
                 .AfterMap((s, d) =>
                 {

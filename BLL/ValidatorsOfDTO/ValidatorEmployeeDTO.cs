@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using BLL.ValidatorsOfDTO.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using BLL.Infrastructure.Extentions;
 
 namespace BLL.ValidatorsOfDTO
 {
@@ -21,17 +23,18 @@ namespace BLL.ValidatorsOfDTO
         public ValidatorEmployeeDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
             : base(unitOfWork, localizer) { }
 
-        protected override async Task<IAppActionResult<Employee>> ValidateConnectedEntities(Employee data, EmployeeAddDTO model)
+        public override async Task<IAppActionResult> ValidateAdd(EmployeeAddDTO model)
         {
-            if (!await UnitOfWork.Positions.IsIdExistAsync(model.PositionId))
-                DataResult.ErrorMessages.Add(Localizer["PositionNotFound"]);
-            return DataResult;
+            var result = await base.ValidateAdd(model);
+            ValidateConnected(result, model.PositionId);
+            return result;
         }
-        protected override async Task<IAppActionResult<Employee>> ValidateConnectedEntities(Employee data, EmployeeUpdateDTO model)
+
+        public override async Task<IAppActionResult<Employee>> ValidateUpdate(EmployeeUpdateDTO model)
         {
-            if (!await UnitOfWork.Positions.IsIdExistAsync(model.PositionId))
-                DataResult.ErrorMessages.Add(Localizer["PositionNotFound"]);
-            return DataResult;
+            var result = await base.ValidateUpdate(model);
+            ValidateConnected(result, model.PositionId);
+            return result;
         }
 
         protected override Task<Employee> FindDataAsync(Guid id) =>
@@ -40,7 +43,15 @@ namespace BLL.ValidatorsOfDTO
         protected override Task<List<Employee>> FindPageDataAsync(int startItem, int countItem) =>
             UnitOfWork.Employees.GetPageAsync(startItem, countItem);
 
-        protected override Task<Employee> FindDataIfAddAsync(EmployeeAddDTO modelDTO) =>
+        protected override Task<Employee> FindDataAsync(EmployeeAddDTO modelDTO) =>
             UnitOfWork.Employees.FindAsync(x => x.Surname == modelDTO.Surname && x.FirstName == modelDTO.FirstName && x.Patronymic == modelDTO.Patronymic);
+        protected override Task<int> GetCountElementAsync() => UnitOfWork.Employees.CountElementAsync();
+
+        private async void ValidateConnected(IAppActionResult result, Guid id)
+        {
+            if (!await UnitOfWork.Positions.IsIdExistAsync(id))
+                result.ErrorMessages.Add(Localizer["PositionNotFound"]);
+            result.SetStatus(HttpStatusCode.BadRequest, HttpStatusCode.OK);
+        }
     }
 }

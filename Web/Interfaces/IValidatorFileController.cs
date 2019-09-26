@@ -5,9 +5,6 @@ namespace Web.Interfaces
 {
     public interface IValidatorFileController
     {
-        IAppActionResult Result { get; set; }
-        string NoData { get; }
-
         IAppActionResult ValidateFile(IFormFile file);
     }
 }
