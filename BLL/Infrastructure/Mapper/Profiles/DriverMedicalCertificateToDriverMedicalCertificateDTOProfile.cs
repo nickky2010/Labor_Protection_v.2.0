@@ -11,7 +11,6 @@ namespace BLL.Infrastructure.Mapper.Profiles
     {
         public DriverMedicalCertificateToDriverMedicalCertificateDTOProfile()
         {
-            // Add
             CreateMap<DriverMedicalCertificate, DriverMedicalCertificateAddDTO>()
                 .AfterMap((s, d) =>
                 {
@@ -33,7 +32,6 @@ namespace BLL.Infrastructure.Mapper.Profiles
                         });
                 });
 
-            // Update
             CreateMap<DriverMedicalCertificate, DriverMedicalCertificateUpdateDTO>()
                 .AfterMap((s, d) =>
                 {
@@ -51,7 +49,6 @@ namespace BLL.Infrastructure.Mapper.Profiles
                         });
                 });
 
-            // Get
             CreateMap<DriverMedicalCertificate, DriverMedicalCertificateGetDTO>()
                 .AfterMap((s, d) =>
                 {

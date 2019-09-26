@@ -26,7 +26,8 @@ namespace BLL.ValidatorsOfDTO
         protected override Task<List<Position>> FindPageDataAsync(int startItem, int countItem) =>
             UnitOfWork.Positions.GetPageAsync(startItem, countItem);
 
-        protected override Task<Position> FindDataIfAddAsync(PositionAddDTO modelDTO) =>
+        protected override Task<Position> FindDataAsync(PositionAddDTO modelDTO) =>
             UnitOfWork.Positions.FindAsync(x => x.Name == modelDTO.Name);
+        protected override Task<int> GetCountElementAsync() => UnitOfWork.Positions.CountElementAsync();
     }
 }

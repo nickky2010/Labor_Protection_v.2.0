@@ -21,5 +21,6 @@ namespace DAL.Interfaces
         Task<List<TData>> GetAllAsync();
         Task<bool> IsIdExistAsync(Guid id);
         Task<bool> IsAllIdExistAsync(IList<Guid> idList);
+        Task<int> CountElementAsync();
     }
 }

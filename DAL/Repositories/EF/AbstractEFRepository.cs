@@ -53,12 +53,17 @@ namespace DAL.Repositories
 
         public virtual Task<List<TData>> GetPageAsync(int startItem, int countItem)
         {
-            return Query.Skip(startItem - 1).Take(countItem).ToListAsync();
+            return Query.Skip(startItem).Take(countItem).ToListAsync();
         }
 
         public virtual Task<List<TData>> GetAllAsync(Expression<Func<TData, bool>> where)
         {
             return Query.Where(where).ToListAsync();
+        }
+
+        public virtual Task<int> CountElementAsync()
+        {
+            return Query.CountAsync();
         }
 
         public virtual Task<List<TData>> GetAllAsync()

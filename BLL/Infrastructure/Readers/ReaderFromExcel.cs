@@ -4,113 +4,87 @@ using ClosedXML.Excel;
 using DAL.Models;
 using Microsoft.Extensions.Localization;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace BLL.Infrastructure.Readers
 {
-    internal class ReaderFromExcel: IReader<XLWorkbook, ReadModelForExcel>
+    internal class ReaderFromExcel : IReader<XLWorkbook, ReadModelForExcel>
     {
-        public IAppActionResult<ReadModelForExcel> Result { get; set; }
-        private List<string>[] buffer;
-        private IXLRange range;
         private int workSheetNumber = 1;
-        private int RowCount { get; set; }
-        private int ColCount { get; set; }
         private string SeparatorFIO { get; set; } = " ";
-        public IStringLocalizer<SharedResource> Localizer { get; set; }
-        public int DataModelColCount { get; set; }
+        private IStringLocalizer<SharedResource> Localizer { get; set; }
 
         public ReaderFromExcel(IStringLocalizer<SharedResource> localizer)
         {
             Localizer = localizer;
-            Result = new AppActionResult<ReadModelForExcel> { Data = new ReadModelForExcel()};
         }
         public IAppActionResult<ReadModelForExcel> Read(XLWorkbook workbook)
         {
-            OpenFile(workbook);
-            if (RowCount <= 1)
-                Result.ErrorMessages.Add(Localizer["RowCountOneOrLess"]);
-            DataModelColCount = Result.Data.GetType().GetProperties().Length;
-            if (ColCount < DataModelColCount)
-                Result.ErrorMessages.Add(Localizer["ColCountSmallerThanDataModels"]);
-            if (Result.ErrorMessages.Count != 0)
-                return Result;
-            ReadFileInBufer();
-            ParseLoadedData();
-            return Result;
-        }
-
-        private void OpenFile(XLWorkbook workbook)
-        {
+            IAppActionResult<ReadModelForExcel> result = new AppActionResult<ReadModelForExcel> { Data = new ReadModelForExcel() };
             var worksheet = workbook.Worksheet(workSheetNumber);
-            range = worksheet.RangeUsed();
-            RowCount = range.RowsUsed().Count();
-            ColCount = range.ColumnsUsed().Count();
-        }
-        private void ReadFileInBufer()
-        {
-            buffer = new List<string>[ColCount];
-            for (int j = 0; j < ColCount; ++j)
-            {
-                buffer[j] = new List<string>();
-            }
-            for (int j = 0; j < ColCount; ++j)
-            {
-                for (int i = 0; i < RowCount; ++i)
-                {
-                    buffer[j].Add(range.Cell(i + 1, j + 1).Value.ToString());
-                }
-            }
+            var range = worksheet.RangeUsed();
+            var rowCount = range.RowsUsed().Count();
+            var colCount = range.ColumnsUsed().Count();
+            if (rowCount <= 1)
+                result.ErrorMessages.Add(Localizer["RowCountOneOrLess"]);
+            var dataModelColCount = result.Data.GetType().GetProperties().Length;
+            if (colCount < dataModelColCount)
+                result.ErrorMessages.Add(Localizer["ColCountSmallerThanDataModels"]);
+            if (result.ErrorMessages.Count != 0)
+                return result;
+            return ParseLoadedData(result, range, rowCount, colCount);
         }
 
-        private void ParseLoadedData()
+        private IAppActionResult<ReadModelForExcel> ParseLoadedData(IAppActionResult<ReadModelForExcel> result, IXLRange range, int rowCount, int colCount)
         {
             Regex rSepForFIO = new Regex(SeparatorFIO);
             StringBuilder value = new StringBuilder();
             var position = "Position";
             var employee = "Employee";
 
-            for (int i = 1; i < RowCount; ++i)
+            for (int i = 1; i < rowCount; ++i)
             {
-                Result.Data.Employees.Add(new Employee());
-                Result.Data.Employees[Result.Data.Employees.Count - 1].Id = Guid.NewGuid();
-                for (int j = 0; j < ColCount; ++j)
+                result.Data.Employees.Add(new Employee());
+                result.Data.Employees[result.Data.Employees.Count - 1].Id = Guid.NewGuid();
+                for (int j = 0; j < colCount; ++j)
                 {
-                    if (buffer[j][0] == position)
+                    var rowData = range.Cell(i + 1, j + 1).Value.ToString();
+                    var columnName = range.Cell(1, j + 1).Value.ToString();
+                    if (columnName == position)
                     {
-                        if (!Result.Data.Positions.Exists(d => d.Name == buffer[j][i]))
+                        if (!result.Data.Positions.Exists(d => d.Name == rowData))
                         {
-                            Result.Data.Positions.Add(new Position {  Id = Guid.NewGuid(), Name = buffer[j][i] });
-                            Result.Data.Employees[Result.Data.Employees.Count - 1].PositionId = Result.Data.Positions[Result.Data.Positions.Count - 1].Id;
-                            Result.Data.Employees[Result.Data.Employees.Count - 1].Position = new Position
+                            result.Data.Positions.Add(new Position { Id = Guid.NewGuid(), Name = rowData });
+                            result.Data.Employees[result.Data.Employees.Count - 1].PositionId = result.Data.Positions[result.Data.Positions.Count - 1].Id;
+                            result.Data.Employees[result.Data.Employees.Count - 1].Position = new Position
                             {
-                                Id = Result.Data.Positions[Result.Data.Positions.Count - 1].Id,
-                                Name = buffer[j][i]
+                                Id = result.Data.Positions[result.Data.Positions.Count - 1].Id,
+                                Name = rowData
                             };
                         }
                         else
                         {
-                            var pos = Result.Data.Positions.Find(d => d.Name == buffer[j][i]);
-                            Result.Data.Employees[Result.Data.Employees.Count - 1].PositionId = pos.Id;
-                            Result.Data.Employees[Result.Data.Employees.Count - 1].Position = new Position
+                            var pos = result.Data.Positions.Find(d => d.Name == rowData);
+                            result.Data.Employees[result.Data.Employees.Count - 1].PositionId = pos.Id;
+                            result.Data.Employees[result.Data.Employees.Count - 1].Position = new Position
                             {
                                 Id = pos.Id,
                                 Name = pos.Name
                             };
                         }
                     }
-                    if (buffer[j][0] == employee)
+                    if (columnName == employee)
                     {
-                        string[] dataName = rSepForFIO.Split(buffer[j][i]);
-                        Result.Data.Employees[Result.Data.Employees.Count - 1].Surname = dataName[0];
-                        Result.Data.Employees[Result.Data.Employees.Count - 1].FirstName = dataName[1];
-                        Result.Data.Employees[Result.Data.Employees.Count - 1].Patronymic = dataName[2];
+                        string[] dataName = rSepForFIO.Split(rowData);
+                        result.Data.Employees[result.Data.Employees.Count - 1].Surname = dataName[0];
+                        result.Data.Employees[result.Data.Employees.Count - 1].FirstName = dataName[1];
+                        result.Data.Employees[result.Data.Employees.Count - 1].Patronymic = dataName[2];
                     }
                 }
             }
+            return result;
         }
     }
 }

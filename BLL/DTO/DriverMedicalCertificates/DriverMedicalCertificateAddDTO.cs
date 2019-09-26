@@ -12,10 +12,8 @@ namespace BLL.DTO.DriverMedicalCertificates
         public string SerialNumber { get; set; }
         public Guid EmployeeId { get; set; }
         public IList<Guid> DriverCategoriesId { get; set; }
-        //public IList<Guid> DriverMedicalCertificatePhotosId { get; set; }
         public DriverMedicalCertificateAddDTO()
         {
-            //DriverMedicalCertificatePhotosId = new List<Guid>();
             DriverCategoriesId = new List<Guid>();
         }
         public override int GetHashCode()
