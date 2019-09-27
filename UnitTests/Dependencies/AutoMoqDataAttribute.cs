@@ -3,7 +3,7 @@ using AutoFixture.AutoMoq;
 using AutoFixture.Xunit2;
 using System.Linq;
 
-namespace UnitTests.BLL.Dependencies
+namespace UnitTests.Dependencies
 {
     public class AutoMoqDataAttribute : AutoDataAttribute
     {
