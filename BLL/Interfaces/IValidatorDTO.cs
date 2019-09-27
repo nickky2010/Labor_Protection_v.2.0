@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    internal interface IValidatorDTO<TAddDTO, TUpdateDTO, TData>
+    public interface IValidatorDTO<TAddDTO, TUpdateDTO, TData>
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
         where TData : IData
@@ -19,7 +19,7 @@ namespace BLL.Interfaces
         Task<IAppActionResult<int>> ValidateCount();
     }
 
-    internal interface IValidatorOfUploadFile<FileType>
+    public interface IValidatorOfUploadFile<FileType>
         where FileType : class
     {
         IAppActionResult<FileType> ValidateFile(IFormFile file);
