@@ -21,14 +21,13 @@ namespace UnitTests.BLL.ValidatorsOfDTO
         where TUpdateDTO : IUpdateDTO
         where TData : IData
     {
-        private delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<TData>>> SetupDataExpressionMethod();
-        private delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<List<TData>>>> SetupListDataExpressionMethod();
-        private delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<int>>> SetupCountExpressionMethod();
+        protected delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<TData>>> SetupDataExpressionMethod();
+        protected delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<List<TData>>>> SetupListDataExpressionMethod();
+        protected delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<int>>> SetupCountExpressionMethod();
 
         protected abstract Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<TData>>> SetupFindExpression();
         protected abstract Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<List<TData>>>> SetupGetPageExpression();
         protected abstract Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<int>>> SetupCountExpression();
-
         protected abstract IValidatorDTO<TAddDTO, TUpdateDTO, TData> CreateValidator(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer);
 
         #region ValidateAdd
@@ -37,7 +36,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, TAddDTO dataDTO, LocalizedString localizedString)
         {
             TData data = default;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupFindExpression, data, false);
+            SetMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateAdd(dataDTO);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
         }
@@ -46,7 +46,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
         public virtual async void ValidateAdd_EntityIsExistInDb_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, TData data, TAddDTO dataDTO, LocalizedString localizedString)
         {
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupFindExpression, data, true);
+            SetMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateAdd(dataDTO);
             CheckNegative(result, (int)HttpStatusCode.BadRequest, unitOfWork, localizer);
         }
@@ -58,7 +59,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, TData data, Guid id, LocalizedString localizedString)
         {
             data.Id = id;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupFindExpression, data, false);
+            SetMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateGetData(id);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
             Assert.Equal(result.Data.Id, id);
@@ -69,7 +71,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, Guid id, LocalizedString localizedString)
         {
             TData data = default;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupFindExpression, data, true);
+            SetMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateGetData(id);
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
         }
@@ -82,7 +85,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
         {
             int startItem = 0;
             int countItem = 3;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupGetPageExpression, datas, false);
+            SetMocks(unitOfWork, localizer, localizedString, false, SetupGetPageExpression, datas);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateGetData(startItem, countItem);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
             Assert.NotEmpty(result.Data);
@@ -95,7 +99,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             int startItem = 0;
             int countItem = 3;
             List<TData> datas = default;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupGetPageExpression, datas, false);
+            SetMocks(unitOfWork, localizer, localizedString, true, SetupGetPageExpression, datas);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateGetData(startItem, countItem);
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
             Assert.Null(result.Data);
@@ -108,7 +113,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, TData data, TUpdateDTO updateDTO, LocalizedString localizedString)
         {
             data.Id = updateDTO.Id;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupFindExpression, data, false);
+            SetMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateUpdate(updateDTO);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
             Assert.Equal(result.Data.Id, data.Id);
@@ -119,7 +125,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, TUpdateDTO updateDTO, LocalizedString localizedString)
         {
             TData data = default;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupFindExpression, data, true);
+            SetMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateUpdate(updateDTO);
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
             Assert.Null(result.Data);
@@ -132,7 +139,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, TData data, Guid id, LocalizedString localizedString)
         {
             data.Id = id;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupFindExpression, data, false);
+            SetMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateDelete(id);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
         }
@@ -142,7 +150,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, Guid id, LocalizedString localizedString)
         {
             TData data = default;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupFindExpression, data, true);
+            SetMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateDelete(id);
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
         }
@@ -154,7 +163,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString)
         {
             int count = 3;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupCountExpression, count, false);
+            SetMocks(unitOfWork, localizer, localizedString, false, SetupCountExpression, count);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateCount();
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
             Assert.Equal(result.Data, count);
@@ -165,7 +175,8 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString)
         {
             int count = 0;
-            var validatorDTO = CreateValidator(unitOfWork, localizer, localizedString, SetupCountExpression, count, true);
+            SetMocks(unitOfWork, localizer, localizedString, true, SetupCountExpression, count);
+            var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateCount();
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
             Assert.Equal(result.Data, count);
@@ -173,38 +184,53 @@ namespace UnitTests.BLL.ValidatorsOfDTO
         #endregion
 
         #region utility methods
-        private IValidatorDTO<TAddDTO, TUpdateDTO, TData> CreateValidator(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
-            Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString, SetupDataExpressionMethod method,
-            TData data, bool IsVerifyLocalizer)
+        private Mock<IUnitOfWork<LaborProtectionContext>> SetMockUnitOfWork(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+            SetupDataExpressionMethod method, TData data)
         {
-            SetLocalizer(localizer, localizedString, IsVerifyLocalizer);
             unitOfWork.Setup(method()).ReturnsAsync(data).Verifiable();
-            return CreateValidator(unitOfWork.Object, localizer.Object);
+            return unitOfWork;
         }
 
-        private IValidatorDTO<TAddDTO, TUpdateDTO, TData> CreateValidator(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
-            Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString, SetupListDataExpressionMethod method,
-            List<TData> datas, bool IsVerifyLocalizer)
+        private Mock<IUnitOfWork<LaborProtectionContext>> SetMockUnitOfWork(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+            SetupListDataExpressionMethod method, List<TData> datas)
         {
-            SetLocalizer(localizer, localizedString, IsVerifyLocalizer);
             unitOfWork.Setup(method()).ReturnsAsync(datas).Verifiable();
-            return CreateValidator(unitOfWork.Object, localizer.Object);
+            return unitOfWork;
         }
 
-        private IValidatorDTO<TAddDTO, TUpdateDTO, TData> CreateValidator(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
-            Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString, SetupCountExpressionMethod method,
-            int count, bool IsVerifyLocalizer)
+        private Mock<IUnitOfWork<LaborProtectionContext>> SetMockUnitOfWork(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+            SetupCountExpressionMethod method, int count)
         {
-            SetLocalizer(localizer, localizedString, IsVerifyLocalizer);
             unitOfWork.Setup(method()).ReturnsAsync(count).Verifiable();
-            return CreateValidator(unitOfWork.Object, localizer.Object);
+            return unitOfWork;
         }
 
-        private void SetLocalizer(Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString, bool IsVerifyLocalizer)
+        private void SetMockLocalizer(Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString, bool IsVerifyLocalizer)
         {
             var loc = localizer.Setup(a => a[It.IsAny<string>()]).Returns(localizedString);
             if (IsVerifyLocalizer)
                 loc.Verifiable();
+        }
+
+        protected void SetMocks(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork, Mock<IStringLocalizer<SharedResource>> localizer, 
+            LocalizedString localizedString, bool IsVerifyLocalizer, SetupDataExpressionMethod method, TData data)
+        {
+            SetMockLocalizer(localizer, localizedString, IsVerifyLocalizer);
+            SetMockUnitOfWork(unitOfWork, method, data);
+        }
+
+        private void SetMocks(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork, Mock<IStringLocalizer<SharedResource>> localizer,
+            LocalizedString localizedString, bool IsVerifyLocalizer, SetupListDataExpressionMethod method, List<TData> datas)
+        {
+            SetMockLocalizer(localizer, localizedString, IsVerifyLocalizer);
+            SetMockUnitOfWork(unitOfWork, method, datas);
+        }
+
+        private void SetMocks(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork, Mock<IStringLocalizer<SharedResource>> localizer,
+            LocalizedString localizedString, bool IsVerifyLocalizer, SetupCountExpressionMethod method, int count)
+        {
+            SetMockLocalizer(localizer, localizedString, IsVerifyLocalizer);
+            SetMockUnitOfWork(unitOfWork, method, count);
         }
 
         private void CheckPositive(IAppActionResult result, int code, Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork)
@@ -216,7 +242,7 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             unitOfWork.Verify();
         }
 
-        private void CheckNegative(IAppActionResult result, int code, Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        protected void CheckNegative(IAppActionResult result, int code, Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer)
         {
             Assert.NotNull(result);

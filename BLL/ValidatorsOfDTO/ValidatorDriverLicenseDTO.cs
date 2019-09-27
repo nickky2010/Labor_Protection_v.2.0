@@ -26,14 +26,18 @@ namespace BLL.ValidatorsOfDTO
         public override async Task<IAppActionResult> ValidateAdd(DriverLicenseAddDTO model)
         {
             var result = await base.ValidateAdd(model);
-            ValidateConnected(result, model.EmployeeId, model.DriverCategoriesId);
+            if(result.IsSuccess)
+                ValidateConnected(result, model.EmployeeId, model.DriverCategoriesId);
             return result;
         }
 
         public override async Task<IAppActionResult<DriverLicense>> ValidateUpdate(DriverLicenseUpdateDTO model)
         {
             var result = await base.ValidateUpdate(model);
-            ValidateConnected(result, model.EmployeeId, model.DriverCategoriesId);
+            if (result.IsSuccess)
+                ValidateConnected(result, model.EmployeeId, model.DriverCategoriesId);
+            if (!result.IsSuccess)
+                result.Data = default;
             return result;
         }
 
