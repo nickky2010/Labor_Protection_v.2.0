@@ -26,14 +26,18 @@ namespace BLL.ValidatorsOfDTO
         public override async Task<IAppActionResult> ValidateAdd(EmployeeAddDTO model)
         {
             var result = await base.ValidateAdd(model);
-            ValidateConnected(result, model.PositionId);
+            if (result.IsSuccess)
+                ValidateConnected(result, model.PositionId);
             return result;
         }
 
         public override async Task<IAppActionResult<Employee>> ValidateUpdate(EmployeeUpdateDTO model)
         {
             var result = await base.ValidateUpdate(model);
-            ValidateConnected(result, model.PositionId);
+            if (result.IsSuccess)
+                ValidateConnected(result, model.PositionId);
+            if (!result.IsSuccess)
+                result.Data = default;
             return result;
         }
 
