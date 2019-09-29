@@ -3,19 +3,17 @@ using BLL.Infrastructure.Extentions;
 using BLL.Interfaces;
 using BLL.ValidatorsOfDTO.Abstract;
 using ClosedXML.Excel;
-using DAL.EFContexts.Contexts;
-using DAL.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using System.Net;
 
 namespace BLL.ValidatorsOfDTO
 {
-    internal class ValidatorExcelFile : AbstractBaseValidator,
+    internal class ValidatorExcelFile : AbstractFileValidator,
         IValidatorOfUploadFile<XLWorkbook>
     {
-        public ValidatorExcelFile(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            : base(unitOfWork, localizer) { }
+        public ValidatorExcelFile(IStringLocalizer<SharedResource> localizer)
+            : base(localizer) { }
 
         public IAppActionResult<XLWorkbook> ValidateFile(IFormFile file)
         {
@@ -29,6 +27,7 @@ namespace BLL.ValidatorsOfDTO
             catch
             {
                 result.ErrorMessages.Add(Localizer["FileNotXLWorkbook"]);
+                result.Data = null;
             }
             result.SetStatus(HttpStatusCode.BadRequest, HttpStatusCode.OK);
             return result;

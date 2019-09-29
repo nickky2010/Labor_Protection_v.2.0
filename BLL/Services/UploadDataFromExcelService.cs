@@ -23,7 +23,7 @@ namespace BLL.Services
 
         public async Task<IAppActionResult> SynchronizeData(IFormFile file)
         {
-            IValidatorOfUploadFile<XLWorkbook> validator = new ValidatorExcelFile(UnitOfWork, Localizer);
+            IValidatorOfUploadFile<XLWorkbook> validator = new ValidatorExcelFile(Localizer);
             IReader<XLWorkbook, ReadModelForExcel> reader = new ReaderFromExcel(Localizer);
             var result = new AppActionResult();
             var resultData = validator.ValidateFile(file);

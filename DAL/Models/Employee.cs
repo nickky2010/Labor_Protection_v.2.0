@@ -15,7 +15,6 @@ namespace DAL.Models
         public virtual Position Position { get; set; }
         public virtual DriverMedicalCertificate DriverMedicalCertificate { get; set; }
         public virtual DriverLicense DriverLicense { get; set; }
-        public byte[] RowVersion { get; set; }
         public override int GetHashCode()
         {
             int hash = 17;

@@ -32,55 +32,59 @@ namespace UnitTests.BLL.ValidatorsOfDTO
 
         #region ValidateAdd
         [Theory, AutoMoqData]
-        public virtual async void ValidateAdd_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult> ValidateAdd_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, TAddDTO dataDTO, LocalizedString localizedString)
         {
             TData data = default;
-            SetMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
+            SetBaseMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
             var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateAdd(dataDTO);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
+            return result;
         }
 
         [Theory, AutoMoqData]
-        public virtual async void ValidateAdd_EntityIsExistInDb_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult> ValidateAdd_EntityIsExistInDb_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, TData data, TAddDTO dataDTO, LocalizedString localizedString)
         {
-            SetMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
+            SetBaseMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
             var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateAdd(dataDTO);
             CheckNegative(result, (int)HttpStatusCode.BadRequest, unitOfWork, localizer);
+            return result;
         }
         #endregion
 
         #region ValidateGetById
         [Theory, AutoMoqData]
-        public virtual async void ValidateGetById_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult<TData>> ValidateGetById_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, TData data, Guid id, LocalizedString localizedString)
         {
             data.Id = id;
-            SetMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
+            SetBaseMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
             var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateGetData(id);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
             Assert.Equal(result.Data.Id, id);
+            return result;
         }
 
         [Theory, AutoMoqData]
-        public virtual async void ValidateGetById_EntityIsNotFound_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult<TData>> ValidateGetById_EntityIsNotFound_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, Guid id, LocalizedString localizedString)
         {
             TData data = default;
-            SetMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
+            SetBaseMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
             var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateGetData(id);
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
+            return result;
         }
         #endregion
 
         #region ValidateGetAsPage
         [Theory, AutoMoqData]
-        public virtual async void ValidateGetAsPage_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult<List<TData>>> ValidateGetAsPage_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, List<TData> datas, LocalizedString localizedString)
         {
             int startItem = 0;
@@ -90,10 +94,11 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             var result = await validatorDTO.ValidateGetData(startItem, countItem);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
             Assert.NotEmpty(result.Data);
+            return result;
         }
 
         [Theory, AutoMoqData]
-        public virtual async void ValidateGetAsPage_EntitiesIsNotFound_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult<List<TData>>> ValidateGetAsPage_EntitiesIsNotFound_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString)
         {
             int startItem = 0;
@@ -104,56 +109,61 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             var result = await validatorDTO.ValidateGetData(startItem, countItem);
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
             Assert.Null(result.Data);
+            return result;
         }
         #endregion
 
         #region ValidateUpdate
         [Theory, AutoMoqData]
-        public virtual async void ValidateUpdate_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult<TData>> ValidateUpdate_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, TData data, TUpdateDTO updateDTO, LocalizedString localizedString)
         {
             data.Id = updateDTO.Id;
-            SetMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
+            SetBaseMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
             var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateUpdate(updateDTO);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
             Assert.Equal(result.Data.Id, data.Id);
+            return result;
         }
 
         [Theory, AutoMoqData]
-        public virtual async void ValidateUpdate_EntityIsNotFound_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult<TData>> ValidateUpdate_EntityIsNotFound_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, TUpdateDTO updateDTO, LocalizedString localizedString)
         {
             TData data = default;
-            SetMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
+            SetBaseMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
             var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateUpdate(updateDTO);
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
             Assert.Null(result.Data);
+            return result;
         }
         #endregion
 
         #region ValidateDelete
         [Theory, AutoMoqData]
-        public virtual async void ValidateDelete_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult<TData>> ValidateDelete_PositiveTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, TData data, Guid id, LocalizedString localizedString)
         {
             data.Id = id;
-            SetMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
+            SetBaseMocks(unitOfWork, localizer, localizedString, false, SetupFindExpression, data);
             var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateDelete(id);
             CheckPositive(result, (int)HttpStatusCode.OK, unitOfWork);
+            return result;
         }
 
         [Theory, AutoMoqData]
-        public virtual async void ValidateDelete_EntityIsNotFound_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
+        public virtual async Task<IAppActionResult<TData>> ValidateDelete_EntityIsNotFound_NegativeTest([Frozen] Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer, Guid id, LocalizedString localizedString)
         {
             TData data = default;
-            SetMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
+            SetBaseMocks(unitOfWork, localizer, localizedString, true, SetupFindExpression, data);
             var validatorDTO = CreateValidator(unitOfWork.Object, localizer.Object);
             var result = await validatorDTO.ValidateDelete(id);
             CheckNegative(result, (int)HttpStatusCode.NotFound, unitOfWork, localizer);
+            return result;
         }
         #endregion
 
@@ -212,7 +222,7 @@ namespace UnitTests.BLL.ValidatorsOfDTO
                 loc.Verifiable();
         }
 
-        protected void SetMocks(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork, Mock<IStringLocalizer<SharedResource>> localizer, 
+        protected void SetBaseMocks(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork, Mock<IStringLocalizer<SharedResource>> localizer,
             LocalizedString localizedString, bool IsVerifyLocalizer, SetupDataExpressionMethod method, TData data)
         {
             SetMockLocalizer(localizer, localizedString, IsVerifyLocalizer);

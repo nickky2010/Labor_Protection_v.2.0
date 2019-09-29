@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace BLL.ValidatorsOfDTO.Abstract
 {
-    internal abstract class AbstractValidatorDTO<TGetDTO, TAddDTO, TUpdateDTO, TData> :
-        AbstractBaseValidator,
+    internal abstract class AbstractCRUDValidatorDTO<TGetDTO, TAddDTO, TUpdateDTO, TData> :
         IValidatorDTO<TAddDTO, TUpdateDTO, TData>
 
         where TGetDTO : IGetDTO
@@ -29,8 +28,14 @@ namespace BLL.ValidatorsOfDTO.Abstract
         protected abstract string EntityNotFound { get; }
         protected abstract string EntitiesNotFound { get; }
 
-        public AbstractValidatorDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            : base(unitOfWork, localizer) { }
+        protected IUnitOfWork<LaborProtectionContext> UnitOfWork { get; private set; }
+        protected IStringLocalizer<SharedResource> Localizer { get; private set; }
+
+        public AbstractCRUDValidatorDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
+        {
+            UnitOfWork = unitOfWork;
+            Localizer = localizer;
+        }
 
         public virtual async Task<IAppActionResult> ValidateAdd(TAddDTO model)
         {

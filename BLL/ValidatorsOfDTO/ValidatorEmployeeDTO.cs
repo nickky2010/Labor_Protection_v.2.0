@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorEmployeeDTO :
-        AbstractValidatorDTO<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>
+        AbstractCRUDValidatorDTO<EmployeeGetDTO, EmployeeAddDTO, EmployeeUpdateDTO, Employee>
     {
         protected override string EntityAlreadyExist { get => "EmployeeAlreadyExist"; }
         protected override string EntityNotFound { get => "EmployeeNotFound"; }

@@ -14,7 +14,6 @@ namespace DAL.Models
         public virtual IList<DriverLicensePhoto> Photos { get; set; }
         public Guid EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
-        public byte[] RowVersion { get; set; }
         public DriverLicense()
         {
             Photos = new List<DriverLicensePhoto>();

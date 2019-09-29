@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorDriverMedicalCertificatePhotoDTO :
-        AbstractValidatorDTO<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO, DriverMedicalCertificatePhoto>
+        AbstractCRUDValidatorDTO<DriverMedicalCertificatePhotoGetDTO, DriverMedicalCertificatePhotoAddDTO, DriverMedicalCertificatePhotoUpdateDTO, DriverMedicalCertificatePhoto>
     {
         protected override string EntityAlreadyExist { get => "DriverMedicalCertificatePhotoAlreadyExist"; }
         protected override string EntityNotFound { get => "DriverMedicalCertificatePhotoNotFound"; }
@@ -55,7 +55,7 @@ namespace BLL.ValidatorsOfDTO
         {
             if (!await UnitOfWork.DriverMedicalCertificates.IsIdExistAsync(id))
                 result.ErrorMessages.Add(Localizer["DriverMedicalCertificateNotFound"]);
-            IValidatorOfUploadFile<Image> validatorFile = new ValidatorPhotoFile(UnitOfWork, Localizer);
+            IValidatorOfUploadFile<Image> validatorFile = new ValidatorPhotoFile(Localizer);
             result.AddErrors(validatorFile.ValidateFile(file));
             result.SetStatus(HttpStatusCode.BadRequest, HttpStatusCode.OK);
         }
