@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorDriverMedicalCertificateDTO :
-        AbstractValidatorDTO<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate>
+        AbstractCRUDValidatorDTO<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate>
     {
         protected override string EntityAlreadyExist { get => "DriverMedicalCertificateAlreadyExist"; }
         protected override string EntityNotFound { get => "DriverMedicalCertificateNotFound"; }

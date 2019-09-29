@@ -6,4 +6,8 @@ namespace DAL.Interfaces
     {
         Guid Id { get; set; }
     }
+    public interface IPhotoData
+    {
+        byte[] Photo { get; set; }
+    }
 }

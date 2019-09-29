@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorDriverCategoryDTO :
-        AbstractValidatorDTO<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>
+        AbstractCRUDValidatorDTO<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>
     {
         protected override string EntityAlreadyExist { get => "DriverCategoryAlreadyExist"; }
         protected override string EntityNotFound { get => "DriverCategoryNotFound"; }

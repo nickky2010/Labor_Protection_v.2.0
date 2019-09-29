@@ -16,7 +16,10 @@ namespace BLL.Infrastructure.Extentions
         }
         public static IAppActionResult AddErrors(this IAppActionResult destActionResult, IAppActionResult sourceActionResult)
         {
-            destActionResult.ErrorMessages.ToList().AddRange(sourceActionResult.ErrorMessages);
+            var destErrors = destActionResult.ErrorMessages.ToList();
+            var srcErrors = sourceActionResult.ErrorMessages.ToList();
+            destErrors.AddRange(srcErrors);
+            destActionResult.ErrorMessages = destErrors;
             return destActionResult;
         }
 

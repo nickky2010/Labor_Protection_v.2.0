@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace BLL.ValidatorsOfDTO
 {
     internal class ValidatorDriverLicenseDTO :
-        AbstractValidatorDTO<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>
+        AbstractCRUDValidatorDTO<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>
     {
         protected override string EntityAlreadyExist { get => "DriverLicenseAlreadyExist"; }
         protected override string EntityNotFound { get => "DriverLicenseNotFound"; }
@@ -26,7 +26,7 @@ namespace BLL.ValidatorsOfDTO
         public override async Task<IAppActionResult> ValidateAdd(DriverLicenseAddDTO model)
         {
             var result = await base.ValidateAdd(model);
-            if(result.IsSuccess)
+            if (result.IsSuccess)
                 ValidateConnected(result, model.EmployeeId, model.DriverCategoriesId);
             return result;
         }

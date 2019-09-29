@@ -10,7 +10,6 @@ namespace DAL.Models
         public virtual IList<DriverLicenseDriverCategory> DriverLicenseDriverCategories { get; set; }
         public virtual IList<DriverMedicalCertificateDriverCategory> DriverMedicalCertificateDriverCategories { get; set; }
 
-        public byte[] RowVersion { get; set; }
         public DriverCategory()
         {
             DriverLicenseDriverCategories = new List<DriverLicenseDriverCategory>();
