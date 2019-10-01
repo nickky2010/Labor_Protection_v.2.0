@@ -2,7 +2,6 @@
 using BLL.DTO.Positions;
 using BLL.Interfaces;
 using BLL.Services.Abstract;
-using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
@@ -12,10 +11,13 @@ namespace BLL.Services
     internal class PositionService :
         AbstractCRUDDataBaseService<PositionGetUpdateDTO, PositionAddDTO, PositionGetUpdateDTO, Position>
     {
-        public PositionService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
+        protected override IValidatorDTO<PositionAddDTO, PositionGetUpdateDTO, Position> Validator { get; set; }
+
+        public PositionService(IUnitOfWorkService unitOfWorkService, IMapper mapper, IUnitOfWorkValidator unitOfWorkValidator) :
             base(unitOfWorkService, mapper)
         {
-            Validator = new ValidatorPositionDTO(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);
+            Validator = unitOfWorkValidator.ValidatorPositionDTO;
+            Validator.Localizer = Localizer;
         }
 
         protected override void AddDataToDbAsync(Position data) => UnitOfWork.Positions.AddAsync(data);

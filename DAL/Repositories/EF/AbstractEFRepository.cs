@@ -1,7 +1,6 @@
 ﻿using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace DAL.Repositories
             DbSet = context.Set<TData>();
             Query = DbSet.AsNoTracking().AsQueryable();
         }
-        public virtual Task<EntityEntry<TData>> AddAsync(TData data)
+        public virtual Task AddAsync(TData data)
         {
             return DbSet.AddAsync(data);
         }
@@ -32,14 +31,14 @@ namespace DAL.Repositories
             return DbSet.AddRangeAsync(datas);
         }
 
-        public virtual EntityEntry<TData> Update(TData data)
+        public virtual void Update(TData data)
         {
-            return Context.Update(data);
+            Context.Update(data);
         }
 
-        public virtual EntityEntry<TData> Delete(TData data)
+        public virtual void Delete(TData data)
         {
-            return DbSet.Remove(data);
+            DbSet.Remove(data);
         }
         public virtual void DeleteRange(IList<TData> datas)
         {

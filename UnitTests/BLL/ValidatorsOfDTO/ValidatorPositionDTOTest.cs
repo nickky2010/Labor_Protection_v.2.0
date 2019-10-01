@@ -20,7 +20,9 @@ namespace UnitTests.BLL.ValidatorsOfDTO
         protected override IValidatorDTO<PositionAddDTO, PositionGetUpdateDTO, Position> CreateValidator
             (IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
         {
-            return new ValidatorPositionDTO(unitOfWork, localizer);
+            var validator = new ValidatorPositionDTO(unitOfWork);
+            validator.Localizer = localizer;
+            return validator;
         }
 
         protected override Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<int>>> SetupCountExpression()

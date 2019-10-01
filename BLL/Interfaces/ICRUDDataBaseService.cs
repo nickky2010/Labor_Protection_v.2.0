@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    public interface ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> : IService
+    public interface ICRUDDataBaseService<TGetDTO, TAddDTO, TUpdateDTO> : ILocalService
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
         where TGetDTO : IGetDTO

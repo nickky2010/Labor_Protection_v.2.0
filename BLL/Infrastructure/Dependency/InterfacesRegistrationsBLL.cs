@@ -15,6 +15,7 @@ namespace BLL.Infrastructure.Dependency
         public override void Load()
         {
             Bind<IUnitOfWorkService>().To<UnitOfWorkService>().WithConstructorArgument(ConnectionString);
+            Bind<IUnitOfWorkValidator>().To<UnitOfWorkValidator>().WithConstructorArgument((new UnitOfWorkService(ConnectionString)).UnitOfWorkLaborProtectionContext);
         }
     }
 }

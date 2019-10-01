@@ -1,6 +1,6 @@
 using BLL;
 using BLL.Interfaces;
-using BLL.ValidatorsOfDTO.Abstract;
+using BLL.ValidatorsOfDTO;
 using Microsoft.Extensions.Localization;
 using System.Drawing;
 using UnitTests.BLL.ValidatorsOfDTO.AbstractValidatorDTOTest;
@@ -15,7 +15,9 @@ namespace UnitTests.BLL.ValidatorsOfDTO
 
         protected override IValidatorOfUploadFile<Image> CreateValidator(IStringLocalizer<SharedResource> localizer)
         {
-            return new ValidatorPhotoFile(localizer);
+            var validator = new ValidatorPhotoFile();
+            validator.Localizer = localizer;
+            return validator;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    public interface IUploadDataFromFileService<FileType, ReadModel> : IService
+    public interface IUploadDataFromFileService<FileType, ReadModel> : ILocalService
         where FileType : class
         where ReadModel : IReadModel
     {

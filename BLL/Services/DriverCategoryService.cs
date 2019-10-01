@@ -2,7 +2,6 @@
 using BLL.DTO.DriverCategories;
 using BLL.Interfaces;
 using BLL.Services.Abstract;
-using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
@@ -12,10 +11,13 @@ namespace BLL.Services
     internal class DriverCategoryService :
         AbstractCRUDDataBaseService<DriverCategoryGetUpdateDTO, DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory>
     {
-        public DriverCategoryService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
+        protected override IValidatorDTO<DriverCategoryAddDTO, DriverCategoryGetUpdateDTO, DriverCategory> Validator { get; set; }
+
+        public DriverCategoryService(IUnitOfWorkService unitOfWorkService, IMapper mapper, IUnitOfWorkValidator unitOfWorkValidator) :
             base(unitOfWorkService, mapper)
         {
-            Validator = new ValidatorDriverCategoryDTO(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);
+            Validator = unitOfWorkValidator.ValidatorDriverCategoryDTO;
+            Validator.Localizer = Localizer;
         }
 
         protected override void AddDataToDbAsync(DriverCategory data) => UnitOfWork.DriverCategories.AddAsync(data);

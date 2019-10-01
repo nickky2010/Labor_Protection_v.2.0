@@ -6,13 +6,11 @@ using Microsoft.Extensions.Localization;
 using System.Drawing;
 using System.Net;
 
-namespace BLL.ValidatorsOfDTO.Abstract
+namespace BLL.ValidatorsOfDTO
 {
-    internal class ValidatorPhotoFile : AbstractFileValidator,
-        IValidatorOfUploadFile<Image>
+    internal class ValidatorPhotoFile : IValidatorOfUploadFile<Image>
     {
-        public ValidatorPhotoFile(IStringLocalizer<SharedResource> localizer)
-            : base(localizer) { }
+        public IStringLocalizer<SharedResource> Localizer { get; set; }
 
         public IAppActionResult<Image> ValidateFile(IFormFile file)
         {

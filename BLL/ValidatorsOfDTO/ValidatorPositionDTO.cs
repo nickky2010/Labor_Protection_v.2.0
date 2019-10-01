@@ -3,7 +3,6 @@ using BLL.ValidatorsOfDTO.Abstract;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using DAL.Models;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,8 +16,8 @@ namespace BLL.ValidatorsOfDTO
         protected override string EntityNotFound { get => "PositionNotFound"; }
         protected override string EntitiesNotFound { get => "PositionsNotFound"; }
 
-        public ValidatorPositionDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            : base(unitOfWork, localizer) { }
+        public ValidatorPositionDTO(IUnitOfWork<LaborProtectionContext> unitOfWork)
+            : base(unitOfWork) { }
 
         protected override Task<Position> FindDataAsync(Guid id) =>
             UnitOfWork.Positions.FindAsync(x => x.Id == id);
