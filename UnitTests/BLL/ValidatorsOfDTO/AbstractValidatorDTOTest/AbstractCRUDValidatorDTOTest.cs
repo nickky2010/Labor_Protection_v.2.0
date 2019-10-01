@@ -15,16 +15,13 @@ using Xunit;
 
 namespace UnitTests.BLL.ValidatorsOfDTO
 {
-    public abstract class AbstractCRUDValidatorDTOTest<TGetDTO, TAddDTO, TUpdateDTO, TData>
+    public abstract class AbstractCRUDValidatorDTOTest<TGetDTO, TAddDTO, TUpdateDTO, TData> :
+        BaseCRUDTest<TData>
         where TGetDTO : IGetDTO
         where TAddDTO : IAddDTO
         where TUpdateDTO : IUpdateDTO
         where TData : IData
     {
-        protected delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<TData>>> SetupDataExpressionMethod();
-        protected delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<List<TData>>>> SetupListDataExpressionMethod();
-        protected delegate Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<int>>> SetupCountExpressionMethod();
-
         protected abstract Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<TData>>> SetupFindExpression();
         protected abstract Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<List<TData>>>> SetupGetPageExpression();
         protected abstract Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<int>>> SetupCountExpression();
@@ -194,34 +191,6 @@ namespace UnitTests.BLL.ValidatorsOfDTO
         #endregion
 
         #region utility methods
-        private Mock<IUnitOfWork<LaborProtectionContext>> SetMockUnitOfWork(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
-            SetupDataExpressionMethod method, TData data)
-        {
-            unitOfWork.Setup(method()).ReturnsAsync(data).Verifiable();
-            return unitOfWork;
-        }
-
-        private Mock<IUnitOfWork<LaborProtectionContext>> SetMockUnitOfWork(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
-            SetupListDataExpressionMethod method, List<TData> datas)
-        {
-            unitOfWork.Setup(method()).ReturnsAsync(datas).Verifiable();
-            return unitOfWork;
-        }
-
-        private Mock<IUnitOfWork<LaborProtectionContext>> SetMockUnitOfWork(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
-            SetupCountExpressionMethod method, int count)
-        {
-            unitOfWork.Setup(method()).ReturnsAsync(count).Verifiable();
-            return unitOfWork;
-        }
-
-        private void SetMockLocalizer(Mock<IStringLocalizer<SharedResource>> localizer, LocalizedString localizedString, bool IsVerifyLocalizer)
-        {
-            var loc = localizer.Setup(a => a[It.IsAny<string>()]).Returns(localizedString);
-            if (IsVerifyLocalizer)
-                loc.Verifiable();
-        }
-
         protected void SetBaseMocks(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork, Mock<IStringLocalizer<SharedResource>> localizer,
             LocalizedString localizedString, bool IsVerifyLocalizer, SetupDataExpressionMethod method, TData data)
         {
@@ -229,36 +198,16 @@ namespace UnitTests.BLL.ValidatorsOfDTO
             SetMockUnitOfWork(unitOfWork, method, data);
         }
 
-        private void SetMocks(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork, Mock<IStringLocalizer<SharedResource>> localizer,
-            LocalizedString localizedString, bool IsVerifyLocalizer, SetupListDataExpressionMethod method, List<TData> datas)
+        protected void CheckPositive(IAppActionResult result, int code, Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork)
         {
-            SetMockLocalizer(localizer, localizedString, IsVerifyLocalizer);
-            SetMockUnitOfWork(unitOfWork, method, datas);
-        }
-
-        private void SetMocks(Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork, Mock<IStringLocalizer<SharedResource>> localizer,
-            LocalizedString localizedString, bool IsVerifyLocalizer, SetupCountExpressionMethod method, int count)
-        {
-            SetMockLocalizer(localizer, localizedString, IsVerifyLocalizer);
-            SetMockUnitOfWork(unitOfWork, method, count);
-        }
-
-        private void CheckPositive(IAppActionResult result, int code, Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork)
-        {
-            Assert.NotNull(result);
-            Assert.True(result.IsSuccess);
-            Assert.Empty(result.ErrorMessages);
-            Assert.Equal(result.Status, code);
+            CheckBasePositive(result, code);
             unitOfWork.Verify();
         }
 
         protected void CheckNegative(IAppActionResult result, int code, Mock<IUnitOfWork<LaborProtectionContext>> unitOfWork,
             Mock<IStringLocalizer<SharedResource>> localizer)
         {
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotEmpty(result.ErrorMessages);
-            Assert.Equal(result.Status, code);
+            CheckBaseNegative(result, code);
             localizer.Verify();
             unitOfWork.Verify();
         }

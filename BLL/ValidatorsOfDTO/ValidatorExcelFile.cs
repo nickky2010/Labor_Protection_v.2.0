@@ -1,7 +1,6 @@
 ﻿using BLL.Infrastructure;
 using BLL.Infrastructure.Extentions;
 using BLL.Interfaces;
-using BLL.ValidatorsOfDTO.Abstract;
 using ClosedXML.Excel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
@@ -9,11 +8,9 @@ using System.Net;
 
 namespace BLL.ValidatorsOfDTO
 {
-    internal class ValidatorExcelFile : AbstractFileValidator,
-        IValidatorOfUploadFile<XLWorkbook>
+    internal class ValidatorExcelFile : IValidatorOfUploadFile<XLWorkbook>
     {
-        public ValidatorExcelFile(IStringLocalizer<SharedResource> localizer)
-            : base(localizer) { }
+        public IStringLocalizer<SharedResource> Localizer { get; set; }
 
         public IAppActionResult<XLWorkbook> ValidateFile(IFormFile file)
         {

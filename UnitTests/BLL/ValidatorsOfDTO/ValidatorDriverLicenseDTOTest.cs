@@ -20,7 +20,9 @@ namespace UnitTests.BLL.ValidatorsOfDTO
         protected override IValidatorDTO<DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense> CreateValidator
             (IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
         {
-            return new ValidatorDriverLicenseDTO(unitOfWork, localizer);
+            var validator = new ValidatorDriverLicenseDTO(unitOfWork);
+            validator.Localizer = localizer;
+            return validator;
         }
 
         protected override Expression<Func<IUnitOfWork<LaborProtectionContext>, Task<int>>> SetupCountExpression()

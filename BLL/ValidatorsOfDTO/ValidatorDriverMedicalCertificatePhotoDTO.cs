@@ -6,7 +6,6 @@ using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,8 +21,8 @@ namespace BLL.ValidatorsOfDTO
         protected override string EntityNotFound { get => "DriverMedicalCertificatePhotoNotFound"; }
         protected override string EntitiesNotFound { get => "DriverMedicalCertificatePhotosNotFound"; }
 
-        public ValidatorDriverMedicalCertificatePhotoDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            : base(unitOfWork, localizer) { }
+        public ValidatorDriverMedicalCertificatePhotoDTO(IUnitOfWork<LaborProtectionContext> unitOfWork)
+            : base(unitOfWork) { }
 
         public override async Task<IAppActionResult> ValidateAdd(DriverMedicalCertificatePhotoAddDTO model)
         {
@@ -55,7 +54,8 @@ namespace BLL.ValidatorsOfDTO
         {
             if (!await UnitOfWork.DriverMedicalCertificates.IsIdExistAsync(id))
                 result.ErrorMessages.Add(Localizer["DriverMedicalCertificateNotFound"]);
-            IValidatorOfUploadFile<Image> validatorFile = new ValidatorPhotoFile(Localizer);
+            IValidatorOfUploadFile<Image> validatorFile = new ValidatorPhotoFile();
+            validatorFile.Localizer = Localizer;
             result.AddErrors(validatorFile.ValidateFile(file));
             result.SetStatus(HttpStatusCode.BadRequest, HttpStatusCode.OK);
         }

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 
 namespace BLL.Services.Abstract
 {
-    internal abstract class AbstractBaseService : IService
+    internal abstract class AbstractBaseService : ILocalService
     {
         protected IUnitOfWork<LaborProtectionContext> UnitOfWork { get; private set; }
         protected IMapper Mapper { get; private set; }

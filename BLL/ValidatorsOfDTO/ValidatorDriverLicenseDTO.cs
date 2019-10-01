@@ -5,7 +5,6 @@ using BLL.ValidatorsOfDTO.Abstract;
 using DAL.EFContexts.Contexts;
 using DAL.Interfaces;
 using DAL.Models;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -20,8 +19,8 @@ namespace BLL.ValidatorsOfDTO
         protected override string EntityNotFound { get => "DriverLicenseNotFound"; }
         protected override string EntitiesNotFound { get => "DriverLicensesNotFound"; }
 
-        public ValidatorDriverLicenseDTO(IUnitOfWork<LaborProtectionContext> unitOfWork, IStringLocalizer<SharedResource> localizer)
-            : base(unitOfWork, localizer) { }
+        public ValidatorDriverLicenseDTO(IUnitOfWork<LaborProtectionContext> unitOfWork)
+            : base(unitOfWork) { }
 
         public override async Task<IAppActionResult> ValidateAdd(DriverLicenseAddDTO model)
         {

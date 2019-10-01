@@ -15,7 +15,9 @@ namespace UnitTests.BLL.ValidatorsOfDTO
 
         protected override IValidatorOfUploadFile<XLWorkbook> CreateValidator(IStringLocalizer<SharedResource> localizer)
         {
-            return new ValidatorExcelFile(localizer);
+            var validator = new ValidatorExcelFile();
+            validator.Localizer = localizer;
+            return validator;
         }
     }
 }

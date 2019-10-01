@@ -2,7 +2,6 @@
 using BLL.DTO.DriverLicenses;
 using BLL.Interfaces;
 using BLL.Services.Abstract;
-using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
@@ -12,10 +11,13 @@ namespace BLL.Services
     internal class DriverLicenseService :
         AbstractCRUDDataBaseService<DriverLicenseGetDTO, DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense>
     {
-        public DriverLicenseService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
+        protected override IValidatorDTO<DriverLicenseAddDTO, DriverLicenseUpdateDTO, DriverLicense> Validator { get; set; }
+
+        public DriverLicenseService(IUnitOfWorkService unitOfWorkService, IMapper mapper, IUnitOfWorkValidator unitOfWorkValidator) :
             base(unitOfWorkService, mapper)
         {
-            Validator = new ValidatorDriverLicenseDTO(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);
+            Validator = unitOfWorkValidator.ValidatorDriverLicenseDTO;
+            Validator.Localizer = Localizer;
         }
 
         protected override void AddDataToDbAsync(DriverLicense data) => UnitOfWork.DriverLicenses.AddAsync(data);

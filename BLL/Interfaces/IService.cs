@@ -2,7 +2,7 @@
 
 namespace BLL.Interfaces
 {
-    public interface IService
+    public interface ILocalService
     {
         IStringLocalizer<SharedResource> Localizer { get; set; }
     }

@@ -5,7 +5,6 @@ using BLL.Infrastructure.Readers;
 using BLL.Infrastructure.Readers.ReadModels;
 using BLL.Interfaces;
 using BLL.Services.Abstract;
-using BLL.ValidatorsOfDTO;
 using ClosedXML.Excel;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
@@ -17,13 +16,16 @@ namespace BLL.Services
     internal class UploadDataFromExcelService : AbstractBaseService,
         IUploadDataFromFileService<XLWorkbook, ReadModelForExcel>
     {
-        public UploadDataFromExcelService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
+        readonly IValidatorOfUploadFile<XLWorkbook> validator;
+        public UploadDataFromExcelService(IUnitOfWorkService unitOfWorkService, IMapper mapper, IUnitOfWorkValidator unitOfWorkValidator) :
             base(unitOfWorkService, mapper)
-        { }
+        {
+            validator = unitOfWorkValidator.ValidatorExcelFile;
+            validator.Localizer = Localizer;
+        }
 
         public async Task<IAppActionResult> SynchronizeData(IFormFile file)
         {
-            IValidatorOfUploadFile<XLWorkbook> validator = new ValidatorExcelFile(Localizer);
             IReader<XLWorkbook, ReadModelForExcel> reader = new ReaderFromExcel(Localizer);
             var result = new AppActionResult();
             var resultData = validator.ValidateFile(file);

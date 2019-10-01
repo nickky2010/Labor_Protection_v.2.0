@@ -20,7 +20,7 @@ namespace BLL.Services.Abstract
             base(unitOfWorkService, mapper)
         { }
 
-        protected IValidatorDTO<TAddDTO, TUpdateDTO, TData> Validator { get; set; }
+        protected abstract IValidatorDTO<TAddDTO, TUpdateDTO, TData> Validator { get; set; }
 
         protected abstract void AddDataToDbAsync(TData data);
         protected abstract void DeleteDataFromDbAsync(TData data);

@@ -2,7 +2,6 @@
 using BLL.DTO.DriverMedicalCertificates;
 using BLL.Interfaces;
 using BLL.Services.Abstract;
-using BLL.ValidatorsOfDTO;
 using DAL.Models;
 using System;
 using System.Threading.Tasks;
@@ -12,10 +11,13 @@ namespace BLL.Services
     internal class DriverMedicalCertificateService :
         AbstractCRUDDataBaseService<DriverMedicalCertificateGetDTO, DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate>
     {
-        public DriverMedicalCertificateService(IUnitOfWorkService unitOfWorkService, IMapper mapper) :
+        protected override IValidatorDTO<DriverMedicalCertificateAddDTO, DriverMedicalCertificateUpdateDTO, DriverMedicalCertificate> Validator { get; set; }
+
+        public DriverMedicalCertificateService(IUnitOfWorkService unitOfWorkService, IMapper mapper, IUnitOfWorkValidator unitOfWorkValidator) :
             base(unitOfWorkService, mapper)
         {
-            Validator = new ValidatorDriverMedicalCertificateDTO(unitOfWorkService.UnitOfWorkLaborProtectionContext, Localizer);
+            Validator = unitOfWorkValidator.ValidatorDriverMedicalCertificateDTO;
+            Validator.Localizer = Localizer;
         }
 
         protected override void AddDataToDbAsync(DriverMedicalCertificate data) => UnitOfWork.DriverMedicalCertificates.AddAsync(data);
